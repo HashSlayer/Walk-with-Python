@@ -2,6 +2,7 @@ import time
 import threading
 import pyautogui
 import mouse
+import sys
 import random as rnd
 from pynput.keyboard import Listener, KeyCode
 
@@ -110,7 +111,10 @@ def winemaker():
             pyautogui.moveTo(rnd.randint(269, 280), rnd.randint(955, 965), yrt * 0.3 + 0.33) #make wine!
             time.sleep(rnd.random() *0.1 + 0.013)
             mouse.click()
+            time.sleep(rnd.random() *0.1 + 0.313)
+            pyautogui.moveTo(rnd.randint(300, 877), rnd.randint(305, 788), yrt * 0.38 + 2.0051) # random movement
             time.sleep(rnd.random() *0.1 + 0.013)
+            pyautogui.moveRel(rnd.randint(-9, 8), rnd.randint(-8, 8), yrt * 0.38 + 2.0051) # random movement
             winecount = winecount + 1
             winecount2 = winecount2 + 1
             print ("Smells great! This is batch number:", winecount)
@@ -127,7 +131,7 @@ def winemaker():
                 print ("Break time!676767")
                 print (" We made", winecount, "batches this round.")
             #End of wine run; time to sleep and repeat     
-        time.sleep(10.8 + rnd.random() * 0.8) # double this time while making fert.. normally it is 10.8 + x, but for fert is 22
+        time.sleep(5.8 + rnd.random() * 0.8) # double this time while making fert.. normally it is 10.8 + x, but for fert is 22
 
 def togglebot(key):
     if key == ONOFF:
@@ -137,8 +141,8 @@ def togglebot(key):
     elif key == KEY: 
         print ("Kill switch acitaved")
         running = False
-        exit() # This will end the program entirely
-        sys.exit()
+        sys.exit() # This will end the program entirely
+        exit()
 
 click_thread = threading.Thread(target=winemaker)
 click_thread.start()
