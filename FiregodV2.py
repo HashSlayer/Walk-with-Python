@@ -103,7 +103,7 @@ def winemaker():
                 pyautogui.moveRel(rnd.randint(-20,40), rnd.randint(100,200), rnd.random() * 0.131 + 0.15) #Move around from current spot
                 pyautogui.moveRel(rnd.randint(-2, 12), rnd.randint(6,12), rnd.random() * 0.131 + 0.15) # random movement
                 print("Mouse position at:", pyautogui.position()) # print position 
-                time.sleep(5.12 + 0.231 * rnd.random()) # sleep extra for run to spot
+                time.sleep(4.82 + 0.231 * rnd.random()) # sleep extra for run to spot
 
             #sesh 2 sesh 2 sesh 2 sesh 2 sesh 2 sesh 2 sesh 2
     
@@ -121,7 +121,7 @@ def winemaker():
             # Time to burn logs, this portion is extensive...
             xpus = 1755
             ypus = 765
-            for i in range (1, 21):
+            for i in range (1, 22):
                 pyautogui.moveTo(rnd.randint(1709,1720), rnd.randint(752, 768), rnd.random() * 0.03 + 0.197) #move to tinder box
                 time.sleep(rnd.random() *0.01 + 0.398)
                 mouse.click() #use tinder box
@@ -140,7 +140,7 @@ def winemaker():
                     xpus = xpus - 160 # pull mouse back to the first coulum for the next iteration
                     time.sleep( 0.009 + rnd.random() *0.05)
 
-                if ((burnt + 2) % 4 == 0 or burnt == 3):
+                if ((burnt + 2) % 4 == 0):
                     time.sleep( 0.01 + rnd.random() *0.001)
 
 
