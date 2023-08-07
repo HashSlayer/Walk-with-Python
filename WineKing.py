@@ -107,9 +107,14 @@ def winemaker():
             pyautogui.moveTo(rnd.randint(1795, 1800), rnd.randint(865, 872), yrt * 0.23 + 0.05) #use on grapes
             time.sleep(rnd.random() * 0.14 + 0.05)
             mouse.click()
+            time.sleep(rnd.random() * 0.1 + 0.03)
+            pyautogui.keyDown('space')
+            time.sleep(rnd.random() * 0.1 + 0.03)
+            pyautogui.keyUp('space')
+            time.sleep(rnd.random() * 0.011 + 0.01)
 
-            pyautogui.moveTo(rnd.randint(269, 280), rnd.randint(955, 965), yrt * 0.3 + 0.33) #make wine!
-            time.sleep(rnd.random() *0.1 + 0.013)
+            pyautogui.moveTo(rnd.randint(269, 280), rnd.randint(955, 965), yrt * 0.3 + 0.43) #make wine!
+            time.sleep(rnd.random() *0.1 + 0.113)
             mouse.click()
             time.sleep(rnd.random() *0.1 + 0.313)
             pyautogui.moveTo(rnd.randint(300, 877), rnd.randint(305, 788), yrt * 0.38 + 2.0051) # random movement
