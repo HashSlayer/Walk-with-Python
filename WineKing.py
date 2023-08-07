@@ -126,7 +126,7 @@ def winemaker():
                 print (" We made", winecount, "batches this round.")
 
             if (winecount2 % 141 == 0):
-                time.sleep(rnd.randint(500, 600))
+                time.sleep(rnd.randint(50, 300))
                 winecount2 == 0
                 print ("Break time!676767")
                 print (" We made", winecount, "batches this round.")

@@ -3,6 +3,7 @@ import threading
 import pyautogui
 import mouse
 import random as rnd
+import sys
 from pynput.mouse import Controller, Button
 from pynput.keyboard import Listener, KeyCode
 
@@ -12,7 +13,7 @@ global burnt
 
 ONOFF = KeyCode(char="1")
 KEY = KeyCode(char ='2')
-
+print ("Let's burn up yo!")
 seshs = int (0)
 burnt = int (0)
 xpus = int (0)
@@ -23,15 +24,14 @@ running = False
 def winemaker():
     while True:
         if running:
-            print ("Let's burn up yo!")
+            print ("~Let's spark up~")
             global seshs
             global burnt
 
             ## ~~~ Random mouse movement ~~~~ ####
-
             pyautogui.moveTo(rnd.randint(700,980), rnd.randint(100,480), 0.33 + 0.5 * rnd.random() + 3/27 * rnd.random())
             pyautogui.moveRel(rnd.randint(-40, 74), rnd.randint(-21,20), 0.33 + 0.5 * rnd.random() + 3/27 * rnd.random())
-            time.sleep(0.13 + 0.5 * rnd.random() + 3/27 * rnd.random())
+            time.sleep(0.13 + 0.5 * rnd.random() + 3/27 * rnd.random()) #sleep
             pyautogui.moveRel(rnd.randint(-40, 74), rnd.randint(2,60), 0.33 + rnd.random() + 3/27 * rnd.random() * 1.2 + 1) # random movement
             time.sleep(0.13 + 0.5 * rnd.random() + 3/27 * rnd.random())
             ## ~~~ Random mouse movement ~~~~ ####
@@ -44,7 +44,7 @@ def winemaker():
                 time.sleep(8.8 + 1.23 * rnd.random()) # sleep. 
             
             if (seshs > 0 and seshs % 2 == 0): 
-                pyautogui.moveTo(rnd.randint(900,910), rnd.randint(517,534), 0.83 + 0.5 * rnd.random() + 3/27 * rnd.random())
+                pyautogui.moveTo(rnd.randint(910,920), rnd.randint(507,524), 0.83 + 0.5 * rnd.random() + 3/27 * rnd.random())
                 time.sleep(rnd.random() * 0.2 + 0.3) # wait before next action, use .1 multiplier because we aren't moving mouse position. 
                 mouse.right_click() # Open up banker options with right click.
                 time.sleep(rnd.random() * 0.1 + 0.15) # Sleep 
@@ -53,6 +53,7 @@ def winemaker():
                 time.sleep((rnd.random() * 0.2 + 0.02)) # Short sleep 
                 mouse.click() #open up the bank.
                 time.sleep(1 + 1.23 * rnd.random()) # sleep.
+
             elif (seshs > 0 and (seshs + 1) % 2 == 0): 
                 pyautogui.moveTo(rnd.randint(866,872), rnd.randint(558,566), 0.83 + 0.5 * rnd.random() + 3/27 * rnd.random())
                 time.sleep(rnd.random() * 0.2 + 0.3) # wait before next action, use .1 multiplier because we aren't moving mouse position. 
@@ -111,18 +112,26 @@ def winemaker():
                 time.sleep(rnd.random() *0.01 + 0.29)
                 mouse.click() #use tinder box
                 time.sleep(rnd.random() *0.01 + 0.298)
-                pyautogui.moveTo(rnd.randint(xpus - 3, xpus + 3), rnd.randint(ypus - 3, ypus + 3), rnd.random() * 0.13 + 0.237) # move to log 
-                time.sleep(rnd.random() * 0.01 + 0.30)
+                pyautogui.moveTo(rnd.randint(xpus - 3, xpus + 3), rnd.randint(ypus - 3, ypus + 3), rnd.random() * 0.13 + 0.217) # move to log 
+                time.sleep(rnd.random() * 0.01 + 0.298)
                 mouse.click() # burn log 1 
                 burnt = burnt + 1
-                print ("burnt amount is", burnt)
+
+                if (burnt % 8 == 0): #Readjust bot to center
+                    time.sleep(0.4 + rnd.random() * 0.1)
+                    pyautogui.moveTo(rnd.randint(872, 894), rnd.randint(528, 540), rnd.random() * 0.13 + 0.237)
+                    time.sleep(0.6 + rnd.random() * 0.1)
+                    mouse.click()
+                    time.sleep(1.1 + rnd.random() * 0.1)
+
                 if (burnt == 1):
-                    time.sleep(rnd.random() *0.13 + 0.93) # Sleep for an extra 0.9 seconds on the first burn
+                    time.sleep(rnd.random() *0.09 + 1.31) # Sleep for an extra 0.9 seconds on the first burn
                 xpus = xpus + 40
                 if ((burnt + 1) % 4 == 0 or burnt == 3):
                     ypus = ypus + 35 # drop the mouse down one row of items for the next iteration
                     xpus = xpus - 160 # pull mouse back to the first coulum for the next iteration
-                    time.sleep( 0.88 + rnd.random() *0.05)
+                    time.sleep( 0.899 + rnd.random() *0.05)
+                    print ("burnt amount is", burnt)
                 if ((burnt + 2) % 4 == 0 or burnt == 3):
                     time.sleep( 0.33 + rnd.random() *0.01)
 
@@ -145,7 +154,6 @@ def togglebot(key):
     elif key == KEY: 
         print ("Kill switch acitaved")
         running = False
-        exit() # This will end the program entirely
         sys.exit()
 
 click_thread = threading.Thread(target=winemaker)
