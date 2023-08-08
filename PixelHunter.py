@@ -12,7 +12,7 @@ global running
 running = False
 cspeed = 1 #click speed
 mouse = Controller()
-1
+1``
 def clicker():
     while True:
         if running:
