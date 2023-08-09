@@ -42,20 +42,11 @@ def winemaker():
             pyautogui.moveTo(rnd.randint(880,900), rnd.randint(220,280), yrt) # move mouse to banker.
             yrt = (0.33 + rnd.random()) # change yrt speed
             time.sleep(yrt * 0.1 + 0.01) # wait before next action, use .1 multiplier because we aren't moving mouse position. 
-            #mouse.right_click() # Open up banker options with right click.
-            #time.sleep(rnd.random() * 0.1 + 0.15) # Sleep 
-            #pyautogui.moveRel(rnd.randint(0, 5), rnd.randint(38,40), 0.05 + 0.1 * rnd.random()) #Move mouse down to open bank
-            #print("Openede bank at:", pyautogui.position()) # print position
-            #yrt = (0.33 + rnd.random() + 2/27 * rnd.random()) # change yrt speed
-            #time.sleep((rnd.random() * 0.1 + 0.05)) # Short sleep 
             mouse.click() #open up the bank.
-            time.sleep(0.02 + 0.13 * rnd.random()) # sleep.
-            ## ~~~ Random mouse movement ~~~~ ####
-            #pyautogui.moveRel(rnd.randint(-89,112), rnd.randint(-30,32), (rnd.rnd() + rnd.rnd() * 13/27)) # Move mouse randomly from current spot 
-            #time.sleep(yrt * 1.5) #sleep
-            ## ~~~ Random mouse movement ~~~~ ####
-            pyautogui.moveTo(rnd.randint(1005,1030) ,rnd.randint(819, 834), yrt *0.23 + 0.32) # Move to deposit inventory tab 
-            time.sleep(rnd.random() * 13/272 + 0.13) #sleep
+            time.sleep(0.04 + 0.13 * rnd.random()) # sleep.
+
+            pyautogui.moveTo(rnd.randint(1005,1030) ,rnd.randint(820, 831), yrt *0.23 + 0.42) # Move to deposit inventory tab 
+            time.sleep(rnd.random() * 13/27 + 0.33) #sleep
             mouse.click() # Deposit all inventory
             time.sleep(rnd.random() * 13/272 + 0.12) #sleep
             print("Position of inv depo click:", pyautogui.position())
@@ -95,11 +86,6 @@ def winemaker():
             pyautogui.moveRel(rnd.randint(-20, 12), rnd.randint(-6,12), yrt * 0.1 + 0.071) # random movement
             #time.sleep(rnd.random() * 0.0987 + 0.02) #sleep short
             print("Position of bank exit click:", pyautogui.position())
-            ## ~~~ Random mouse movement ~~~~ ####
-            #pyautogui.moveRel(rnd.randint(-20,40), rnd.randint(100,200), yrt * 0.13 + 0.05) #Move around from current spot
-            # pyautogui.moveRel(rnd.randint(-2, 12), rnd.randint(6,12), yrt * 0.13 + 0.08) # random movement
-            #time.sleep(yrt * 0.13 + 0.01) #Sleep
-            ## ~~~ Random mouse movement ~~~~ ####
 
             pyautogui.moveTo(rnd.randint(1758,1762), rnd.randint(865, 872), yrt * 0.21 + 0.25) #use jug of water
             time.sleep(rnd.random() *0.15 + 0.07)
@@ -114,7 +100,7 @@ def winemaker():
             time.sleep(rnd.random() * 0.011 + 0.01)
 
             pyautogui.moveTo(rnd.randint(269, 280), rnd.randint(955, 965), yrt * 0.3 + 0.43) #make wine!
-            time.sleep(rnd.random() *0.1 + 0.113)
+            time.sleep(rnd.random() *0.1 + 0.183)
             mouse.click()
             time.sleep(rnd.random() *0.1 + 0.313)
             pyautogui.moveTo(rnd.randint(300, 877), rnd.randint(305, 788), yrt * 0.38 + 2.0051) # random movement
@@ -124,13 +110,13 @@ def winemaker():
             winecount2 = winecount2 + 1
             print ("Smells great! This is batch number:", winecount)
             pyautogui.moveTo(rnd.randint(860,940), rnd.randint(190,400), yrt * 0.4 + 0.23) # move mouse to banker.
-            if (winecount2 % 44 == 0):
+            if (winecount2 % 76 == 0):
                 time.sleep(rnd.randint(30, 100))
                 winecount2 == 0
                 print ("Break time!")
                 print (" We made", winecount, "batches this round.")
 
-            if (winecount2 % 141 == 0):
+            if (winecount2 % 433 == 0):
                 time.sleep(rnd.randint(50, 300))
                 winecount2 == 0
                 print ("Break time!676767")

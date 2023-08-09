@@ -37,6 +37,7 @@ def burner():
             global seshs
             global burnt
             global logsBurnt
+            global maxLogs
 
             ## ~~~ Random mouse movement ~~~~ ####
             pyautogui.moveTo(rnd.randint(700,980), rnd.randint(100,480), 0.33 + 0.31 * rnd.random() + 3/27 * rnd.random())
@@ -161,11 +162,9 @@ def burner():
             time.sleep( 0.01 + rnd.random() *0.001)
             burnt = 0
 
-            #if (logsBurnt > maxLogs):
-             #   print ("Out of logs!")
-              #  print("Kill switch activated.")
-               # running = False
-                #sys.exit()
+            if (logsBurnt > maxLogs):
+               print ("Out of logs!")
+               sys.exit()
 
             #End of run; time to sleep and repeat     
         time.sleep(rnd.random() * rnd.random() + 0.03)
