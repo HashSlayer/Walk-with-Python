@@ -34,7 +34,7 @@ def winemaker():
                 time.sleep(rnd.random()**2 + 0.1)
             ## ~~~ Random mouse movement ~~~~ ####
             pyautogui.moveTo(rnd.randint(700,980), rnd.randint(100,480), yrt * 0.9 + 0.18)
-            pyautogui.moveRel(rnd.randint(-40, 74), rnd.randint(-21,20), yrt * 0.8 + 0.2)
+            pyautogui.moveRel(rnd.randint(-40, 74), rnd.randint(-21,20), yrt * 0.8 + 0.1)
             time.sleep(yrt * 0.812 + 1)
             yrt = (0.32 + rnd.random() + 2/27 * rnd.random())
 
@@ -77,11 +77,11 @@ def winemaker():
             # WINE PROCESS BEGIN !
             ## ~~~ Random mouse movement ~~~~ ####
             pyautogui.moveRel(rnd.randint(10,30), rnd.randint(-20,-6), yrt * 0.12 + 0.01) #Move around from current spot
-            time.sleep(yrt * 0.03 + 0.01) #Sleep
+            time.sleep(yrt * 0.03 + 0.11) #Sleep
             yrt = (0.33 + rnd.random() + 2/27 * rnd.random()) # Reset YRT
             ## ~~~ Random mouse movement ~~~~ ####
             pyautogui.moveTo(rnd.randint(1058, 1065), rnd.randint(64, 68), yrt * 0.13 + 0.24) # X of the bank
-            time.sleep(0.01 + rnd.random() *0.098)
+            time.sleep(0.01 + rnd.random() *0.198)
             mouse.click() #exit bank
             pyautogui.moveRel(rnd.randint(-20, 12), rnd.randint(-6,12), yrt * 0.1 + 0.071) # random movement
             #time.sleep(rnd.random() * 0.0987 + 0.02) #sleep short
