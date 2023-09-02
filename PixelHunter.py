@@ -5,8 +5,8 @@ from pynput.mouse import Controller, Button
 from pynput.keyboard import Listener, KeyCode
 import win32api, win32con
 
-KEY = KeyCode(char ='`')
-ONOFF = KeyCode(char="1")
+ONOFF = KeyCode(char="`")
+KEY = KeyCode(char ='8')
 
 global running
 running = False
@@ -25,7 +25,7 @@ def togglebot(key):
     if key == ONOFF:
         global running
         running = not running
-        print ("Pixel locator is on:", not running)
+        print ("Pixel locator is on:", running)
     elif key == KEY: 
         print ("Kill switch acitaved; Pixel locator is now off.")
         running = False

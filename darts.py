@@ -10,9 +10,8 @@ from AFunctions import *
 
 global running
 global dartsessions
-
-ONOFF = KeyCode(char="1")
-KEY = KeyCode(char ='2')
+ONOFF = KeyCode(char="`")
+KEY = KeyCode(char ='8')
 
 dartsessions = int (0)
 supsup = False

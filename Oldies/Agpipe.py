@@ -10,8 +10,8 @@ from AFunctions import *
 
 
 global running
-ONOFF = KeyCode(char="1")
-KEY = KeyCode(char =' \ ') # kill switch
+ONOFF = KeyCode(char="`")
+KEY = KeyCode(char ='8')
 
 running = False
 Tubesent = 0

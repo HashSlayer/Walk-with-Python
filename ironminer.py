@@ -9,8 +9,8 @@ from AFunctions import *
 
 
 global running
-ONOFF = KeyCode(char="1")
-KEY = KeyCode(char ='2') # kill switch
+ONOFF = KeyCode(char="`")
+KEY = KeyCode(char ='8')
 running = False
 Tubesent = 0
 dug = 0

@@ -5,14 +5,13 @@ import mouse
 import sys
 import random as rnd
 from pynput.keyboard import Listener, KeyCode
-from AFunctions import *
 
 global running
 global winecount
 global winecount2
 
-ONOFF = KeyCode(char="1")
-KEY = KeyCode(char ='2')
+ONOFF = KeyCode(char="`")
+KEY = KeyCode(char ='8')
 
 winecount = int (0)
 winecount2 = int (0)
@@ -134,7 +133,6 @@ def togglebot(key):
         print ("Kill switch acitaved")
         running = False
         sys.exit() # This will end the program entirely
-        exit()
 
 click_thread = threading.Thread(target=winemaker)
 click_thread.start()

@@ -15,14 +15,17 @@ Welcome = "Welcome to Old School Walk Scape"
 def welcome():
     print (Welcome)
     time.sleep(0.5 * rnd.random() + 0.1)
-    print ("press \ to exit the program")
+    print ("press something to exit the program")
     print ("Enjoy your walk!")
 
+def clx():
+    time.sleep(rnd.random() *0.01 + 0.05)
+    mouse.click()
+    time.sleep(rnd.random() *0.01 + 0.05)
 
 def upkey():
     pyautogui.keyDown('up')
-    time.sleep(0.003 * rnd.random() + 0.01)
-    time.sleep(3.5)
+    time.sleep(1.5)
     pyautogui.keyUp('up')
     time.sleep(0.003 * rnd.random() + 0.01)
 
@@ -30,8 +33,7 @@ def upkey():
 
 def downkey():
     pyautogui.keyDown('down')
-    time.sleep(0.003 * rnd.random() + 0.01)
-    time.sleep(3.5)
+    time.sleep(1.5)
     pyautogui.keyUp('down')
     time.sleep(0.003 * rnd.random() + 0.01)
 
@@ -39,40 +41,38 @@ def downkey():
 
 def leftkey():
     pyautogui.keyDown('left')
-    time.sleep(0.0003 * rnd.random() + 0.01)
-    time.sleep(3)
+    time.sleep(0.03 * rnd.random() + 0.01)
+    time.sleep(0.7)
     pyautogui.keyUp('left')
-    time.sleep(0.0003 * rnd.random() + 0.01)
+    time.sleep(0.03 * rnd.random() + 0.01)
 
 #Define a function that will click on the map
 
 def Compass():
-    time.sleep(0.0003 * rnd.random() + 0.01)
+    time.sleep(0.003 * rnd.random() + 0.1)
     pyautogui.moveTo(rnd.randint(1716, 1729), rnd.randint(38, 48), rnd.random() * 0.181 + 0.81) #move to map
-    time.sleep(0.0003 * rnd.random() + 0.1)
-    mouse.click() #click map
-    time.sleep(0.03 * rnd.random() + 0.1)
-
+    time.sleep(0.003 * rnd.random() + 0.6)
+    clx()
+    time.sleep(0.01 * rnd.random() + 0.1)
 
 
 #Define a function that scrolls the mouse wheel down by 20 clicks, spaced out like a human would.
 
 def Zoomout():
-    for i in range (1, 18):
+    for i in range (1, 12):
         pyautogui.scroll(-1)
-        time.sleep(0.03 * rnd.random() + 0.39)
+        time.sleep(0.13 * rnd.random() + 0.19)
 
 #Define a function that scrolls the mouse wheel up by 20 clicks, spaced out like a human would.
 
 def Zoomin():
-    for i in range (1, 18):
+    for i in range (1, 12):
         pyautogui.scroll(1)
-        time.sleep(0.03 * rnd.random() + 0.39)
+        time.sleep(0.13 * rnd.random() + 0.19)
 
 # Get into birds eye view
 def Birdseye():
     Compass()
-    time.sleep(0.0003 * rnd.random() + 0.01)
     Zoomout()
     time.sleep(0.0003 * rnd.random() + 0.01)
     upkey()
@@ -80,7 +80,6 @@ def Birdseye():
 
 def Flatview():
     Compass()
-    time.sleep(0.0003 * rnd.random() + 0.01)
     Zoomin()
     time.sleep(0.0003 * rnd.random() + 0.01)
     downkey()
@@ -126,17 +125,17 @@ def Notbotting3():
 #This will deposit all items in the inventory.
 
 def Deposit():
-    time.sleep(0.13 + 0.03 * rnd.random() + rnd.random())
-    pyautogui.moveTo(rnd.randint(990, 1008), rnd.randint(817, 830), 0.5 + 0.1 * rnd.random() + 3/27 * rnd.random())
-    time.sleep(0.63 + 0.1 * rnd.random() + rnd.random())
+    time.sleep(0.1 + 0.03 * rnd.random() + rnd.random())
+    pyautogui.moveTo(rnd.randint(990, 1008), rnd.randint(817, 830), 0.3 + 0.1 * rnd.random() + 3/27 * rnd.random())
+    time.sleep(0.1 + 0.1 * rnd.random() + 0.1 * rnd.random())
     mouse.click()
-    pyautogui.moveRel(rnd.randint(-40, 70), rnd.randint(-2,2), 0.33 + 0.01 * rnd.random() + 3/27 * rnd.random())
-    time.sleep(0.13 + 0.01 * rnd.random() + 3/27 * rnd.random()) #sleep
+    pyautogui.moveRel(rnd.randint(-4, 3), rnd.randint(-2,2), 0.01 + 0.01 * rnd.random() + 3/27 * rnd.random())
+    time.sleep(0.07 + 0.01 * rnd.random()) #sleep
 
 #Define a function that drops down to get X amount of items.
 
 def Getitems():
-    time.sleep((rnd.random() * 13/120 + 0.05)) # Sleep
+    time.sleep((rnd.random() * 0.01 + 0.05)) # Sleep
     mouse.right_click() #open item options         
     time.sleep((0.12 + rnd.random() * 0.15)) #sleep
     pyautogui.moveRel(rnd.randint(-21,21), rnd.randint(71,73), rnd.random() *0.12 +0.13) #move mouse down to quantity of X
@@ -157,35 +156,42 @@ def Getall():
 #Define a function that moves the mouse to an item in the bank
 
 def Slot1():
-    time.sleep(0.01 + 0.01 * rnd.random() + rnd.random()) #sleep
+    time.sleep(0.1 + 0.01 * rnd.random() + rnd.random()) #sleep
     pyautogui.moveTo(rnd.randint(977, 983), rnd.randint(140, 150), 0.2 + 0.1 * rnd.random() + 3/27 * rnd.random())
     time.sleep(0.13 + 0.01 * rnd.random() + 3/27 * rnd.random()) #sleep
 
 #define slot 2 which is 35 pixels down from slot 1 currently wood
 
 def Slot2():
-    time.sleep(0.01 + 0.01 * rnd.random() + rnd.random()) #sleep
+    time.sleep(0.1 + 0.01 * rnd.random() + rnd.random()) #sleep
     pyautogui.moveTo(rnd.randint(977, 983), rnd.randint(175, 185), 0.2 + 0.1 * rnd.random() + 3/27 * rnd.random())
     time.sleep(0.13 + 0.01 * rnd.random() + 3/27 * rnd.random()) #sleep
 
 #define slot 3 which is 35 pixels down from slot 2
 
 def Slot3():
-    time.sleep(0.01 + 0.01 * rnd.random() + rnd.random()) #sleep
+    time.sleep(0.1 + 0.01 * rnd.random() + rnd.random()) #sleep
     pyautogui.moveTo(rnd.randint(977, 983), rnd.randint(210, 220), 0.2 + 0.1 * rnd.random() + 3/27 * rnd.random())
     time.sleep(0.13 + 0.01 * rnd.random() + 3/27 * rnd.random()) #sleep
 
 #define slot 4 which is 35 pixels down from slot 3
 
 def Slot4():
-    time.sleep(0.01 + 0.01 * rnd.random() + rnd.random()) #sleep
+    time.sleep(0.1 + 0.01 * rnd.random() + rnd.random()) #sleep
     pyautogui.moveTo(rnd.randint(977, 983), rnd.randint(245, 255), 0.2 + 0.1 * rnd.random() + 3/27 * rnd.random())
     time.sleep(0.13 + 0.01 * rnd.random() + 3/27 * rnd.random()) #sleep
 
 #define a function that moves the mouse to the left by 35 pixels in relation to the current position of the mouse.
 
-def Left():
-    time.sleep(0.01 + 0.01 * rnd.random() + rnd.random()) #sleep
-    pyautogui.moveRel(rnd.randint(-36, -34), rnd.randint(-2,2), 0.3 + 0.1 * rnd.random() + 3/27 * rnd.random())
+def Left35():
+    time.sleep(0.1 + 0.01 * rnd.random() + rnd.random()) #sleep
+    pyautogui.moveRel(rnd.randint(-34, -36), rnd.randint(-2,2), 0.3 + 0.1 * rnd.random() + 3/27 * rnd.random())
     time.sleep(0.13 + 0.01 * rnd.random() + 3/27 * rnd.random()) #sleep
+
+def Xbank():
+    time.sleep(0.1 + 0.01 * rnd.random() + rnd.random()) #sleep
+    pyautogui.moveTo(rnd.randint(1040, 1044), rnd.randint(68, 70), rnd.random() * 0.1 + 0.24) # X of the bank
+    time.sleep(0.01 + rnd.random() *0.198)
+    mouse.click() #exit bank
+    pyautogui.moveRel(rnd.randint(-20, 12), rnd.randint(-6,12), rnd.random() * 0.1 + 0.04) # random movement
 

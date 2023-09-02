@@ -11,8 +11,8 @@ global running
 global bowcount
 global lag
 
-ONOFF = KeyCode(char="1")
-KEY = KeyCode(char ='2')
+ONOFF = KeyCode(char="`")
+KEY = KeyCode(char ='8')
 
 bowcount = int (0)
 running = False

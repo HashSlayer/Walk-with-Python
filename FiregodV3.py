@@ -14,7 +14,7 @@ global burnt
 global logsBurnt
 
 ONOFF = KeyCode(char="`")
-KEY = KeyCode(char =' \ ')
+KEY = KeyCode(char ='8')
 
 welcome()
 print ("Let's burn up yo!")

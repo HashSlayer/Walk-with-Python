@@ -11,8 +11,9 @@ global running
 global seshs
 global burnt
 
-ONOFF = KeyCode(char="1")
-KEY = KeyCode(char ='2')
+ONOFF = KeyCode(char="`")
+KEY = KeyCode(char ='8')
+
 print ("Let's burn up yo!")
 seshs = int (0)
 burnt = int (0)

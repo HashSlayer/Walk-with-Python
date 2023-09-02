@@ -13,14 +13,10 @@ global seshs
 global burnt
 global balls
 
-ONOFF = KeyCode(char="1")
-KEY = KeyCode(char ='`')
+ONOFF = KeyCode(char="`")
+KEY = KeyCode(char ='8')
 
-print ("Let's burn up yo!")
-print ("Dont forget to face North at bird's eye, 5 notches zoomed in! 7 West and 3 North of the NE GE corner")
-maxBars = int(input("Enter the maximum amount of logs availble: "))
-print (" Press 1 toggle the bot OFF / ON")
-print (" Press '`' to kill the bot, or pull the mouse to the top left corner")
+welcome()
 print ("Enjoy the burn!")
 
 seshs = int (0)

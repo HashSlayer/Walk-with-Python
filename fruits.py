@@ -10,8 +10,8 @@ from AFunctions import *
 
 global running
 
-ONOFF = KeyCode(char="1")
-KEY = KeyCode(char ='2')
+ONOFF = KeyCode(char="`")
+KEY = KeyCode(char ='8')
 
 running = False
 global xpus
@@ -63,11 +63,12 @@ def togglebot(key):
         global running
         print ("Program is on:", not running)
         running = not running
+        
     elif key == KEY: 
         print ("Kill switch acitaved")
         running = False
-        exit() # This will end the program entirely
         sys.exit()
+        exit()
 
 click_thread = threading.Thread(target=winemaker)
 click_thread.start()
