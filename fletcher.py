@@ -5,6 +5,7 @@ import mouse
 import random as rnd
 from pynput.mouse import Controller, Button
 from pynput.keyboard import Listener, KeyCode
+from AFunctions import *
 
 global running
 global bowcount

@@ -5,6 +5,7 @@ import mouse
 import sys
 import random as rnd
 from pynput.keyboard import Listener, KeyCode
+from AFunctions import *
 
 global running
 global winecount

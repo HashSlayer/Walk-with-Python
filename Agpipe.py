@@ -5,13 +5,18 @@ import pyautogui
 import mouse
 import random as rnd
 from pynput.keyboard import Listener, KeyCode
+from AFunctions import *
+
 
 
 global running
 ONOFF = KeyCode(char="1")
-KEY = KeyCode(char ='2') # kill switch
+KEY = KeyCode(char =' \ ') # kill switch
+
 running = False
 Tubesent = 0
+
+welcome()
 
 def tubeclick():
     while True:
