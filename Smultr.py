@@ -17,23 +17,7 @@ KEY = KeyCode(char ='2')
 rounds = int (0)
 running = False
 
-print ("Hello! Welcome to OSWS")
-#Print a loading bar to the console to show that the program is loading.
-time.sleep(0.1 * rnd.random() + 0.5)
-print ("Loading...")
-time.sleep(1.1 * rnd.random() + 0.5)
-print ("[-------------]")
-time.sleep(1.5 * rnd.random() + 1)
-print ("[\\\\\\\\\--------]")
-time.sleep(1.5 * rnd.random() + 2)
-print ("[\\\\\\\\\\\\\------]")
-time.sleep(1.5 * rnd.random() + 1.5)
-print ("[\\\\\\\\\\\\\\\\\\\\\--]")
-time.sleep(1.5 * rnd.random() + 1)
-print ("[\\\\\\\\\\\\\\\\\\\\\\\\\]")
-time.sleep(0.1 * rnd.random() + 0.5)
-print ("Press the 1 Key to start the program; 2 to kill the program.")
-print ("Enjoy your walk! (Please be patient if the program is still loading.)")
+welcome()
 
 
 def smegic():

@@ -6,16 +6,64 @@ import mouse
 import random as rnd
 from pynput.keyboard import Listener, KeyCode
 
-Welcome = "Welcome to Old School Walk Scape"
-
 # Create functions for tasks that the bots share in common.
 # create a function that will push down the up key for 4 seconds, then release it.
 #Define a function that welcome the player to the program "Old School Walk Scape."
 
 def welcome():
-    print (Welcome)
+    print ("Welcome to Old School Walk Scape")
+    print ("Loading...")
+    time.sleep(1.1 * rnd.random() + 0.03)
+    print ("[-------------]")
+    time.sleep(0.9 * rnd.random() + 0.05)
+    print ("[\------------]")
+    time.sleep(0.9 * rnd.random() + 0.04)
+    print ("[\\\-----------]")
+    time.sleep(0.9 * rnd.random() + 0.03)
+    print ("[\\\\\\\---------]")
+    time.sleep(0.9 * rnd.random() + 0.06)
+    print ("[\\\\\\\\\--------]")
+    time.sleep(0.9 * rnd.random() + 0.075)
+    print ("[\\\\\\\\\\\\\------]")
+    time.sleep(0.7 * rnd.random() + 0.03)
+    print ("[\\\\\\\\\\\\\\\\\----]")
+    time.sleep(0.5 * rnd.random() + 0.03)
+    print ("[\\\\\\\\\\\\\\\\\\\\\--]")
+    time.sleep(2.2 * rnd.random() + 0.05)
+    print ("[\\\\\\\\\\\\\\\\\\\\\\\\\]")
+    time.sleep(0.1 * rnd.random() + 0.05)
+    print ("[|||||||||||||]")
+    time.sleep(0.1 * rnd.random() + 0.1)
+    print ("Press the 1 Key to start the program; 2 to kill the program.")
+    print ("Enjoy your walk!")
+
+
+def welcome2(name):
+    print ("Welcome to Old School Walk Scape", name)
     time.sleep(0.5 * rnd.random() + 0.1)
-    print ("press something to exit the program")
+    print ("Loading...")
+    time.sleep(0.9 * rnd.random() + 0.03)
+    print ("[-------------]")
+    time.sleep(0.7 * rnd.random() + 0.05)
+    print ("[\------------]")
+    time.sleep(0.5 * rnd.random() + 0.04)
+    print ("[\\\-----------]")
+    time.sleep(0.7 * rnd.random() + 0.03)
+    print ("[\\\\\\\---------]")
+    time.sleep(0.4 * rnd.random() + 0.06)
+    print ("[\\\\\\\\\--------]")
+    time.sleep(0.9 * rnd.random() + 0.075)
+    print ("[\\\\\\\\\\\\\------]")
+    time.sleep(0.7 * rnd.random() + 0.03)
+    print ("[\\\\\\\\\\\\\\\\\----]")
+    time.sleep(0.5 * rnd.random() + 0.03)
+    print ("[\\\\\\\\\\\\\\\\\\\\\--]")
+    time.sleep(2.2 * rnd.random() + 0.05)
+    print ("[\\\\\\\\\\\\\\\\\\\\\\\\\]")
+    time.sleep(0.1 * rnd.random() + 0.05)
+    print ("[|||||||||||||]")
+    time.sleep(0.1 * rnd.random() + 0.1)
+    print ("Press the 1 Key to start the program; 2 to kill the program.")
     print ("Enjoy your walk!")
 
 def clx():

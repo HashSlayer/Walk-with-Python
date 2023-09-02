@@ -15,22 +15,7 @@ KEY = KeyCode(char ='8')
 
 welcome()
 time.sleep(3)
-
-#create a for loop that runs the slot functions 10 times in a row
-
-Compass()
-leftkey()
-downkey()
-leftkey()
-upkey()
-leftkey()
-downkey()
-leftkey()
-upkey()
-leftkey()
-downkey()
-leftkey()
-upkey()
+print ("Enjoy the burn!")
 
 
 

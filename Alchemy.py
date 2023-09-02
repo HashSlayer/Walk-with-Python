@@ -5,38 +5,51 @@ import pyautogui
 import mouse
 import random as rnd
 from pynput.keyboard import Listener, KeyCode
+from AFunctions import *
 
 
 global running
-global dartsMade
+global Clickz
+global rnum
+
 
 ONOFF = KeyCode(char="1")
 KEY = KeyCode(char ='2')
 
 running = False
-dartsMade = 0
+Clickz = 0
+rnum = rnd.randint(80,99)
+name = input("What is your name? ")
+#welcome()
+welcome2(name)
 
-
-def winemaker():
+def alcher():
     while True:
         if running:
-            global dartsMade
-            if dartsMade == 0:
+            global Clickz
+            global rnum
+            if Clickz == 0:
                print ("Let's RIDE!")
 
             time.sleep(rnd.random() * 3/27 + 0.43)
-            mouse.click() #click feather
+            mouse.click() 
             time.sleep(rnd.random() * 3/27 + 0.58)
-            dartsMade = dartsMade + 1
+            Clickz = Clickz + 1
 
-            if (dartsMade % rnd.randint(91,93) == 0):
+            if (Clickz % rnum == 0):
                 time.sleep(rnd.randint(1,3) * rnd.random())
-                supsup = True
+                print ("Time for a break! Rnum value is currently:", rnum)
 
-            if (dartsMade % rnd.randint(28,39) == 0):
+            if (Clickz % rnd.randint(28,39) == 0):
                 time.sleep(rnd.random() * 0.1)
 
-            if (dartsMade == 201674):
+            #After 100 clicks, print the number of clicks
+            if ((Clickz % 100 == 0) and (Clickz > 0)):
+                print ("You have alched roughly", Clickz * 0.4, "times.")
+                rnum = rnd.randint(80,99)
+                print ("The new random number is:", rnum)
+
+            if (Clickz == 22400):
                 time.sleep(360) 
 
 
@@ -54,7 +67,7 @@ def togglebot(key):
         exit() # This will end the program entirely
         sys.exit()
 
-click_thread = threading.Thread(target=winemaker)
+click_thread = threading.Thread(target=alcher)
 click_thread.start()
 
 with Listener(on_press=togglebot) as listner:
