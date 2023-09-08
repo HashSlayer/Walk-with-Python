@@ -11,45 +11,90 @@ from AFunctions import *
 global running
 global Clickz
 global rnum
-
+global Clickz2
+global y
+global x
 
 ONOFF = KeyCode(char="1")
 KEY = KeyCode(char ='2')
 
 running = False
-Clickz = 0
+Clickz = 1
+Clickz2 = 1
+y =  rnd.randint(69, 420)
+x =  8
 rnum = rnd.randint(80,99)
-name = input("What is your name? ")
-#welcome()
-welcome2(name)
+welcome()
+
 
 def alcher():
     while True:
         if running:
             global Clickz
             global rnum
-            if Clickz == 0:
+            global Clickz2
+            global y
+            global x
+            if Clickz == 1:
                print ("Let's RIDE!")
 
+            time.sleep(rnd.random() * 3/27 + 0.24)
+            clx()
+            if (rnd.random() > 0.99173):
+                time.sleep(rnd.random() * 0.1 + 0.01)
+                clx()
+                time.sleep(rnd.random() * 0.01 + 0.01)
+                clx()
+                print ("Oops, a triple click!!!")
             time.sleep(rnd.random() * 3/27 + 0.43)
-            mouse.click() 
-            time.sleep(rnd.random() * 3/27 + 0.58)
+            if (rnd.random() > 0.9789):
+                clx()
+                print ("Oops, a double click!!")
             Clickz = Clickz + 1
+            Clickz2 = Clickz2 + 1
 
-            if (Clickz % rnum == 0):
+            if (Clickz2 % y == 0):
+                y = rnd.randint(69, 420)
+                print ("The new y value is:", y)
+                time.sleep(rnd.random() * 0.1 + rnd.randint(4, x))
+                Clickz2 = 0
+                if rnd.random() > 0.73:
+                    x = x + rnd.randint(1, 3)
+                    print ("The new x value is:", x)
+                    
+
+            if ((Clickz % rnum == 0)):
                 time.sleep(rnd.randint(1,3) * rnd.random())
+                if rnd.random() > 0.66:
+                    time.sleep(rnd.random() * 0.1 + rnd.randint(1, 5))
+                if rnd.random() > 0.4:
+                    clx()
+                    time.sleep(rnd.random() * (x / 30) + 0.1)
                 print ("Time for a break! Rnum value is currently:", rnum)
-
-            if (Clickz % rnd.randint(28,39) == 0):
-                time.sleep(rnd.random() * 0.1)
+                rnum = rnd.randint(60,420)
+                print ("The new random number is:", rnum)
 
             #After 100 clicks, print the number of clicks
             if ((Clickz % 100 == 0) and (Clickz > 0)):
-                print ("You have alched roughly", Clickz * 0.4, "times.")
-                rnum = rnd.randint(80,99)
-                print ("The new random number is:", rnum)
+                print ("You have", Clickz, "clicks")
 
-            if (Clickz == 22400):
+            #if statement to right click at a 0.1% chance
+            if (rnd.random() > 0.9979):
+                time.sleep(rnd.random() * 0.1 + 0.01)
+                pyautogui.mouseDown(button='right')
+                print (" ~~~~~~~~ Oops, a right click!! ~~~~~~~~~")   
+
+            if (rnd.random() > 0.9996):
+                time.sleep(rnd.random() * 0.1 + 0.01)
+                #move relative by 1 pixel
+                pyautogui.moveRel(rnd.randint(-1, 1), rnd.randint(-1,1), rnd.random() * 0.1 + 0.01) # random movement
+                print (" ~~~~~~~~ Oops, we moved!! ~~~~~~~~~")  
+                #print mouse position
+                print("New position:", pyautogui.position())
+                time.sleep(rnd.random() * 0.1 + 0.01)
+
+
+            if (Clickz % 22400 == 0):
                 time.sleep(360) 
 
 

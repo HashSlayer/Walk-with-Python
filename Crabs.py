@@ -7,15 +7,26 @@ import random as rnd
 from pynput.keyboard import Listener, KeyCode
 #Import the AFunctions file which is one directory up.
 from AFunctions import *
+from CrabbyFunctions import *
 
 global running
 global rounds
+global roundset
+global falsepot2
+global falsepot3
+global falsepot4
+global falsepot5
 
 ONOFF = KeyCode(char="1")
 KEY = KeyCode(char ='2')
 
-rounds = int (0)
+rounds = int (1)
 running = False
+roundset = int (1)
+falsepot2 = False
+falsepot3 = False
+falsepot4 = False
+falsepot5 = False
 
 welcome()
 
@@ -24,53 +35,32 @@ def crabKiller():
     while True:
         if running:
             global rounds
+            global roundset
+            global falsepot2
+            global falsepot3
+            global falsepot4
+            global falsepot5
+            
             print ("Let's light em Up! It is round:", rounds)
+            time.sleep(rnd.random() *0.1 + 0.8)
+            
             if (rounds == 0):
                 Compass()
-                #Move mouse to the left and down towards middle of screen
                 pyautogui.moveRel(rnd.randint(-400, -200), rnd.randint(100, 300), rnd.random() * 0.181 + 0.41)
                 upkey()
                 Zoomout()
+                print("Lessss gooo!")
                 
-            time.sleep(rnd.random() *0.1 + 0.8)
-            Notbotting3()
-            #move the mouse to the banker between X= 645, 1068, and Y 490, 700
-            pyautogui.moveTo(rnd.randint(645, 1068), rnd.randint(490, 700), rnd.random() * 0.181 + 0.41) #Move to banker
-            clx()
-            Deposit()
-            Slot4()
-            clx()
-            #After grabbing runes, select ores
-            Slot3()
-            Getitems()
-            Xbank()
-            if (rounds == 0):
-                #"Tap" down the F4 key
-                time.sleep(0.03 * rnd.random() + 0.3) 
-                pyautogui.keyDown('f4')
-                time.sleep(0.03 * rnd.random() + 0.3)
-                pyautogui.keyUp('f4')
-            
-            #move to the spell
-            time.sleep(0.03 * rnd.random() + 0.01)
-            pyautogui.moveTo(rnd.randint(1695, 1702), rnd.randint(906, 914), rnd.random() * 0.181 + 0.41)
-            time.sleep(0.03 * rnd.random() + 0.41)
+            #Reset auto combat by calling jog() and running away and back every 7 rounds
+            if (rounds % roundset == 0):
+                print ("Let's move!")
+                time.sleep(rnd.random() *0.1 + 1.8)
+                jog()
+                roundset = roundset + 7
 
-            #Click on this area 22 times
+            #if statement; every 
 
-            for i in range(64):
-                clx()
-                time.sleep(0.05 * rnd.random() + 0.33)
-
-            if (rounds % rnd.randint(88, 95) == 0 & rounds != 0):
-                print ("Let's take a break!")
-                Notbotting2()
-                time.sleep(0.1 * rnd.random() + rnd.randint(10, 20))
-
-            if (rounds % rnd.randint(9, 12) == 0 & rounds != 0):
-                print ("Let's take a short break! We've gained: ", rounds * 16 * 22.5, "EXP" )
-                Notbotting2()
-                time.sleep(0.1 * rnd.random() + rnd.randint(1, 2))
+            cycle()
 
             rounds = rounds + 1
 

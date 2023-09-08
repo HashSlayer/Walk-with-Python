@@ -3,21 +3,47 @@ import pyautogui
 import time
 from pynput.mouse import Controller, Button
 from pynput.keyboard import Listener, KeyCode
-import win32api, win32con
+
 
 ONOFF = KeyCode(char="`")
-KEY = KeyCode(char ='8')
+KEY = KeyCode(char ='?')
+#We are going to spice this up a bit using another KeyCode to toggle the bot to print the pixel location of the mouse.
+#We will use the 3 key to toggle the bot to print the pixel location of the mouse.
+SHOT = KeyCode(char="3")
 
 global running
 running = False
-cspeed = 1 #click speed
+global mousex
+global mousey
+global count
+
+count = 0
+
+print ( " Lets hunt some pixels! ")
+
 mouse = Controller()
-1
+
 def clicker():
     while True:
         if running:
-            print(pyautogui.position())
-        time.sleep(1) #Change this value to change how often the pixel location is printed
+            global mousex
+            global mousey
+            global count
+            #print(pyautogui.position())
+        #time.sleep(1) #Change this value to change how often the pixel location is printed
+            print("Count:", count, "...")
+            print(mouse.position)
+            #Extrapolate the X value from the position tuple, and assign it to mousex
+            mousex = mouse.position[0]
+            #Extrapolate the Y value from the position tuple, and assign it to mousey
+            mousey = mouse.position[1]
+            print("pyautogui.moveTo(rnd.randint(", (mousex - 5), ",", (mousex + 5), "), rnd.randint(", mousey - 5, ",", mousey + 5,"), rnd.random() * 0.1 + 0.3)")
+            print(" ")
+            time.sleep(1)
+            print(" --------------------------------------------------------------------------------------------------------------------------------------------")
+            count = count + 1
+
+
 
 
     

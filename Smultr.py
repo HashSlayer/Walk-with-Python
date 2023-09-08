@@ -10,12 +10,18 @@ from AFunctions import *
 
 global running
 global rounds
+global rounds2
+global x
+global y
 
 ONOFF = KeyCode(char="1")
 KEY = KeyCode(char ='2')
 
 rounds = int (0)
+rounds2 = int (1)
 running = False
+x = int (18)
+y = int (20)
 
 welcome()
 
@@ -24,6 +30,9 @@ def smegic():
     while True:
         if running:
             global rounds
+            global rounds2
+            global x
+            global y
             print ("Let's Melt Up! It is round:", rounds)
             if (rounds == 0):
                 Compass()
@@ -38,41 +47,92 @@ def smegic():
             pyautogui.moveTo(rnd.randint(645, 1068), rnd.randint(490, 700), rnd.random() * 0.181 + 0.41) #Move to banker
             clx()
             Deposit()
+            if (rounds > rnd.randint(50, 1000)):
+                Notbotting2()
+            if (rnd.random() > 0.93):
+                    clx()
+            time.sleep( rnd.random() + 0.1)
+
             Slot4()
+            if (rnd.random() > rnd.random()):
+                time.sleep( 0.01 * rnd.random() + 0.01)
             clx()
+            if ((rounds > 20) & (rnd.random() > 0.5)):
+                time.sleep( 0.3 * rnd.random() + 0.1)
             #After grabbing runes, select ores
             Slot3()
-            Getitems()
+            if (rnd.random() > rnd.random()):
+                time.sleep( 0.1 * rnd.random() + 0.01)
+            if (rnd.random() > 0.420):
+                Getall()
+                #elif statement to call getall()
+            else:
+                Getitems()
+            
             Xbank()
-            if (rounds == 0):
+            #Another if statement giving a 4% chance to move the mouse to the center of the screen, wait, and then right click
+            if (rnd.random() > 0.96):
+                time.sleep(0.1 * rnd.random() + 0.1)
+                pyautogui.moveTo(960, 540, rnd.random() * 0.181 + 0.41)
+                #move to the same location but with a pixel variation of 20
+                pyautogui.moveTo(rnd.randint(691, 984), rnd.randint(420, 701), rnd.random() * 0.181 + 0.41)
+                time.sleep(0.1 * rnd.random() + 0.1)
+                pyautogui.rightClick()
+                time.sleep(0.1 * rnd.random() + 0.1)
+
+            if (rounds == 0 or rnd.random() > 0.42069):
                 #"Tap" down the F4 key
-                time.sleep(0.03 * rnd.random() + 0.3) 
+                time.sleep(0.1 * rnd.random() + 0.3)
+                time.sleep(1 * rnd.random()) 
                 pyautogui.keyDown('f4')
-                time.sleep(0.03 * rnd.random() + 0.3)
+                time.sleep(0.1 * rnd.random() + 0.09)
                 pyautogui.keyUp('f4')
             
             #move to the spell
             time.sleep(0.03 * rnd.random() + 0.01)
-            pyautogui.moveTo(rnd.randint(1695, 1702), rnd.randint(906, 914), rnd.random() * 0.181 + 0.41)
-            time.sleep(0.03 * rnd.random() + 0.41)
+            if (rnd.random() > 0.683):
+                time.sleep(rnd.random() + 0.1)
+            pyautogui.moveTo(rnd.randint(1695, 1702), rnd.randint(906, 910), rnd.random() * 0.181 + 0.41)
+            if (rnd.random() > 0.783):
+                pyautogui.moveTo(rnd.randint(1695, 1699), rnd.randint(910, 914), rnd.random() * 0.181 + 0.41)
+            #if statement to move to the same spot but slower if past round 200
+            if ((rounds > 23) & (rnd.random() > 0.6)):
+                time.sleep(0.03 * rnd.random() + 0.03)
+                print ("Your charater had to sneeze!")
+            time.sleep(0.1 * rnd.random() + 0.41)
 
             #Click on this area 22 times
 
-            for i in range(64):
+            for i in range(32):
                 clx()
-                time.sleep(0.05 * rnd.random() + 0.33)
+                time.sleep(0.1 * rnd.random() + 0.6)
+                time.sleep(0.1 * rnd.random())
+                
 
-            if (rounds % rnd.randint(88, 95) == 0 & rounds != 0):
+            if (rounds2 % y == 0 & rounds != 0):
                 print ("Let's take a break!")
                 Notbotting2()
-                time.sleep(0.1 * rnd.random() + rnd.randint(10, 20))
+                time.sleep(0.1 * rnd.random() + rnd.randint(8, x))
+                print ("Let's get back to it!")
+                time.sleep(rnd.random())
+                if (rnd.random() > 0.5):
+                    x = x + 3
+                rounds2 = 0
+                y = rnd.randint(8, 20) #optimize the randomization in break times, and amounts. Y starts at 20
+                if (rounds > 100):
+                    y = rnd.randint(6, 17)
+                    print ("Next round of sleep is in: ", y, " rounds")
 
             if (rounds % rnd.randint(9, 12) == 0 & rounds != 0):
                 print ("Let's take a short break! We've gained: ", rounds * 16 * 22.5, "EXP" )
                 Notbotting2()
                 time.sleep(0.1 * rnd.random() + rnd.randint(1, 2))
 
+            if ((rounds <150) & (rnd.random() > 0.861)):
+                time.sleep( rnd.random() + x )
+
             rounds = rounds + 1
+            rounds2 = rounds2 + 1
 
 def togglebot(key):
     if key == ONOFF:
