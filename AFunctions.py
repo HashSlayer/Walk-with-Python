@@ -175,6 +175,29 @@ def Notbotting3():
 
 
 
+#A function that iterates click through items in the inventory, clicking on the first spot at pyautogui.moveTo(rnd.randint(1690,1710), rnd.randint(760, 774), rnd.random() * 0.03 + 0.197)
+#and moving to the next spot at pyautogui.moveTo(rnd.randint(xpus - 3, xpus + 3), rnd.randint(ypus - 3, ypus + 3), rnd.random() * 0.03 + 0.399) # move to log
+#We will have to define x any y as their values and adjust them in the function. This function will be called in other functions.
+
+def Burn():
+     xpus = 1700
+     ypus = 766
+     sips = 0
+     pot = 0
+     for i in range (1, 21):
+        pyautogui.moveTo(rnd.randint(xpus - 4, xpus + 3), rnd.randint(ypus - 4, ypus + 4), rnd.random() * 0.03 + 0.399) # move to potion 
+        time.sleep(rnd.random() * 0.01 + 0.488)
+        mouse.click() # burn log 1
+        if (sips % 4 == 0):
+             xpus = xpus + 40 # Adjust X Position; moves mouse to right by one item in inventory
+             pot += 1
+        sips = sips + 1 #Add to burn count
+                
+        if ((sips + 1) % 4 == 0 or sips == 3):
+            ypus = ypus + 35 # drop the mouse down one row of items for the next iteration
+            xpus = xpus - 160 # pull mouse back to the first coulum for the next iteration
+            time.sleep( 0.009 + rnd.random() *0.05)
+
 
 #Banking functions:
 #Define a function that will move the mouse to a random spot between X= 990 and 1008, Y= 817 and 830, then click, including human like delays, and movements between clicks.

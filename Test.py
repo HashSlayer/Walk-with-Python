@@ -20,10 +20,9 @@ y = rnd.random()
 #welcome()
 #time.sleep(3)
 print ("Enjoy the burn!")
-cycleslow()
-cycleslow2()
-cycleslow()
-cycleslow2()
+jog3()
+
+
 
 
 

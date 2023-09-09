@@ -55,13 +55,13 @@ def cycleslow():
         pyautogui.moveTo(rnd.randint(816, 828), rnd.randint(391, 403), rnd.random() * 0.1 + 0.41)
         clx()
         Notbotting2()
-        time.sleep(rnd.random() * 1.5 + 13.1)
+        time.sleep(rnd.random() * 1.5 + 16.1)
         #Location 2
         pyautogui.moveTo(rnd.randint(1058, 1070), rnd.randint(495, 507), rnd.random() * 0.1 + 0.41)
         if (rnd.random() > 0.93):
             pyautogui.moveTo(rnd.randint(1063, 1069), rnd.randint(499, 506), rnd.random() * 0.1 + 0.11)
         clx()
-        time.sleep(rnd.random() * 1.5 + 13.3)
+        time.sleep(rnd.random() * 1.5 + 21.3)
         #Location 3
         pyautogui.moveTo(rnd.randint(1125, 1137), rnd.randint(567, 579), rnd.random() * 0.1 + 0.41)
         if (rnd.random() > 0.93):
@@ -74,17 +74,19 @@ def cycleslow():
             pyautogui.moveTo(rnd.randint(880, 886), rnd.randint(667, 674), rnd.random() * 0.1 + 0.31)
         clx()
         time.sleep(rnd.random() * 0.3 + 1.91)
+        if (rnd.random() > 0.93):
+            print ("quick nap time at spot 4")
+            time.sleep(rnd.random() *4.1 + 0.4)
         #Location 5 (home)
         pyautogui.moveTo(rnd.randint(802, 814), rnd.randint(561, 573), rnd.random() * 0.1 + 0.41)
         if (rnd.random() > 0.93):
             pyautogui.moveTo(rnd.randint(807, 813), rnd.randint(565, 572), rnd.random() * 0.1 + 0.31)
         clx()
+        Notbotting2()
         time.sleep(rnd.random() * 1.1 + 16)
-        Notbotting2()
-        Notbotting2()
         time.sleep(rnd.random() *0.1 + 1)
         Notbotting()
-        time.sleep(rnd.randint(34, 45) + rnd.random())
+        time.sleep(rnd.randint(30, 40) + rnd.random())
 
 def cycleslow2():
              #In the cycles function we will define 5 locations to move our mose to and click
@@ -94,13 +96,13 @@ def cycleslow2():
         pyautogui.moveTo(rnd.randint(816, 828), rnd.randint(391, 403), rnd.random() * 0.1 + 0.41)
         clx()
         Notbotting2()
-        time.sleep(rnd.random() * 1.5 + 8.1)
+        time.sleep(rnd.random() * 1.5 + 9.1)
         #Location 2
         pyautogui.moveTo(rnd.randint(1058, 1070), rnd.randint(495, 507), rnd.random() * 0.1 + 0.41)
         if (rnd.random() > 0.93):
             pyautogui.moveTo(rnd.randint(1063, 1069), rnd.randint(499, 506), rnd.random() * 0.1 + 0.11)
         clx()
-        time.sleep(rnd.random() * 3.5 + 19.3)
+        time.sleep(rnd.random() * 3.5 + 24.3)
         #Location 3
         pyautogui.moveTo(rnd.randint(1125, 1137), rnd.randint(567, 579), rnd.random() * 0.1 + 0.41)
         if (rnd.random() > 0.93):
@@ -163,7 +165,7 @@ def jog2():
     Notbotting3()
     #Now for spot 3; at: (1485, 602)
     pyautogui.moveTo(rnd.randint(1750 , 1899), rnd.randint(511 , 600), rnd.random() * 0.2 + 0.23)
-    pyautogui.moveTo(rnd.randint(1811 , 1821), rnd.randint(528 , 538), rnd.random() * 0.15 + 0.33)
+    pyautogui.moveTo(rnd.randint(1814 , 1821), rnd.randint(530 , 538), rnd.random() * 0.15 + 0.33)
     if (rnd.random() > 0.83):
         pyautogui.moveTo(rnd.randint(1816 , 1820), rnd.randint(532 , 537), rnd.random() * 0.1 + 0.1)
     clx()
@@ -175,10 +177,10 @@ def jog2():
 def jog3():
         Notbotting()
     #move the mouse to the upper left (154, 277), wait, click, and wait again for 9 second
-        pyautogui.moveTo(rnd.randint( 100 , 267 ), rnd.randint( 699 , 799 ), rnd.random() * 0.1 + 0.3)
-        pyautogui.moveTo(rnd.randint( 109 , 117 ), rnd.randint( 701 , 710 ), rnd.random() * 0.1 + 0.3)
+        pyautogui.moveTo(rnd.randint( 100 , 267 ), rnd.randint( 699 , 799 ), rnd.random() * 0.2 + 0.23)
+        pyautogui.moveTo(rnd.randint( 109 , 117 ), rnd.randint( 701 , 710 ), rnd.random() * 0.15 + 0.3)
         if (rnd.random() > 0.83):
-            pyautogui.moveTo(rnd.randint( 112 , 116 ), rnd.randint( 702 , 707), rnd.random() * 0.1 + 0.3)
+            pyautogui.moveTo(rnd.randint( 112 , 116 ), rnd.randint( 702 , 707), rnd.random() * 0.1 + 0.1)
         clx()
         Notbotting()
         time.sleep(rnd.random() * 0.41 + 9.1)
@@ -189,6 +191,7 @@ def jog3():
         pyautogui.moveTo(rnd.randint(1811 , 1821), rnd.randint(528 , 538), rnd.random() * 0.15 + 0.33)
         if (rnd.random() > 0.83):
             pyautogui.moveTo(rnd.randint(1816 , 1820), rnd.randint(532 , 537), rnd.random() * 0.1 + 0.1)
+        time.sleep(rnd.random() * 0.1 + 0.1)
         clx()
         Notbotting()
         time.sleep(rnd.random() * 1.1 + 8) #ENDS BACK AT HOME (LOCATION 5); Recreate another version that will lead back to spot 2.
