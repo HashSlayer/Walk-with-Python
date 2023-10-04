@@ -272,6 +272,13 @@ def Slot4():
     pyautogui.moveTo(rnd.randint(977, 983), rnd.randint(245, 255), 0.2 + 0.1 * rnd.random() + 3/27 * rnd.random())
     time.sleep(0.13 + 0.01 * rnd.random() + 3/27 * rnd.random()) #sleep
 
+#define slot 5 which is 35 pixels down from slot 4
+
+def Slot5():
+    time.sleep(0.1 + 0.01 * rnd.random() + rnd.random()) #sleep
+    pyautogui.moveTo(rnd.randint(977, 983), rnd.randint(280, 290), 0.2 + 0.1 * rnd.random() + 3/27 * rnd.random())
+    time.sleep(0.13 + 0.01 * rnd.random() + 3/27 * rnd.random()) #sleep
+
 #define a function that moves the mouse to the left by 35 pixels in relation to the current position of the mouse.
 
 def Left35():

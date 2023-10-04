@@ -20,7 +20,7 @@ y = rnd.random()
 #welcome()
 #time.sleep(3)
 print ("Enjoy the burn!")
-jog3()
+welcome()
 
 
 
