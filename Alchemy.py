@@ -38,9 +38,9 @@ def alcher():
             if Clickz == 1:
                print ("Let's RIDE!")
 
-            time.sleep(rnd.random() * 3/27 + 0.14)
+            time.sleep(rnd.random() * 0.09 + 0.14)
             clx()
-            if (rnd.random() > 0.99173):
+            if (rnd.random() > 0.98173):
                 time.sleep(rnd.random() * 0.1 + 0.01)
                 clx()
                 time.sleep(rnd.random() * 0.01 + 0.01)
@@ -78,24 +78,12 @@ def alcher():
             if ((Clickz % 100 == 0) and (Clickz > 0)):
                 print ("You have", Clickz, "clicks")
 
-            #if statement to right click at a 0.1% chance
-            if (rnd.random() > 0.9979):
-                time.sleep(rnd.random() * 0.1 + 0.01)
-                pyautogui.mouseDown(button='right')
-                print (" ~~~~~~~~ Oops, a right click!! ~~~~~~~~~")   
 
-            if (rnd.random() > 0.9996):
-                time.sleep(rnd.random() * 0.1 + 0.01)
-                #move relative by 1 pixel
-                pyautogui.moveRel(rnd.randint(-1, 1), rnd.randint(-1,1), rnd.random() * 0.1 + 0.01) # random movement
-                print (" ~~~~~~~~ Oops, we moved!! ~~~~~~~~~")  
-                #print mouse position
-                print("New position:", pyautogui.position())
-                time.sleep(rnd.random() * 0.1 + 0.01)
-
-
-            if (Clickz % 22400 == 0):
-                time.sleep(360) 
+            if (Clickz % 4200 == 0):
+                #sleep for 12 hours
+                #This alchs about 1400 items (4200 clikz)
+                print ("Time for a break! A big one!")
+                time.sleep(43200)
 
 
 

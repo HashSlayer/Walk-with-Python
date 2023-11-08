@@ -11,6 +11,7 @@ from AFunctions import *
 global running
 global rounds
 global rounds2
+global maxrounds
 global x
 global y
 
@@ -20,6 +21,10 @@ KEY = KeyCode(char ='2')
 rounds = int (0)
 rounds2 = int (1)
 running = False
+maxrounds = int (147)
+#ask the user for the max rounds
+print ("How many rounds would you like to run?")
+maxrounds = int (input())
 x = int (18)
 y = int (20)
 
@@ -33,6 +38,7 @@ def smegic():
             global rounds2
             global x
             global y
+            global maxrounds
             print ("Let's Melt Up! It is round:", rounds)
             if (rounds == 0):
                 Compass()
@@ -107,6 +113,9 @@ def smegic():
                 clx()
                 time.sleep(0.1 * rnd.random() + 0.6)
                 time.sleep(0.1 * rnd.random())
+                #if (rnd.random() > 0.93):
+                #    qclx()
+
                 
 
             if (rounds2 % y == 0 & rounds != 0):
@@ -130,6 +139,12 @@ def smegic():
 
             if ((rounds <150) & (rnd.random() > 0.861)):
                 time.sleep( rnd.random() + x )
+
+            if (rounds > maxrounds):
+                print ("Let's end here!")
+                Notbotting2()
+                # Sleep for 24 hours
+                time.sleep(86400)
 
             rounds = rounds + 1
             rounds2 = rounds2 + 1

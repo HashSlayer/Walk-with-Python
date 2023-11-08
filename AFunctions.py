@@ -69,6 +69,38 @@ def welcome2(name):
 def clx():
     time.sleep(rnd.random() *0.03 + 0.09)
     pyautogui.mouseDown(button='left')  # press the right button down
+    time.sleep(rnd.random() *0.01 + 0.01)
+    if (rnd.random() > 0.18251):
+        time.sleep(rnd.random() *0.02 + 0.01)
+    if (rnd.random() > 0.24251):
+        time.sleep(rnd.random() *0.02 + 0.02)
+    if (rnd.random() > 0.34251):
+        time.sleep(rnd.random() *0.02 + 0.02)
+    if (rnd.random() > 0.64251):
+        time.sleep(rnd.random() *0.02 + 0.03)
+    if (rnd.random() > 0.991251):
+        time.sleep(rnd.random() *0.11 + 0.08)
+        if (rnd.random() > 0.5):
+            time.sleep(rnd.random() *0.17 + 0.1)
+            if (rnd.random() > 0.931251):
+                time.sleep(rnd.random() *0.25 + 0.1)
+    pyautogui.mouseUp(button='left')
+    #Hold the mouse down for a period of time rather a simple click
+    time.sleep(rnd.random() *0.02 + 0.02)
+
+def qclx():
+    time.sleep(rnd.random() *0.01 + 0.03)
+    pyautogui.mouseDown(button='left')  # press the right button down
+    time.sleep(rnd.random() *0.04 + 0.04)
+    if (rnd.random() > 0.74251):
+        time.sleep(rnd.random() *0.04 + 0.02)
+    pyautogui.mouseUp(button='left')
+    #Hold the mouse down for a period of time rather a simple click
+    time.sleep(rnd.random() *0.01 + 0.03)
+
+def rclx():
+    time.sleep(rnd.random() *0.03 + 0.09)
+    pyautogui.mouseDown(button='right')  # press the right button down
     time.sleep(rnd.random() *0.01 + 0.03)
     if (rnd.random() > 0.14251):
         time.sleep(rnd.random() *0.02 + 0.03)
@@ -76,7 +108,7 @@ def clx():
         time.sleep(rnd.random() *0.02 + 0.003)
     if (rnd.random() > 0.931251):
         time.sleep(rnd.random() *0.75 + 0.1)
-    pyautogui.mouseUp(button='left')
+    pyautogui.mouseUp(button='right')
     #Hold the mouse down for a period of time rather a simple click
     time.sleep(rnd.random() *0.02 + 0.05)
 
@@ -236,9 +268,9 @@ def Getall():
     mouse.right_click() #open wood options now.
     time.sleep(0.181 * rnd.random() + 0.2) #sleep
     if (rnd.random() > 0.4):
-        pyautogui.moveRel(rnd.randint(-19, 12), rnd.randint(100, 112), rnd.random() * 0.121 + 0.18) #move mouse down to quantity of ALL
+        pyautogui.moveRel(rnd.randint(-19, 12), rnd.randint(100, 112), rnd.random() * 0.121 + 0.25) #move mouse down to quantity of ALL
     else:
-        pyautogui.moveRel(rnd.randint(-19, 5), rnd.randint(103, 109), rnd.random() * 0.121 + 0.18)
+        pyautogui.moveRel(rnd.randint(-19, 5), rnd.randint(103, 109), rnd.random() * 0.121 + 0.28)
     time.sleep(rnd.random() * 0.19 + 0.29)
     mouse.click() #Get wood
     time.sleep(rnd.random() * 0.19 + 0.29)
@@ -248,28 +280,28 @@ def Getall():
 
 def Slot1():
     time.sleep(0.1 + 0.01 * rnd.random() + rnd.random()) #sleep
-    pyautogui.moveTo(rnd.randint(977, 983), rnd.randint(140, 150), 0.2 + 0.1 * rnd.random() + 3/27 * rnd.random())
+    pyautogui.moveTo(rnd.randint(977, 983), rnd.randint(140, 150), 0.2 + 0.2 * rnd.random() + 3/27 * rnd.random())
     time.sleep(0.13 + 0.01 * rnd.random() + 3/27 * rnd.random()) #sleep
 
 #define slot 2 which is 35 pixels down from slot 1 currently wood
 
 def Slot2():
     time.sleep(0.1 + 0.01 * rnd.random() + rnd.random()) #sleep
-    pyautogui.moveTo(rnd.randint(977, 983), rnd.randint(175, 185), 0.2 + 0.1 * rnd.random() + 3/27 * rnd.random())
+    pyautogui.moveTo(rnd.randint(977, 983), rnd.randint(175, 185), 0.23 + 0.2 * rnd.random() + 3/27 * rnd.random())
     time.sleep(0.13 + 0.01 * rnd.random() + 3/27 * rnd.random()) #sleep
 
 #define slot 3 which is 35 pixels down from slot 2
 
 def Slot3():
     time.sleep(0.1 + 0.01 * rnd.random() + rnd.random()) #sleep
-    pyautogui.moveTo(rnd.randint(977, 983), rnd.randint(210, 220), 0.2 + 0.1 * rnd.random() + 3/27 * rnd.random())
+    pyautogui.moveTo(rnd.randint(977, 983), rnd.randint(210, 220), 0.2 + 0.2 * rnd.random() + 3/27 * rnd.random())
     time.sleep(0.13 + 0.01 * rnd.random() + 3/27 * rnd.random()) #sleep
 
 #define slot 4 which is 35 pixels down from slot 3
 
 def Slot4():
     time.sleep(0.1 + 0.01 * rnd.random() + rnd.random()) #sleep
-    pyautogui.moveTo(rnd.randint(977, 983), rnd.randint(245, 255), 0.2 + 0.1 * rnd.random() + 3/27 * rnd.random())
+    pyautogui.moveTo(rnd.randint(977, 983), rnd.randint(245, 255), 0.2 + 0.2 * rnd.random() + 3/27 * rnd.random())
     time.sleep(0.13 + 0.01 * rnd.random() + 3/27 * rnd.random()) #sleep
 
 #define slot 5 which is 35 pixels down from slot 4
