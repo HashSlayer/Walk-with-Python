@@ -79,7 +79,7 @@ def alcher():
                 print ("You have", Clickz, "clicks")
 
 
-            if (Clickz % 4200 == 0):
+            if (Clickz % 900 == 0):
                 #sleep for 12 hours
                 #This alchs about 1400 items (4200 clikz)
                 print ("Time for a break! A big one!")
