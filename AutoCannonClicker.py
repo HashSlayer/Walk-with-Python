@@ -14,8 +14,6 @@ global rnum
 global Clickz2
 global y
 global x
-global item1
-global item2
 
 ONOFF = KeyCode(char="1")
 KEY = KeyCode(char ='2')
@@ -23,32 +21,10 @@ KEY = KeyCode(char ='2')
 running = False
 Clickz = 1
 Clickz2 = 1
-
-
-item1 = 5352 #Amount of item 1
-item2 = 6 #Amount of item 2
-
-
 y =  rnd.randint(69, 420)
 x =  8
 rnum = rnd.randint(80,99)
 welcome()
-
-#Define a function that moves the mouse 40 pixels to the right; holds mouse click down, moves back to the left 40 pixels, and releases the mouse click, with a variance of 2 pixels
-def MoveIt():
-    #moves the mouse 40 pixels to the right; holds mouse click down, moves back to the left 40 pixels, and releases the mouse click, with a variance of 2 pixels
-    pyautogui.moveRel(rnd.randint(38, 42), rnd.randint(-2, 2), rnd.random() * 0.1 + 0.3)
-    pyautogui.mouseDown(button='left')
-    pyautogui.moveRel(rnd.randint(-42, -38), rnd.randint(-2, 2), rnd.random() * 0.1 + 0.3)
-    sleepy(.5, .2)
-    pyautogui.mouseUp(button='left')
-    sleepy(2, 1)
-    #Press down the f4 key
-    pyautogui.keyDown('f4')
-    sleepy(.1, .1)
-    #Release the f4 key
-    pyautogui.keyUp('f4')
-    sleepy(1, 1)
 
 
 def alcher():
@@ -59,41 +35,23 @@ def alcher():
             global Clickz2
             global y
             global x
-            global item1
-            global item2
-
             if Clickz == 1:
                print ("Let's RIDE!")
-               item1 *= 2.9
-               item2 *= 2.9
 
-            time.sleep(rnd.random() * 0.13 + 0.14)
+            time.sleep(rnd.random() * 3 + 9)
+            time.sleep(rnd.random() * 10 + 0.1)
             clx()
-
             if (rnd.random() > 0.98173):
-                time.sleep(rnd.random() * 0.1 + 0.011)
+                time.sleep(rnd.random() * 0.1 + 0.01)
                 clx()
                 time.sleep(rnd.random() * 0.01 + 0.01)
                 clx()
                 print ("Oops, a triple click!!!")
             time.sleep(rnd.random() * 3/27 + 0.43)
-
             if (rnd.random() > 0.9789):
+                sleepy(6, 1, 1)
                 clx()
                 print ("Oops, a double click!!")
-
-            if (rnd.random() > 0.9889):
-                sleepy(.3, 4)
-                print ("Oops, a sleepy!!")
-
-            if ((rnd.random() > 0.9889) and (Clickz > 900)):
-                sleepy(2, 180)
-                print ("Oops, a big sleepy!!")
-
-            if ((rnd.random() > 0.9989) and (Clickz > 1900)):
-                sleepy(20, 380)
-                print ("Oops, a big sleepy!!")
-
             Clickz = Clickz + 1
             Clickz2 = Clickz2 + 1
 
@@ -122,17 +80,8 @@ def alcher():
             if ((Clickz % 100 == 0) and (Clickz > 0)):
                 print ("You have", Clickz, "clicks")
 
-            if (Clickz % item1 == 0):
-                sys.exit()
-                MoveIt()
 
-
-            if (Clickz % (item1) == 0):
-                sleepy(6, 1, 1)
-                clx()
-                if rnd.random() > 0.4:
-                    sleepy(1, 1)
-                    clx()
+            if (Clickz % 1201 == 0):
                 #sleep for 12 hours
                 #This alchs about 1400 items (4200 clikz)
                 print ("Time for a break! A big one!")

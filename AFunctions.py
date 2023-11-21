@@ -89,14 +89,14 @@ def clx():
     time.sleep(rnd.random() *0.02 + 0.02)
 
 def qclx():
-    time.sleep(rnd.random() *0.01 + 0.03)
+    time.sleep(rnd.random() *0.01 + 0.003)
     pyautogui.mouseDown(button='left')  # press the right button down
     time.sleep(rnd.random() *0.04 + 0.04)
     if (rnd.random() > 0.74251):
-        time.sleep(rnd.random() *0.04 + 0.02)
+        time.sleep(rnd.random() *0.03 + 0.03)
     pyautogui.mouseUp(button='left')
     #Hold the mouse down for a period of time rather a simple click
-    time.sleep(rnd.random() *0.01 + 0.03)
+    time.sleep(rnd.random() *0.01 + 0.003)
 
 def rclx():
     time.sleep(rnd.random() *0.03 + 0.09)
@@ -111,6 +111,9 @@ def rclx():
     pyautogui.mouseUp(button='right')
     #Hold the mouse down for a period of time rather a simple click
     time.sleep(rnd.random() *0.02 + 0.05)
+
+def sleepy(c, x = .3, z = 0.03):
+    time.sleep(c + rnd.random() *x + rnd.random() *z)
 
 def upkey():
     pyautogui.keyDown('up')
