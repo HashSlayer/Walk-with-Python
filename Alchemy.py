@@ -66,7 +66,7 @@ def alcher():
                print ("Let's RIDE!")
                item1 *= 2.9
                item2 *= 2.9
-
+#push
             time.sleep(rnd.random() * 0.13 + 0.14)
             clx()
 
