@@ -23,10 +23,10 @@ KEY = KeyCode(char ='2')
 running = False
 Clickz = 1
 Clickz2 = 1
-SleepWeight = .08 
+SleepWeight = .7
 
 
-item1 = 1140 #Amount of item 1
+item1 = 20000 #Amount of item 1
 item2 = 6 #Amount of item 2
 1
 
@@ -68,15 +68,17 @@ def alcher():
                print ("Let's RIDE!")
                item1 *= 2.9
                item2 *= 2.9
-#push
-            sleepy(.44, SleepWeight)
-            if (rnd.random() > 0.822943):
+
+            sleepy(1.3, (SleepWeight / 2), 0.1)
+            if (rnd.random() > 0.12069):
+                sleepy(1.2, (SleepWeight / 2), 0.11)
+            if (rnd.random() > 0.0943):
                 qclx()
             else:
                 clx()
             
-            if (rnd.random() > 0.9803):
-                SleepWeight += .0005
+            if (rnd.random() > 0.989903):
+                SleepWeight += .005
                 sleepy(.05, SleepWeight)
                 print ("SleepWeight is now:", SleepWeight) 
                 if (rnd.random() > 0.6903):
@@ -90,17 +92,17 @@ def alcher():
                 time.sleep(rnd.random() * 0.1 + 0.011)
                 qclx()
                 time.sleep(rnd.random() * 0.1 + 0.01)
-                clx()
+                qclx()
                 print ("Oops, a triple click!!!")
             time.sleep(rnd.random() * 3/27 + 0.43)
 
-            if (rnd.random() > 0.9929):
+            if (rnd.random() > 0.9889):
                 clx()
                 print ("Oops, a double click!!")
-                for i in range(0, rnd.randint(1, 52)):
-                    time.sleep(rnd.random() * 0.01 + 0.001)
+                for i in range(0, rnd.randint(1, 32)):
+                    time.sleep(rnd.random() * 0.001 + 0.001)
                     if (rnd.random() > 0.9):
-                        clx()
+                        qclx()
                         if (rnd.random() > 0.69):
                             clx()
                             print ("Ultra Bang!!")

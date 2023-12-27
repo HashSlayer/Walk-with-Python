@@ -2,7 +2,6 @@ import time
 import sys
 import threading
 import pyautogui
-import mouse
 import random as rnd
 from pynput.keyboard import Listener, KeyCode
 from AFunctions import *
@@ -32,20 +31,44 @@ def winemaker():
             global dartsMade
             if dartsessions == 0:
                print ("Bronco nation, Let's RIDE!")
-            pyautogui.moveTo(rnd.randint(1762,1765), rnd.randint(866, 877), rnd.random() * 0.00181 + 0.011) #move to feather
-            time.sleep(rnd.random() *0.0011 + 0.001)
-            mouse.click() #click feather
-            time.sleep(rnd.random() *0.001 + 0.0011)
+            
+            if rnd.random() > 0.389:
+                #favorable coordinates
+                pyautogui.moveTo(rnd.randint(1180,1185), rnd.randint(483, 488), rnd.random() * 0.0281 + 0.021) #move to feather
+                if rnd.random() > 0.989:
+                    #move relative by 3 pixels
+                    pyautogui.moveRel(rnd.randint(-3,3), rnd.randint(-3,3), rnd.random() * 0.01 + 0.001)
+            else:
+                pyautogui.moveTo(rnd.randint(1175,1185), rnd.randint(480, 490), rnd.random() * 0.0281 + 0.021) #move to feather
+                if rnd.random() > 0.989:
+                    #move relative by 3 pixels
+                    pyautogui.moveRel(rnd.randint(-3,3), rnd.randint(-3,3), rnd.random() * 0.01 + 0.001)
+            
+            sleepy(0.0001, 0.0001, 0.0002)
+            clx() #click feather
+            sleepy(0.0001, 0.0001, 0.0002)
+            if rnd.random() > 0.989:
+                sleepy(0.1, 1, 2)
 
             if (dartsessions % rnd.randint(87,90) == 0):
                 print (" We made", dartsessions * 10, "darts this round.")
                 time.sleep(rnd.randint(1,3) * rnd.random())
                 supsup = True
-            #End of wine run; time to sleep and repeat     
-            pyautogui.moveTo(rnd.randint(1795, 1800), rnd.randint(860, 870), rnd.random() * 0.018 + 0.01) #move to dart tip
-            time.sleep(rnd.random() * 0.00184 + 0.0011)
-            mouse.click() #click dart tip
-            time.sleep(rnd.random() *0.0061 + 0.00171)
+   
+            if rnd.random() > 0.239:
+                #favorable coordinates for right item (darts)
+                pyautogui.moveTo(rnd.randint(1220, 1233), rnd.randint(483, 488), rnd.random() * 0.028 + 0.02)
+                if rnd.random() > 0.989:
+                    #move relative by 3 pixels
+                    pyautogui.moveRel(rnd.randint(-3,3), rnd.randint(-3,3), rnd.random() * 0.01 + 0.001)
+            else:
+                pyautogui.moveTo(rnd.randint(1228, 1233), rnd.randint(480, 489), rnd.random() * 0.028 + 0.02) #move to dart tip
+                if rnd.random() > 0.989:
+                    #move relative by 3 pixels
+                    pyautogui.moveRel(rnd.randint(-3,3), rnd.randint(-3,3), rnd.random() * 0.01 + 0.001)
+            sleepy(0.0001, 0.0001, 0.0002)
+            clx() #click dart tip
+            sleepy(0.0001, 0.0001, 0.0002)
 
             if (dartsessions % rnd.randint(28,39) == 0):
                 print (" It is session:", dartsessions, ".")

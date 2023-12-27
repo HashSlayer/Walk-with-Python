@@ -1,8 +1,5 @@
 import time
-import sys
-import threading
 import pyautogui
-import mouse
 import random as rnd
 from pynput.keyboard import Listener, KeyCode
 
@@ -37,58 +34,49 @@ def welcome():
     print ("Press the 1 Key to start the program; 2 to kill the program.")
     print ("Enjoy your walk!")
 
-
-def welcome2(name):
-    print ("Welcome to Old School Walk Scape", name)
-    time.sleep(0.5 * rnd.random() + 0.1)
-    print ("Loading...")
-    time.sleep(0.9 * rnd.random() + 0.03)
-    print ("[-------------]")
-    time.sleep(0.7 * rnd.random() + 0.05)
-    print ("[\------------]")
-    time.sleep(0.5 * rnd.random() + 0.04)
-    print ("[\\\-----------]")
-    time.sleep(0.7 * rnd.random() + 0.03)
-    print ("[\\\\\\\---------]")
-    time.sleep(0.4 * rnd.random() + 0.06)
-    print ("[\\\\\\\\\--------]")
-    time.sleep(0.9 * rnd.random() + 0.075)
-    print ("[\\\\\\\\\\\\\------]")
-    time.sleep(0.7 * rnd.random() + 0.03)
-    print ("[\\\\\\\\\\\\\\\\\----]")
-    time.sleep(0.5 * rnd.random() + 0.03)
-    print ("[\\\\\\\\\\\\\\\\\\\\\--]")
-    time.sleep(2.2 * rnd.random() + 0.05)
-    print ("[\\\\\\\\\\\\\\\\\\\\\\\\\]")
-    time.sleep(0.1 * rnd.random() + 0.05)
-    print ("[|||||||||||||]")
-    time.sleep(0.1 * rnd.random() + 0.1)
-    print ("Press the 1 Key to start the program; 2 to kill the program.")
-    print ("Enjoy your walk!")
+#Let's simplify the time.sleep function slightly since we will be using it extensively..
+def sleepy(c = .013 , x = .01, z = 0.008): #C is a constant. X and Z are both multiplied by a number between 0-1.
+    time.sleep(c + rnd.random() *x + rnd.random() *z) #Set variables so sleepy() is viable for a .01 ~ .05 second sleep
 
 def clx():
-    time.sleep(rnd.random() *0.03 + 0.09)
-    pyautogui.mouseDown(button='left')  # press the right button down
-    time.sleep(rnd.random() *0.01 + 0.01)
-    if (rnd.random() > 0.18251):
-        time.sleep(rnd.random() *0.02 + 0.01)
-    if (rnd.random() > 0.24251):
-        time.sleep(rnd.random() *0.02 + 0.02)
-    if (rnd.random() > 0.34251):
-        time.sleep(rnd.random() *0.02 + 0.02)
-    if (rnd.random() > 0.64251):
-        time.sleep(rnd.random() *0.02 + 0.03)
-    if (rnd.random() > 0.991251):
-        time.sleep(rnd.random() *0.11 + 0.08)
-        if (rnd.random() > 0.5):
-            time.sleep(rnd.random() *0.17 + 0.1)
-            if (rnd.random() > 0.931251):
-                time.sleep(rnd.random() *0.25 + 0.1)
-    pyautogui.mouseUp(button='left')
-    #Hold the mouse down for a period of time rather a simple click
-    time.sleep(rnd.random() *0.02 + 0.02)
+    sleepy(.001, .01, .008)
+    pyautogui.mouseDown(button='left')  # Press the right button down
+    time.sleep(rnd.random() *0.021 + 0.009)
+    if (rnd.random() > 0.0173):
+        time.sleep(rnd.random() *0.01 + 0.005)
+        if (rnd.random() > 0.003104):
+            if (rnd.random() > 0.09420):
+                time.sleep(rnd.random() *0.01 + 0.007)
+            if (rnd.random() > 0.263):
+                time.sleep(rnd.random() *0.01 + 0.008)
+            if (rnd.random() > 0.381251):
+                time.sleep(rnd.random() *0.02 + 0.009)
+            if (rnd.random() > 0.591251):  
+                time.sleep(rnd.random() *0.02 + 0.009)
+            if (rnd.random() > 0.793):
+                time.sleep(rnd.random() *0.02 + 0.014)
+            if (rnd.random() > 0.891251):
+                time.sleep(rnd.random() *0.021 + 0.013)
+            if (rnd.random() > 0.971251):  
+                time.sleep(rnd.random() *0.03 + 0.014)
+            if (rnd.random() > 0.981251):  
+                time.sleep(rnd.random() *0.031 + 0.015)
+                if (rnd.random() > 0.89):
+                    time.sleep(rnd.random() *0.05 + 0.02)
+                    if (rnd.random() > 0.871251):
+                        time.sleep(rnd.random() *0.03 + 0.03)
+                        print(" Long click!")
+                    else:
+                        print(" Missed long Click!")
+        else:
+            print(" Fast Click!")
+    if (rnd.random() > 0.991251):  
+        time.sleep(rnd.random() *0.03 + 0.01)
+        print(" Longish click!")   
+    pyautogui.mouseUp(button='left') # Lift right button up (Finish click)
+    time.sleep(rnd.random() *0.01 + 0.001)
 
-def qclx():
+def qclx(): #Another Left Click variant
     time.sleep(rnd.random() *0.01 + 0.003)
     pyautogui.mouseDown(button='left')  # press the right button down
     time.sleep(rnd.random() *0.04 + 0.04)
@@ -98,45 +86,42 @@ def qclx():
     #Hold the mouse down for a period of time rather a simple click
     time.sleep(rnd.random() *0.01 + 0.003)
 
-def rclx():
-    time.sleep(rnd.random() *0.03 + 0.09)
+def rclx(): #Clicking the right mouse button down
+    time.sleep(rnd.random() *0.01 + 0.01)
     pyautogui.mouseDown(button='right')  # press the right button down
-    time.sleep(rnd.random() *0.01 + 0.03)
+    time.sleep(rnd.random() *0.03 + 0.01)
     if (rnd.random() > 0.14251):
-        time.sleep(rnd.random() *0.02 + 0.03)
-    if (rnd.random() > 0.14251):
-        time.sleep(rnd.random() *0.02 + 0.003)
+        time.sleep(rnd.random() *0.02 + 0.01)
+    if (rnd.random() > 0.54251):
+        time.sleep(rnd.random() *0.03 + 0.02)
     if (rnd.random() > 0.931251):
         time.sleep(rnd.random() *0.75 + 0.1)
     pyautogui.mouseUp(button='right')
     #Hold the mouse down for a period of time rather a simple click
     time.sleep(rnd.random() *0.02 + 0.05)
 
-def sleepy(c, x = .3, z = 0.03):
-    time.sleep(c + rnd.random() *x + rnd.random() *z)
 
-def upkey():
+def upkey(): #Hold the up key to adjust the camera view
     pyautogui.keyDown('up')
-    time.sleep(1.5)
+    sleepy(2, 1, 1)
     pyautogui.keyUp('up')
-    time.sleep(0.003 * rnd.random() + 0.01)
+    sleepy()
 
 #Define downkey function
 
-def downkey():
+def downkey(): #Hold the down key to adjust camera view
     pyautogui.keyDown('down')
-    time.sleep(1.5)
+    sleepy(2,1,1)
     pyautogui.keyUp('down')
-    time.sleep(0.003 * rnd.random() + 0.01)
+    sleepy()
 
 #Define a function that will push down the left key for 3 seconds, then release it.
 
 def leftkey():
     pyautogui.keyDown('left')
-    time.sleep(0.01 * rnd.random() + 0.01)
-    time.sleep(0.73)
+    sleepy(.70, .1)
     pyautogui.keyUp('left')
-    time.sleep(0.03 * rnd.random() + 0.01)
+    sleepy()
 
 #Define a function that will click on the map
 
@@ -208,8 +193,6 @@ def Notbotting3():
 
 
 
-
-
 #A function that iterates click through items in the inventory, clicking on the first spot at pyautogui.moveTo(rnd.randint(1690,1710), rnd.randint(760, 774), rnd.random() * 0.03 + 0.197)
 #and moving to the next spot at pyautogui.moveTo(rnd.randint(xpus - 3, xpus + 3), rnd.randint(ypus - 3, ypus + 3), rnd.random() * 0.03 + 0.399) # move to log
 #We will have to define x any y as their values and adjust them in the function. This function will be called in other functions.
@@ -222,7 +205,7 @@ def Burn():
      for i in range (1, 21):
         pyautogui.moveTo(rnd.randint(xpus - 4, xpus + 3), rnd.randint(ypus - 4, ypus + 4), rnd.random() * 0.03 + 0.399) # move to potion 
         time.sleep(rnd.random() * 0.01 + 0.488)
-        mouse.click() # burn log 1
+        clx() # burn log 1
         if (sips % 4 == 0):
              xpus = xpus + 40 # Adjust X Position; moves mouse to right by one item in inventory
              pot += 1
@@ -245,7 +228,7 @@ def Deposit():
     if (rnd.random() > 0.4):
         pyautogui.moveTo(rnd.randint(994, 1007), rnd.randint(819, 827), 0.08 + 0.01 * rnd.random() + 3/27 * rnd.random())
     time.sleep(0.1 + 0.1 * rnd.random() + 0.1 * rnd.random())
-    mouse.click()
+    clx()
     pyautogui.moveRel(rnd.randint(-4, 3), rnd.randint(-2,2), 0.01 + 0.01 * rnd.random() + 3/27 * rnd.random())
     time.sleep(0.07 + 0.01 * rnd.random()) #sleep
 
@@ -253,14 +236,14 @@ def Deposit():
 
 def Getitems():
     time.sleep((rnd.random() * 0.01 + 0.05)) # Sleep
-    mouse.right_click() #open item options         
+    pyautogui.rightClick #open item options         
     time.sleep((0.12 + rnd.random() * 0.15)) #sleep
     if (rnd.random() > 0.619):
         pyautogui.moveRel(rnd.randint(-21,11), rnd.randint(71,73), rnd.random() *0.12 +0.13) #move mouse down to quantity of X
     else:
         pyautogui.moveRel(rnd.randint(-21, 1), rnd.randint(71, 73), rnd.random() * 0.121 + 0.13)
     time.sleep((rnd.random() * 0.087 + rnd.random() * 0.23 + 0.15)) #sleep
-    mouse.click() # Get X amount of items
+    clx() # Get X amount of items
     time.sleep((0.01 + rnd.random() * 0.01)) #Short Sleep
 
      # Copy the Getitems() function with this line: pyautogui.moveRel(rnd.randint(-30, 17), rnd.randint(101, 114), yrt * 0.12 + 0.23) #move mouse down to quantity of all
@@ -268,14 +251,14 @@ def Getitems():
 
 def Getall():
     time.sleep(rnd.random()* 0.173 + 0.21) #Sleep
-    mouse.right_click() #open wood options now.
+    pyautogui.rightClick  #open wood options now.
     time.sleep(0.181 * rnd.random() + 0.2) #sleep
     if (rnd.random() > 0.4):
         pyautogui.moveRel(rnd.randint(-19, 12), rnd.randint(100, 112), rnd.random() * 0.121 + 0.25) #move mouse down to quantity of ALL
     else:
         pyautogui.moveRel(rnd.randint(-19, 5), rnd.randint(103, 109), rnd.random() * 0.121 + 0.28)
     time.sleep(rnd.random() * 0.19 + 0.29)
-    mouse.click() #Get wood
+    clx() #Get wood
     time.sleep(rnd.random() * 0.19 + 0.29)
 
 #To move down we increase the Y value; to move down one item slot in the bank, we increase the Y value by 35 or 38.
@@ -325,6 +308,6 @@ def Xbank():
     time.sleep(0.1 + 0.01 * rnd.random() + rnd.random()) #sleep
     pyautogui.moveTo(rnd.randint(1040, 1044), rnd.randint(68, 70), rnd.random() * 0.1 + 0.24) # X of the bank
     time.sleep(0.01 + rnd.random() *0.198)
-    mouse.click() #exit bank
+    clx() #exit bank
     pyautogui.moveRel(rnd.randint(-20, 12), rnd.randint(-6,12), rnd.random() * 0.1 + 0.04) # random movement
 
