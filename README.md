@@ -1,4 +1,5 @@
-## Old-School-Walk-Scape #Created by @5MEkailO
+# Old-School-Walk-Scape 
+## Created by @5MEkailO
 
 OSWS; OSRS scripting bot for various skills. Created to improve GUI automation, made for educational purposes
 
