@@ -1,7 +1,6 @@
 import time
 import threading
 import pyautogui
-import mouse
 import random as rnd
 from pynput.mouse import Controller, Button
 from pynput.keyboard import Listener, KeyCode

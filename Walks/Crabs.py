@@ -1,13 +1,12 @@
 import time
 import threading
 import pyautogui
-import mouse
 import sys
 import random as rnd
 from pynput.keyboard import Listener, KeyCode
 #Import the AFunctions file which is one directory up.
 from AFunctions import *
-from CrabbyFunctions import *
+from Walks.CrabbyFunctions import *
 
 global running
 global rounds
