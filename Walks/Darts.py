@@ -68,7 +68,6 @@ def winemaker():
                     pyautogui.moveRel(rnd.randint(-3,3), rnd.randint(-3,3), rnd.random() * 0.01 + 0.001)
             sleepy(0.0001, 0.0001, 0.0002)
             clx() #click dart tip
-            sleepy(0.0001, 0.0001, 0.0002)
 
             if (dartsessions % rnd.randint(28,39) == 0):
                 print (" It is session:", dartsessions, ".")
