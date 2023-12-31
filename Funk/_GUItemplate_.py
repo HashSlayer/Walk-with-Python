@@ -63,6 +63,8 @@ class GGui:
         self.click_tracker = ClickTracker(self.append_message, self.canvas)  # Initialize the click tracker
         self.random_sleep_enabled = False  # Initialize random sleep flag
         self.click_tracker_thread = None  # Initialize click tracker thread variable
+        # Load text from file when initializing
+        self.load_text()
 
     def setup_gui(self):
         self.background_color_start = "#FF6B6B"  # Set the start color for the gradient (Vibrant pink)
@@ -120,7 +122,7 @@ class GGui:
         self.text_box = tk.Text(self.pane, wrap="word", bg="#FFFF76", fg="#217BFF", font=("Consolas", 13), insertbackground="#5BCB77", relief="sunken", borderwidth=5, height=10)
         self.pane.add(self.text_box, stretch="always")  # Add to the pane with stretch option
         self.text_box.insert(tk.END, " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
-        self.text_box.insert(tk.END, "      Welcome                                   \n")  # Prepopulate with a welcome message
+        self.text_box.insert(tk.END, "      Welcome                                       \n")                         # Prepopulate with a welcome message
         self.text_box.insert(tk.END, "    ❤️ Press the [left alt] key to toggle the bot OFF/ON ; or (START/STOP)  \n")  # Prepopulate with a welcome message
         self.text_box.insert(tk.END, "    ❤️ Press the [right alt] key to Kill the bot                            \n")  # Prepopulate with a welcome message
         self.text_box.insert(tk.END, "    ❤️ Enjoy your walk!                                                     \n")  # Prepopulate with a welcome message
@@ -132,6 +134,18 @@ class GGui:
         self.notepad_text_box = tk.Text(self.pane, wrap="word", bg="#FFFF76", fg="#217BFF", font=("Consolas", 13), relief="sunken", borderwidth=5, height=10)
         self.pane.add(self.notepad_text_box, width= 444)  # Set a fixed width for the notepad
         self.notepad_text_box.insert(tk.END, "Notes: \n")  # Prepopulate with "Notes:"
+
+    def save_text(self):
+        """Save the content of the notepad text box to a file."""
+        with open("notepad_content.txt", "w") as file:
+            file.write(self.notepad_text_box.get("1.0", tk.END))
+
+    def load_text(self):
+        """Load the content from the file to the notepad text box."""
+        if os.path.exists("notepad_content.txt"):
+            with open("notepad_content.txt", "r") as file:
+                self.notepad_text_box.delete("1.0", tk.END)
+                self.notepad_text_box.insert(tk.END, file.read())
 
 
     def on_resize(self, event):
@@ -193,19 +207,20 @@ class GGui:
             # If the thread is already running, just enable click processing
             self.click_tracker.process_clicks = True
         self.click_tracking_enabled = True  # Set the flag to indicate that click tracking is enabled
-        self.toggle_button.config(text="Track Clicks: ON", bg="#2ECC73")  # Update the toggle button appearance
+        self.toggle_button.config(text=" Track Clicks: ON ", bg="#2ECC73")  # Update the toggle button appearance
 
     def stop_click_tracking(self):
         # Disable click processing without terminating the thread
         self.click_tracker.process_clicks = False  # Stop processing the clicks
         self.click_tracking_enabled = False  # Update the flag to indicate click tracking is disabled
-        self.toggle_button.config(text="Track Clicks: OFF", bg="#FF6B6B")  # Update the toggle button to reflect the stopped state
+        self.toggle_button.config(text=" Track Clicks: OFF ", bg="#FF6B6B")  # Update the toggle button to reflect the stopped state
                 
     def on_close(self):
         global running
         running = False  # Stop the bot if it's running
         if bot_thread and bot_thread.is_alive():
             bot_thread.join()  # Wait for the bot thread to finish
+        self.save_text()
         self.root.destroy()  # Destroy the root window
                 
     def create_top_frame(self):
