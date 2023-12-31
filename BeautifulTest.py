@@ -113,10 +113,6 @@ class OSWSGUI:
     def on_resize(self, event):
         self.canvas.delete("gradient")
         self.create_gradient(event.width, event.height)
-
-    def update_text_box(self, message):
-        self.text_box.insert(tk.END, message)
-        self.text_box.see(tk.END)
 #--------------------------------------------------------------------------
 def create_gradient(canvas, color1, color2, width, height):
     for i in range(height):
@@ -189,7 +185,7 @@ button_style = {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 canvas = tk.Canvas(root)
 canvas.pack(fill="both", expand=True)
-create_gradient(canvas, background_color_start, background_color_end, 400, 300)
+create_gradient(canvas, background_color_start, background_color_end, 400, 300) # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 # Bind the resize event
 canvas.bind("<Configure>", on_resize)
 # Time display at the top

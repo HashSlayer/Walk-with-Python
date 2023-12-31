@@ -132,28 +132,34 @@ def randomMove(duration=0.5):
 #Define a function that makes random and realistic mouse movements totaling about 2 seconds. + or - 0.2 seconds.
 def Notbotting():
     sleepy(0.01, .01, .01) #sleep
-    pyautogui.moveRel(rnd.randint(-70, 74), rnd.randint(-99,12), 0.43 + 0.01 * rnd.random() + 3/27 * rnd.random())
-    pyautogui.moveRel(rnd.randint(-40, 74), rnd.randint(-80,60), 0.33 + rnd.random() * 0.1) # random movement
+    bezierMove(rnd.randint(69, 1400), rnd.randint(69,880), 0.43 + 0.2 * rnd.random())
+    randomMove(0.01 + 0.1 * rnd.random())
+    bezierMove(rnd.randint(69, 1400), rnd.randint(69,880), 0.33 + 0.2 * rnd.random())# random movement
     time.sleep(0.1 + 0.1 * rnd.random())
 
 #Define another Notbotting function that makes random and realistic mouse movements totaling about 3 seconds. + or - 0.2 seconds, with a different range of movement.
 
 def Notbotting2():
-    time.sleep(0.13 + 0.01 * rnd.random() + 3/27 * rnd.random()) #sleep
-    bezierMove(rnd.randint(300,1180), rnd.randint(300,780), 0.60 + 0.01 * rnd.random() + 3/27 * rnd.random())
-    pyautogui.moveRel(rnd.randint(-400, 740), rnd.randint(-99,12), 0.63 + 0.01 * rnd.random() + 3/27 * rnd.random())
-    time.sleep(0.13 + 0.01 * rnd.random() + 3/27 * rnd.random()) #sleep
-    pyautogui.moveRel(rnd.randint(-400, 740), rnd.randint(-20,20), 0.63 + rnd.random() * 3/27) # random movement
-    pyautogui.moveRel(rnd.randint(-10,10), rnd.randint(-4,14), rnd.random() * 0.03 + 0.02) #Move around from current spot
-    time.sleep(0.13 + 0.01 * rnd.random() + 3/27 * rnd.random())
+    #using bezierMove, sleepy, and randomMove, kRadom we can create a more realistic randomized movement.
+    sleepy(0.01, .01, .01) #sleep
+    bezierMove(rnd.randint(69, 1400), rnd.randint(69,880), 0.43 + 0.2 * rnd.random())
+    randomMove(0.01 + 0.1 * rnd.random())
+    if rnd.random() > 0.9:
+        for _ in range(0, rnd.randint(2, 7)):
+            kRandom()
+    kRandom()
+    bezierMove(rnd.randint(69, 1400), rnd.randint(69,880), 0.33 + 0.2 * rnd.random())# random movement
+    time.sleep(0.1 + 0.1 * rnd.random())
+    randomMove(0.1 + 0.1 * rnd.random())
+    sleepy(0.01, .01, .01) #sleep
+    k1()
+    if rnd.random() > 0.5:
+        k1()
+    bezierMove(rnd.randint(-70, 74), rnd.randint(-99,12), 0.43 + 0.01 * rnd.random() + 3/27 * rnd.random())
+    bezierMove(rnd.randint(-40, 74), rnd.randint(-80,60), 0.33 + rnd.random() * 0.1) # random movement
+    time.sleep(0.1 + 0.1 * rnd.random())
 
-def Notbotting3():
-    pyautogui.moveRel(rnd.randint(-10,9), rnd.randint(0,6), rnd.random() * 0.12 + 0.03) #Move around from current spot
-    time.sleep(rnd.random() * 0.131 + 0.106) #Sleep
-    pyautogui.moveRel(rnd.randint(-20,40), rnd.randint(-100,20), rnd.random() * 0.13 + 0.1) #Move around from current spot
-    time.sleep(rnd.random() * 0.03 + 0.01) #Sleep
-    pyautogui.moveRel(rnd.randint(-2, 12), rnd.randint(6,12), rnd.random() * 0.13 + 0.15) # random movement
-    time.sleep(rnd.random() * 0.13 + 0.01) #Sleep
+
 
 #Let's simplify the time.sleep function slightly since we will be using it extensively..
 def sleepy(c = .01 , x = .008, z = 0.008): #C is a constant. X and Z are both multiplied by a number between 0-1.
@@ -266,9 +272,25 @@ def kspace(constant=.01, x=.01): #Spacebar
 
 def kRandom(LastK = "k1"): #Press a random number key
     sleepy(.1, 0.1, 0.01)
-    LastK = rnd.choice([k1, k2, k3, k4, k5, k6, k7, k8, k9])
+    LastK = rnd.choice([k3, k4, k5, k6, k7, k8, k9])
     LastK()
     sleepy(.1, 0.1, 0.01)
     return LastK
+
+def kAltleft(): #Press the left alt key
+    pyautogui.keyDown('altleft')
+    sleepif()
+    pyautogui.keyUp('altleft')
+    time.sleep(0.1 * rnd.random() + 0.01)
+
+def kAltright(): #Press the right alt key
+    pyautogui.keyDown('altright')
+    sleepif()
+    pyautogui.keyUp('altright')
+    time.sleep(0.1 * rnd.random() + 0.01)
+
+
+
+
 
 

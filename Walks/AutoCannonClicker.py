@@ -3,7 +3,7 @@ import sys
 import os
 import threading
 import random as rnd
-from pynput.keyboard import Listener, KeyCode
+from pynput.keyboard import Listener, KeyCode, Key
 # Get the directory of the current script
 current_script_dir = os.path.dirname(__file__)
 # Get the parent directory of the current script
@@ -20,8 +20,8 @@ from Conffeti import *
 global running
 global clicks
 
-ONOFF = KeyCode(char="1")
-KEY = KeyCode(char ='2')
+ONOFF = Key.alt_l  # Left Alt key for toggling on/off
+KEY = Key.alt_r  # Right Alt key to exit the program
 
 running = False
 clicks = 1
@@ -173,7 +173,7 @@ def walker(gui):
                 print ("You have", clicks, "clicks")
 
 
-            if (clicks % 1201 == 0):
+            if (clicks % 1200 == 0):
                 #sleep for 12 hours
                 #This alchs about 1400 items (4200 clikz)
                 print ("Time for a break! A big one!")
@@ -183,9 +183,7 @@ def walker(gui):
             if rnd.random() > 0.97:
                 print ("Random Key Press")
                 #Randomly press a key from 1-8 using k1() - k8()
-                kRandom()
-                sleepy(3, 3, 1)
-                k1()
+                kplus()
                 sleepy(1, .1, .1)
 
 

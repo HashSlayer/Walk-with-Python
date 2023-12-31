@@ -20,8 +20,8 @@ from Conffeti import *
 
 global running, ClickCount, maxItems, SleepWeight, bot_thread
 
-ONOFF = KeyCode(char="1")
-KEY = KeyCode(char ='2')
+ONOFF = Key.alt_l  # Left Alt key for toggling on/off
+KEY = Key.alt_r  # Right Alt key to exit the program
 
 running_lock = threading.Lock()
 bot_thread = None
