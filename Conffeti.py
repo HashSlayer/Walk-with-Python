@@ -64,11 +64,11 @@ class ClickTracker:
 
                     message = f"Total Clicks:{self.click_count}: Position: ({x}, {y}), At Time: {current_time}, For: {duration:.3f} seconds."
                     if self.click_count % 10 == 0:
-                        message += f"\n❤️ +~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+ ❤️"
+                        message += f"\n❤️ +~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+ ❤️"
                         startConfetti(self.canvas)
-                    print("bezierMove(rnd.randint(",(x - 5),",",(x + 5),"), rnd.randint(",y-5,",",y+5,"), sleepy(.3))")
+                    #print("bezierMove(rnd.randint(",(x - 5),",",(x + 5),"), rnd.randint(",y-5,",",y+5,"), sleepy(.3))")
+                    print("Total Clicks:", self.click_count, ": Position: (", x, ",", y, "), At Time: ", current_time, ", For: ", duration, " seconds.")
                     self.output_function(message)
-            return
             return
 
     def stop(self):
