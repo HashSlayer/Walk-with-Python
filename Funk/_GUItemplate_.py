@@ -123,7 +123,10 @@ class GGui:
             self.toggle_button.config(text="Track Clicks: OFF", bg="#FF6B6B")
             self.click_tracking_enabled = False
 
-
+    def join_click_tracker_thread(self):
+        if self.click_tracker_thread and self.click_tracker_thread.is_alive():
+            self.click_tracker_thread.join()
+            self.click_tracker_thread = None
 
     def create_top_frame(self):
         # Create the top frame

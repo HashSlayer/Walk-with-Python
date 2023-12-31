@@ -66,7 +66,10 @@ class ClickTracker:
             return
 
     def stop(self):
-        self.process_clicks = False  # Stop processing clicks
+        self.process_clicks = False
+        if self.listener.running:
+            self.listener.stop()
+
                 
     def run(self):
         try:
