@@ -45,11 +45,12 @@ def SimulatedPause():
 class GGui:
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title(" ❤️      I LOVE YOU      ❤️ ")
+        self.root.title("5MEkailO's Beautiful Bot")
         self.setup_gui()
         self.apply_style()
         self.create_top_frame()
         self.create_text_box()
+        self.create_additional_text_box()
         self.canvas_width = self.canvas.winfo_width()
         self.canvas_height = self.canvas.winfo_height()
         self.canvas.bind("<Configure>", self.on_resize)
@@ -128,7 +129,7 @@ class GGui:
     def create_top_frame(self):
         # Create the top frame
         top_frame = tk.Frame(self.canvas, bg=self.bg_color)
-        top_frame.pack(padx=10, pady=10)
+        top_frame.pack(padx=15, pady=15)
         # Date Label
         self.date_label = tk.Label(top_frame, text="", bg="#FF6B6B", fg='#97E469', font=("Consolas", 13, "bold"), relief=tk.RAISED, borderwidth=1)
         self.date_label.pack(side="left", padx=(80, 2))  # Small separation between date and time
@@ -164,7 +165,7 @@ class GGui:
         self.start_button.pack(side=tk.RIGHT, padx=9)
         # Track Clicks Toggle Switch
         self.click_tracking_enabled = False  # Initialize as False
-        self.toggle_button = tk.Button(top_frame, text="Track Clicks", command=self.track_clicks, bg=self.button_color, fg='#97E469', font=self.custom_font, activebackground='#C8F6AD', relief=tk.RAISED, borderwidth=3)
+        self.toggle_button = tk.Button(top_frame, text=" Track Clicks ", command=self.track_clicks, bg=self.button_color, fg='#97E469', font=self.custom_font, activebackground='#C8F6AD', relief=tk.RAISED, borderwidth=3)
         self.toggle_button.pack(side=tk.LEFT, padx=9)
         self.update_time()
 
@@ -176,11 +177,26 @@ class GGui:
         self.date_label.config(text=date_str)
         self.time_label.config(text=time_str)
         self.root.after(50, self.update_time)  # Update the time more frequently
-
+    
     def create_text_box(self):
-        self.text_box = tk.Text(self.canvas, wrap="word", bg="#FFE062", fg="#217BFF", font=("Consolas", 13), insertbackground="#5BCB77", relief="sunken", borderwidth=2)
-        self.text_box.pack(fill=tk.BOTH, expand=True, padx=18, pady=13)
-        #Remeber, bg is the background color, fg is the text color, insertbackground is the color of the cursor
+        # Create a PanedWindow with padding
+        self.pane = tk.PanedWindow(self.canvas, bd=0, sashwidth=3, orient=tk.HORIZONTAL, bg='#4D96FF')
+        self.pane.pack(fill=tk.BOTH, expand=True, padx=10, pady=20)  # Increase pady for more vertical padding
+
+        # Main text box with reduced height
+        self.text_box = tk.Text(self.pane, wrap="word", bg="#FFFF76", fg="#217BFF", font=("Consolas", 13), insertbackground="#5BCB77", relief="sunken", borderwidth=5, height=10)  # Adjust height as needed
+        self.pane.add(self.text_box, stretch="always")
+
+    def create_additional_text_box(self):
+        # Additional notepad text box with reduced height
+        self.notepad_text_box = tk.Text(self.pane, wrap="word", bg="#FFFAE4", fg="#217BFF", font=("Consolas", 11), relief="sunken", borderwidth=5, height=10)  # Adjust height as needed
+        self.pane.add(self.notepad_text_box, width=180)  # Adjust width as needed
+        # Initialize with "Notes:"
+        self.notepad_text_box.insert(tk.END, "Notes: \n")
+
+
+
+        
 
     def on_resize(self, event):
         if event:  # Check if event is None
