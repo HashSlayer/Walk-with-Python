@@ -50,19 +50,22 @@ class GGui:
         self.apply_style()
         self.create_top_frame()
         self.create_text_box()
+        self.canvas_width = self.canvas.winfo_width()
+        self.canvas_height = self.canvas.winfo_height()
+        self.canvas.bind("<Configure>", self.on_resize)
         self.click_tracker = ClickTracker(self.append_message, self.canvas)
         self.random_sleep_enabled = False
         self.click_tracker_thread = None
 
     def setup_gui(self):
         self.background_color_start = "#FF6B6B"  # Vibrant pink for gradient start
-        self.background_color_end = "#FFD93D"    # Bright yellow for gradient end
+        self.background_color_end = "#4D96FF"    # Bright yellow for gradient end
         self.create_gradient_background()
 
     def apply_style(self):
         # New color palette and font
         self.bg_color = "#FF6B6B"  # Vibrant pink
-        self.button_color = "#4D96FF"  # Electric blue
+        self.button_color = "#FF6B6B"  # Electric blue 4D96FF
         self.text_color = "#6BCB77"  # Fresh green
         self.hover_color = "#F55C47"  # Fiery orange for button hover
         self.custom_font = tkFont.Font(family="Consolas", size=13, weight="bold")
@@ -127,42 +130,42 @@ class GGui:
         top_frame = tk.Frame(self.canvas, bg=self.bg_color)
         top_frame.pack(padx=10, pady=10)
         # Date Label
-        self.date_label = tk.Label(top_frame, text="", bg="#FFDA35", fg='#D2F8BC', font=("Consolas", 13, "bold"), relief=tk.RAISED, borderwidth=2)
+        self.date_label = tk.Label(top_frame, text="", bg="#FF6B6B", fg='#97E469', font=("Consolas", 13, "bold"), relief=tk.RAISED, borderwidth=1)
         self.date_label.pack(side="left", padx=(80, 2))  # Small separation between date and time
         # Time Label
-        self.time_label = tk.Label(top_frame, text="", bg="#FFDA35", fg='#D2F8BC', font=("Consolas", 13, "bold"), relief=tk.RAISED, borderwidth=2)
+        self.time_label = tk.Label(top_frame, text="", bg="#FF6B6B", fg='#97E469', font=("Consolas", 13, "bold"), relief=tk.RAISED, borderwidth=1)
         self.time_label.pack(side="left", padx=2)
         # Label style with border
         # Updated style for labels and entries
-        label_style = {"bg": "#FF6B6B", "fg": "#97E469", "font": self.custom_font, "relief": tk.FLAT, "borderwidth": 3}
-        entry_style = {"bg": "#FF6B6B", "fg": "#97E469", "font": self.custom_font, "relief": tk.SUNKEN, "borderwidth": 2}
+        label_style = {"bg": "#FF6B6B", "fg": "#97E469", "font": self.custom_font, "relief": tk.FLAT, "borderwidth": 0}
+        entry_style = {"bg": "#FF6B6B", "fg": "#97E469", "font": self.custom_font, "relief": tk.SUNKEN, "borderwidth": 1}
 
         # Click Every (Ct) Label and Entry
-        tk.Label(top_frame, text="Click Every: ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
+        tk.Label(top_frame, text="Click Every:", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.ct_entry = tk.Entry(top_frame, width=5, **entry_style)
         self.ct_entry.pack(side=tk.LEFT, padx=(3, 10))
         self.ct_entry.insert(0, "1")  # Default value
         # Random Multiplier (Xt) Label and Entry
-        tk.Label(top_frame, text="(+/-): ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
+        tk.Label(top_frame, text="(+/-):", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.xt_entry = tk.Entry(top_frame, width=5, **entry_style)
         self.xt_entry.pack(side=tk.LEFT, padx=(3, 10))
         self.xt_entry.insert(0, "0.5")  # Default value
         # Max Clicks Label and Entry
-        tk.Label(top_frame, text="Max Clicks: ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
+        tk.Label(top_frame, text="Max Clicks:", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.max_clicks_entry = tk.Entry(top_frame, width=7, **entry_style)
         self.max_clicks_entry.pack(side=tk.LEFT, padx=(3, 10))
         self.max_clicks_entry.insert(0, "420")  # Default value
 
         # Kill Button
-        self.kill_button = tk.Button(top_frame, text="KILL", command=self.kill_bot, bg='#FF6B6B', fg='#97E469', font=self.custom_font, activebackground=self.hover_color, relief=tk.RAISED, borderwidth=3)
-        self.kill_button.pack(side=tk.RIGHT, padx=5)
+        self.kill_button = tk.Button(top_frame, text="KILL", command=self.kill_bot, bg=self.button_color, fg='#97E469', font=self.custom_font, activebackground=self.hover_color, relief=tk.RAISED, borderwidth=3)
+        self.kill_button.pack(side=tk.RIGHT, padx=9)
         # Start / Stop Button
         self.start_button = tk.Button(top_frame, text="  Start / Stop  ", command=self.toggle_bot, bg=self.button_color, fg='#97E469', font=self.custom_font, activebackground='#C8F6AD', relief=tk.RAISED, borderwidth=3)
-        self.start_button.pack(side=tk.RIGHT, padx=5)
+        self.start_button.pack(side=tk.RIGHT, padx=9)
         # Track Clicks Toggle Switch
         self.click_tracking_enabled = False  # Initialize as False
-        self.toggle_button = tk.Button(top_frame, text="Track Clicks?", command=self.track_clicks, bg="#FF6B6B", fg='#97E469', font=self.custom_font)
-        self.toggle_button.pack(side=tk.LEFT)
+        self.toggle_button = tk.Button(top_frame, text="Track Clicks", command=self.track_clicks, bg=self.button_color, fg='#97E469', font=self.custom_font, activebackground='#C8F6AD', relief=tk.RAISED, borderwidth=3)
+        self.toggle_button.pack(side=tk.LEFT, padx=9)
         self.update_time()
 
     def update_time(self):
@@ -175,8 +178,9 @@ class GGui:
         self.root.after(50, self.update_time)  # Update the time more frequently
 
     def create_text_box(self):
-        self.text_box = tk.Text(self.canvas, wrap="word", bg="#FFD93D", fg="#D2F8BC", font=("Consolas", 13), insertbackground="#5BCB77", relief="sunken", borderwidth=2)
+        self.text_box = tk.Text(self.canvas, wrap="word", bg="#FFD93D", fg="#4D96FF", font=("Consolas", 13), insertbackground="#5BCB77", relief="sunken", borderwidth=2)
         self.text_box.pack(fill=tk.BOTH, expand=True, padx=8, pady=10)
+        #Remeber, bg is the background color, fg is the text color, insertbackground is the color of the cursor
 
     def on_resize(self, event):
         if event:  # Check if event is None
@@ -187,6 +191,9 @@ class GGui:
         self.create_gradient(self.canvas, self.background_color_start, self.background_color_end, width, height)
 
     def kill_bot(self):
+        self.kill_button.config(text="KILLED", bg="#FF6B6B", fg='#97E469')
+        #apply conffeti
+        self.start_confetti_animation()
         kAltright()
         self.click_tracking_enabled = False
 

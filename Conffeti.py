@@ -8,7 +8,7 @@ def create_confetti(canvas):
     confetti = []
     canvas_width = canvas.winfo_width()
     canvas_height = canvas.winfo_height()
-    for _ in range(random.randint(69, 420)):  # Create a random number of confetti pieces
+    for _ in range(random.randint(40, 200)):  # Create a random number of confetti pieces
         x, y = random.randint(0, canvas_width), random.randint(0, canvas_height)
         confetti.append(canvas.create_oval(x, y, x+5, y+5, fill=random.choice(['red', 'blue', 'green', 'yellow', 'pink', 'purple', 'orange'])))
     return confetti
@@ -28,7 +28,7 @@ def update_confetti(canvas, confetti, start_time, duration=2):
                 canvas.move(item, -x_move, 0)
             if coords[3] > canvas_height or coords[1] < 0:
                 canvas.move(item, 0, -y_move)
-        canvas.after(50, update_confetti, canvas, confetti, start_time)
+        canvas.after(60, update_confetti, canvas, confetti, start_time)
     else:
         for item in confetti:
             canvas.delete(item)  # Remove confetti after animation
