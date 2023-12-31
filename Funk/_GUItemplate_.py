@@ -112,21 +112,18 @@ class GGui:
         if not self.click_tracker.tracking:
             self.click_tracker_thread = threading.Thread(target=self.click_tracker.run)
             self.click_tracker_thread.daemon = True
-            if not self.click_tracker_thread.is_alive():
-                self.click_tracker_thread.start()
-            self.click_tracking_enabled = True
-            self.toggle_button.config(text="Track Clicks: ON", bg="#2ECC71")
+            self.click_tracker_thread.start()
+        else:
+        # If the thread is already running, just enable click processing
+            self.click_tracker.process_clicks = True
+        self.click_tracking_enabled = True
+        self.toggle_button.config(text="Track Clicks: ON", bg="#2ECC71")
 
     def stop_click_tracking(self):
-        if self.click_tracker.tracking:
-            self.click_tracker.stop()
-            self.toggle_button.config(text="Track Clicks: OFF", bg="#FF6B6B")
-            self.click_tracking_enabled = False
-
-    def join_click_tracker_thread(self):
-        if self.click_tracker_thread and self.click_tracker_thread.is_alive():
-            self.click_tracker_thread.join()
-            self.click_tracker_thread = None
+        # Just disable click processing without stopping the thread
+        self.click_tracker.process_clicks = False
+        self.click_tracking_enabled = False
+        self.toggle_button.config(text="Track Clicks: OFF", bg="#FF6B6B")
 
     def create_top_frame(self):
         # Create the top frame
