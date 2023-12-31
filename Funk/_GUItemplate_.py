@@ -45,7 +45,7 @@ def SimulatedPause():
 class GGui:
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("@5MEkailO's OSWS Bot")
+        self.root.title(" ❤️      I LOVE YOU      ❤️ ")
         self.setup_gui()
         self.apply_style()
         self.create_top_frame()
@@ -138,7 +138,7 @@ class GGui:
         # Label style with border
         # Updated style for labels and entries
         label_style = {"bg": "#FF6B6B", "fg": "#97E469", "font": self.custom_font, "relief": tk.FLAT, "borderwidth": 0}
-        entry_style = {"bg": "#FF6B6B", "fg": "#97E469", "font": self.custom_font, "relief": tk.SUNKEN, "borderwidth": 1}
+        entry_style = {"bg": "#FFFAE4", "fg": "#217BFF", "font": self.custom_font, "relief": tk.SUNKEN, "borderwidth": 1}
 
         # Click Every (Ct) Label and Entry
         tk.Label(top_frame, text="Click Every:", **label_style).pack(side=tk.LEFT, padx=(10, 0))
@@ -179,7 +179,7 @@ class GGui:
 
     def create_text_box(self):
         self.text_box = tk.Text(self.canvas, wrap="word", bg="#FFE062", fg="#217BFF", font=("Consolas", 13), insertbackground="#5BCB77", relief="sunken", borderwidth=2)
-        self.text_box.pack(fill=tk.BOTH, expand=True, padx=8, pady=10)
+        self.text_box.pack(fill=tk.BOTH, expand=True, padx=18, pady=13)
         #Remeber, bg is the background color, fg is the text color, insertbackground is the color of the cursor
 
     def on_resize(self, event):
@@ -205,12 +205,14 @@ class GGui:
         global running, bot_thread
         with running_lock:
             if not running:
-                self.append_message("Starting in 2, 1..")
+                self.append_message("Starting bot in 3, 2, 1..")
+                print("Starting in 3")
+                sleepy(1, 0, 0)
                 print("Starting in 2")
                 sleepy(1, 0, 0)
                 print("Starting in 1")
-                sleepy(1, 0, 0)
                 print("Turning running to", not running)
+                self.append_message("Clicking Initiated")
                 running = True
                 self.start_button.config(text="       STOP       ", bg="#FF6B6B", fg='#97E469')  # Red background, white font
                 if bot_thread is None or not bot_thread.is_alive():
@@ -218,7 +220,7 @@ class GGui:
                     bot_thread.start()
             else:
                 running = False
-                self.start_button.config(text="     START     ", bg="#09C159", fg='#97E469')  # Green background, white font
+                self.start_button.config(text="     START     ", bg="#2ECC73", fg='#97E469')  # Green background, white font
                 self.append_message("Bot Paused")
 
     def run(self):
@@ -256,10 +258,11 @@ def walker(gui):
             # Click action
             clx()
             ClickCount += 1
+            gui.append_message(f"Click #{ClickCount}/{maxClicks} At: {datetime.now().strftime('%H:%M:%S.%f')[:-3]}")
 
             # Confetti animation and messages
             if (ClickCount - 1) % 100 == 0:
-                gui.append_message("❤️==================100========================❤️")
+                gui.append_message(f"❤️=================={ClickCount}========================❤️")
                 gui.start_confetti_animation()
 
             if ClickCount % maxClicks == 0:
