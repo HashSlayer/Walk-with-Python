@@ -49,7 +49,7 @@ class ClickTracker:
         self.click_count = 0
 
     def on_click(self, x, y, button, pressed):
-        if self.process_clicks:
+        while self.process_clicks:
             if button == mouse.Button.left:
                 if pressed:
                     self.start_time = time.time()
@@ -61,14 +61,12 @@ class ClickTracker:
                     if self.click_count % 10 == 0:
                         message += f"\n❤️ -+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+-  ❤️"
                         startConfetti(self.canvas)
-                    print("bezierMove(rnd.randint(",(x - 5),",",(x + 5),"), rnd.randint(",y-5,",",y+5,"), sleepy(.3))")
+                    print("bezierMove(rnd.randint(",(x-5),",",(x+5),"), rnd.randint(",y-5,",",y+5,"), sleepy(.3))")
                     self.output_function(message)
             return
 
     def stop(self):
         self.process_clicks = False
-        if self.listener.running:
-            self.listener.stop()
 
                 
     def run(self):

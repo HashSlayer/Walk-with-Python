@@ -41,9 +41,6 @@ def SimulatedPause():
         if (rnd.random() > 0.68):
             sleepy(.1, 1)
 
-#=======================================================================================================================
-
-
 # [~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ GUI Class ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]
 class GGui:
     def __init__(self):
@@ -130,29 +127,29 @@ class GGui:
         top_frame = tk.Frame(self.canvas, bg=self.bg_color)
         top_frame.pack(padx=10, pady=10)
         # Date Label
-        self.date_label = tk.Label(top_frame, text="", bg="#FFDA35", fg='#97E469', font=("Consolas", 13, "bold"), relief=tk.RAISED, borderwidth=2)
+        self.date_label = tk.Label(top_frame, text="", bg="#FFDA35", fg='#D2F8BC', font=("Consolas", 13, "bold"), relief=tk.RAISED, borderwidth=2)
         self.date_label.pack(side="left", padx=(80, 2))  # Small separation between date and time
         # Time Label
-        self.time_label = tk.Label(top_frame, text="", bg="#FFDA35", fg='#97E469', font=("Consolas", 13, "bold"), relief=tk.RAISED, borderwidth=2)
+        self.time_label = tk.Label(top_frame, text="", bg="#FFDA35", fg='#D2F8BC', font=("Consolas", 13, "bold"), relief=tk.RAISED, borderwidth=2)
         self.time_label.pack(side="left", padx=2)
-        
-
         # Label style with border
-        label_style = {"bg": "#FFDA35", "fg": "#97E469", "font": self.custom_font, "relief": tk.FLAT, "borderwidth": 3}
+        # Updated style for labels and entries
+        label_style = {"bg": "#FF6B6B", "fg": "#97E469", "font": self.custom_font, "relief": tk.FLAT, "borderwidth": 3}
+        entry_style = {"bg": "#FF6B6B", "fg": "#97E469", "font": self.custom_font, "relief": tk.SUNKEN, "borderwidth": 2}
 
         # Click Every (Ct) Label and Entry
-        tk.Label(top_frame, text="Click Every (Ct): ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
-        self.ct_entry = tk.Entry(top_frame, width=5, font=self.custom_font)
+        tk.Label(top_frame, text="Click Every: ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
+        self.ct_entry = tk.Entry(top_frame, width=5, **entry_style)
         self.ct_entry.pack(side=tk.LEFT, padx=(3, 10))
-        self.ct_entry.insert(0, "25")  # Default value
+        self.ct_entry.insert(0, "1")  # Default value
         # Random Multiplier (Xt) Label and Entry
-        tk.Label(top_frame, text="(+/-) (CXt): ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
-        self.xt_entry = tk.Entry(top_frame, width=5, font=self.custom_font)
+        tk.Label(top_frame, text="(+/-): ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
+        self.xt_entry = tk.Entry(top_frame, width=5, **entry_style)
         self.xt_entry.pack(side=tk.LEFT, padx=(3, 10))
-        self.xt_entry.insert(0, "330")  # Default value
+        self.xt_entry.insert(0, "0.5")  # Default value
         # Max Clicks Label and Entry
         tk.Label(top_frame, text="Max Clicks: ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
-        self.max_clicks_entry = tk.Entry(top_frame, width=7, font=self.custom_font)
+        self.max_clicks_entry = tk.Entry(top_frame, width=7, **entry_style)
         self.max_clicks_entry.pack(side=tk.LEFT, padx=(3, 10))
         self.max_clicks_entry.insert(0, "420")  # Default value
 
@@ -162,12 +159,10 @@ class GGui:
         # Start / Stop Button
         self.start_button = tk.Button(top_frame, text="  Start / Stop  ", command=self.toggle_bot, bg=self.button_color, fg='#97E469', font=self.custom_font, activebackground='#C8F6AD', relief=tk.RAISED, borderwidth=3)
         self.start_button.pack(side=tk.RIGHT, padx=5)
-
         # Track Clicks Toggle Switch
         self.click_tracking_enabled = False  # Initialize as False
         self.toggle_button = tk.Button(top_frame, text="Track Clicks?", command=self.track_clicks, bg="#FF6B6B", fg='#97E469', font=self.custom_font)
         self.toggle_button.pack(side=tk.LEFT)
-        
         self.update_time()
 
     def update_time(self):
@@ -180,7 +175,7 @@ class GGui:
         self.root.after(50, self.update_time)  # Update the time more frequently
 
     def create_text_box(self):
-        self.text_box = tk.Text(self.canvas, wrap="word", bg="#FFD93D", fg="#5BCB77", font=("Consolas", 13), insertbackground="#5BCB77", relief="sunken", borderwidth=2)
+        self.text_box = tk.Text(self.canvas, wrap="word", bg="#FFD93D", fg="#D2F8BC", font=("Consolas", 13), insertbackground="#5BCB77", relief="sunken", borderwidth=2)
         self.text_box.pack(fill=tk.BOTH, expand=True, padx=8, pady=10)
 
     def on_resize(self, event):
@@ -222,7 +217,6 @@ class GGui:
     def run(self):
         self.root.mainloop()
 
-
 #  =========================================== | End of GUI Class | ===========================================
 
 def walker(gui):
@@ -257,22 +251,17 @@ def walker(gui):
             ClickCount += 1
 
             # Confetti animation and messages
-            if (ClickCount - 1) % 10 == 0:
-                gui.append_message("❤️============================================❤️")
+            if (ClickCount - 1) % 100 == 0:
+                gui.append_message("❤️==================100========================❤️")
                 gui.start_confetti_animation()
-
-            if gui.random_sleep_enabled:
-                if rnd.random() > 0.98:  # 2% chance of random sleep after each click
-                    sleepy(Ct/3, Ct * 3, Xt)
 
             if ClickCount % maxClicks == 0:
                 gui.start_confetti_animation()
                 gui.append_message(f"You have reached the goal of {ClickCount} clicks!")
-                print("Time to end script!")
-                stop_bot()
-
-                
-
+                print("Goal Reached!")
+                if running:
+                    gui.toggle_bot()  # Toggle bot off when goal is reached
+                break
 def stop_bot():
     global running
     running = False
@@ -285,13 +274,16 @@ def togglebot(key, gui):
                 running = False
                 print("Bot Paused")  # Console message
                 gui.append_message("Bot Paused")  # GUI message
+                gui.start_button.config(text="       STOP       ", bg="#FF6B6B", fg='#97E469')  # Red background, white font
             else:
                 running = True
                 print("Bot started")  # Console message
                 gui.append_message("Bot Started")  # GUI message
+                gui.start_button.config(text="     START     ", bg="#2ECC71", fg='#97E469')  # Green background, white font
                 if bot_thread is None or not bot_thread.is_alive():
                     bot_thread = threading.Thread(target=lambda: walker(gui))
                     bot_thread.start()
+
     elif key == KEY:
         print("Kill switch activated")
         gui.append_message("You killed it!")
