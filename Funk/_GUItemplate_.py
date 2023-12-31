@@ -66,7 +66,7 @@ class GGui:
         # New color palette and font
         self.bg_color = "#FF6B6B"  # Vibrant pink
         self.button_color = "#FF6B6B"  # Electric blue 4D96FF
-        self.text_color = "#6BCB77"  # Fresh green
+        self.text_color = "#99E1A2"  # Fresh green
         self.hover_color = "#F55C47"  # Fiery orange for button hover
         self.custom_font = tkFont.Font(family="Consolas", size=13, weight="bold")
         self.root.configure(bg=self.bg_color)
@@ -117,7 +117,7 @@ class GGui:
         # If the thread is already running, just enable click processing
             self.click_tracker.process_clicks = True
         self.click_tracking_enabled = True
-        self.toggle_button.config(text="Track Clicks: ON", bg="#2ECC71")
+        self.toggle_button.config(text="Track Clicks: ON", bg="#2ECC73")
 
     def stop_click_tracking(self):
         # Just disable click processing without stopping the thread
@@ -178,7 +178,7 @@ class GGui:
         self.root.after(50, self.update_time)  # Update the time more frequently
 
     def create_text_box(self):
-        self.text_box = tk.Text(self.canvas, wrap="word", bg="#FFD93D", fg="#4D96FF", font=("Consolas", 13), insertbackground="#5BCB77", relief="sunken", borderwidth=2)
+        self.text_box = tk.Text(self.canvas, wrap="word", bg="#FFE062", fg="#217BFF", font=("Consolas", 13), insertbackground="#5BCB77", relief="sunken", borderwidth=2)
         self.text_box.pack(fill=tk.BOTH, expand=True, padx=8, pady=10)
         #Remeber, bg is the background color, fg is the text color, insertbackground is the color of the cursor
 
@@ -218,7 +218,7 @@ class GGui:
                     bot_thread.start()
             else:
                 running = False
-                self.start_button.config(text="     START     ", bg="#2ECC71", fg='#97E469')  # Green background, white font
+                self.start_button.config(text="     START     ", bg="#09C159", fg='#97E469')  # Green background, white font
                 self.append_message("Bot Paused")
 
     def run(self):
@@ -286,7 +286,7 @@ def togglebot(key, gui):
                 running = True
                 print("Bot started")  # Console message
                 gui.append_message("Bot Started")  # GUI message
-                gui.start_button.config(text="     START     ", bg="#2ECC71", fg='#97E469')  # Green background, white font
+                gui.start_button.config(text="     START     ", bg="#09C159", fg='#97E469')  # Green background, white font
                 if bot_thread is None or not bot_thread.is_alive():
                     bot_thread = threading.Thread(target=lambda: walker(gui))
                     bot_thread.start()
