@@ -329,8 +329,6 @@ def togglebot(key, gui):
         running = False  # Stop the bot's operation
         sys.exit()  # Exit the application
 
-bot_thread.daemon = True
-
 # Start the GUI and bot
 if __name__ == "__main__":
     gui = AutoClickerGUI()
