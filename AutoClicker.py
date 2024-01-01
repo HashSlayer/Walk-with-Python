@@ -27,9 +27,12 @@ def SimulatedPause():
         sleep(.1, 1)
         if (rnd.random() > 0.68):
             sleep(.1, 1)
-    if ((rnd.random() > 0.9889) and (click_count > rnd.randint(100, 2000))):
-        sleep(1, rnd.randint(5, 10))
-        print ("Time for a sleep!")
+            if (rnd.random() > 0.95):
+                    sleep(.01, 5)
+                    gui.append_message("You have encountered a random sleep!")
+    if ((rnd.random() > 0.9889) and (click_count > rnd.randint(500, 2000))):
+        sleep(1, rnd.randint(5, 60))
+        print ("Time for a longer sleep!")
 
 #=======================================================================================================================
 
@@ -43,6 +46,7 @@ class AutoClickerGUI:
         self.random_sleep_enabled = False
         self.double_click_enabled = False
         self.double_click_wait = tk.DoubleVar(value=0.5)
+        self.spam_clicks_enabled = False
         self.create_background_canvas()
         self.create_top_frame()
         self.create_text_box() #<3
@@ -95,22 +99,22 @@ class AutoClickerGUI:
         label_style = {"bg": "#FFD30D", "fg": "#FF780D", "font": self.custom_font, "relief": tk.FLAT, "borderwidth": 3}
 
         # Click Every (Ct) Label and Entry
-        tk.Label(top_frame, text="Click Every (Ct): ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
+        tk.Label(top_frame, text="Click Interval: ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.click_interval = tk.Entry(top_frame, width=5, font=self.custom_font)
         self.click_interval.pack(side=tk.LEFT, padx=(3, 10))
-        self.click_interval.insert(0, "1")  # Default value
+        self.click_interval.insert(0, "1.2")  # Default value
 
         # Random Multiplier (Xt) Label and Entry
-        tk.Label(top_frame, text="(+/-) (CXt): ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
+        tk.Label(top_frame, text="(+/-): ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.click_variance = tk.Entry(top_frame, width=5, font=self.custom_font)
         self.click_variance.pack(side=tk.LEFT, padx=(3, 10))
-        self.click_variance.insert(0, "0.1")  # Default value
+        self.click_variance.insert(0, "0.3")  # Default value
 
         # Max Clicks Label and Entry
         tk.Label(top_frame, text="Max Clicks: ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.max_clicks_entry = tk.Entry(top_frame, width=7, font=self.custom_font)
         self.max_clicks_entry.pack(side=tk.LEFT, padx=(3, 10))
-        self.max_clicks_entry.insert(0, "420")  # Default value
+        self.max_clicks_entry.insert(0, "4200")  # Default value
 
         # Kill Button
         self.kill_button = tk.Button(top_frame, text="KILL", command=self.kill_bot, bg='#FF6B6B', fg='#ECF0F1', font=self.custom_font, activebackground=self.hover_color, relief=tk.RAISED, borderwidth=3)
@@ -128,6 +132,10 @@ class AutoClickerGUI:
         self.toggle_button = tk.Button(toggle_frame, text="Random Breaks: OFF", command=self.toggle_sleeps, bg="#FF6B6B", fg='#ECF0F1', font=self.custom_font)
         self.toggle_button.pack(side=tk.LEFT)
 
+        # spam_clicks_enabled Toggle Switch
+        self.spam_clicks_toggle_button = tk.Button(toggle_frame, text="Spam Clicks: OFF", command=self.toggle_spam_clicks_enabled, bg="#FF6B6B", fg='#ECF0F1', font=self.custom_font)
+        self.spam_clicks_toggle_button.pack(side=tk.LEFT, padx=(10, 2))
+
         # Double-Click Toggle Switch
         self.double_click_toggle_button = tk.Button(toggle_frame, text="Double Click: OFF", command=self.toggle_double_click, bg="#FF6B6B", fg='#ECF0F1', font=self.custom_font)
         self.double_click_toggle_button.pack(side=tk.LEFT, padx=(10, 2))
@@ -135,6 +143,7 @@ class AutoClickerGUI:
         # Double-Click Wait Entry (placed right next to the double-click toggle button)
         self.double_click_wait_entry = tk.Entry(toggle_frame, textvariable=self.double_click_wait, width=5, font=self.custom_font)
         self.double_click_wait_entry.pack(side=tk.LEFT)
+
 
         self.update_time()
 
@@ -151,6 +160,13 @@ class AutoClickerGUI:
             self.double_click_toggle_button.config(text="Double Click: ON", bg="#2ECC71")
         else:
             self.double_click_toggle_button.config(text="Double Click: OFF", bg="#FF6B6B")
+
+    def toggle_spam_clicks_enabled(self):
+        self.spam_clicks_enabled = not self.spam_clicks_enabled
+        if self.spam_clicks_enabled:
+            self.spam_clicks_toggle_button.config(text="Spam Clicks: ON", bg="#2ECC71")
+        else:
+            self.spam_clicks_toggle_button.config(text="Spam Clicks: OFF", bg="#FF6B6B")
 
 
     def create_text_box(self):
@@ -247,18 +263,22 @@ def walker(gui):
 
             if gui.random_sleep_enabled:
                 if rnd.random() > 0.98: #2% chance of random sleep after each click
-                    if click_interval < 1:
-                        sleep(click_interval/3, click_interval * 3, interval_variance)
-                    elif click_interval > 1 and click_interval <10:
-                        sleep(click_interval/10, click_interval, interval_variance)
-                    elif click_interval > 10:
-                        sleep(click_interval/10, click_interval / 5, interval_variance)
+                    SimulatedPause()
                     gui.append_message("Random Sleep Activated")
 
             if gui.double_click_enabled:
                 doubleClickWait = float(gui.double_click_wait.get())
                 if click_count % 2 == 0:
-                    sleep(doubleClickWait, doubleClickWait / 10, doubleClickWait / 50)
+                    sleep(doubleClickWait, doubleClickWait / 10, doubleClickWait / 13)
+                    click()
+
+            if gui.spam_clicks_enabled:
+                if rnd.random() > 0.97: 
+                    for i in range(0, rnd.randint(2, 16)):
+                        if rnd.random() > 0.1:
+                            click()
+                            sleep(0.001, 0.1)
+                            gui.append_message(f"You have encountered a spam click! hit {i} times!")
 
             if (click_count % max_clicks == 0):
                 gui.start_confetti_animation()
