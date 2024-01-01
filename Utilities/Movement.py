@@ -2,7 +2,7 @@ import time
 import pyautogui
 import random as rnd
 import math
-from .MainFunctions import k1, kRandom, click
+from .MainFunctions import *
 
 
 def fluidMove(x, y, t= rnd.random() * 0.1 + 0.18, stepx =80, stepy = 190):

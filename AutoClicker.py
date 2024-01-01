@@ -1,10 +1,7 @@
-import time
 import sys
-import os
 import threading
 import random as rnd
-from pynput.keyboard import Listener, KeyCode, Key
-# Get the directory of the current script
+from pynput.keyboard import Listener, Key
 from Utilities.MainFunctions import *
 from Utilities.Movement import *
 import tkinter as tk
@@ -17,7 +14,7 @@ from Utilities.Conffeti import *
 running = False
 running_lock = threading.Lock()
 bot_thread = None
-ClickCount, maxClicks, Ct, Xt, shift_pressed = 1, 420, 1, 0.1, False
+click_count, max_clicks, click_interval, interval_variance = 1, 420, 1, 0.1
 
 ONOFF = Key.alt_l  # Left Alt key for toggling on/off
 KEY = Key.alt_r  # Right Alt key to exit the program
@@ -25,27 +22,15 @@ KEY = Key.alt_r  # Right Alt key to exit the program
 welcome()
 
 def SimulatedPause():
-    global ClickCount, SleepWeight
-
-
+    global click_count
     if (rnd.random() > 0.8889):
         sleep(.1, 1)
         if (rnd.random() > 0.68):
             sleep(.1, 1)
-
-    if ((rnd.random() > 0.9889) and (ClickCount > rnd.randint(100, 2000))):
+    if ((rnd.random() > 0.9889) and (click_count > rnd.randint(100, 2000))):
         sleep(1, rnd.randint(5, 10))
         print ("Time for a sleep!")
 
-def create_gradient(canvas, color1, color2, width, height):
-    for i in range(height):
-        r1, g1, b1 = canvas.winfo_rgb(color1)
-        r2, g2, b2 = canvas.winfo_rgb(color2)
-        r = (r1 + int((r2 - r1) * i / height)) & 0xff00
-        g = (g1 + int((g2 - g1) * i / height)) & 0xff00
-        b = (b1 + int((b2 - b1) * i / height)) & 0xff00
-        color = f'#{r:04x}{g:04x}{b:04x}'
-        canvas.create_line(0, i, width, i, fill=color)
 #=======================================================================================================================
 
 # GUI Class
@@ -60,22 +45,24 @@ class AutoClickerGUI:
         self.double_click_wait = tk.DoubleVar(value=0.5)
         self.create_background_canvas()
         self.create_top_frame()
-        self.create_text_box()
+        self.create_text_box() #<3
 
     def create_background_canvas(self):
         self.bg_canvas = tk.Canvas(self.root, highlightthickness=0)
         self.bg_canvas.place(relwidth=1, relheight=1)
-        self.apply_gradient(self.bg_canvas, "#9174BB", "#DCC6E0", self.root.winfo_screenwidth(), self.root.winfo_screenheight())
+        self.create_gradient(self.bg_canvas, "#9174BB", "#DCC6E0", self.root.winfo_screenwidth(), self.root.winfo_screenheight())
 
-    def apply_gradient(self, canvas, color1, color2, width, height):
+    def create_gradient(self, canvas, color1, color2, width, height):
         for i in range(height):
-            r1, g1, b1 = canvas.winfo_rgb(color1)
-            r2, g2, b2 = canvas.winfo_rgb(color2)
-            r = (r1 + int((r2 - r1) * i / height)) & 0xff00
-            g = (g1 + int((g2 - g1) * i / height)) & 0xff00
-            b = (b1 + int((b2 - b1) * i / height)) & 0xff00
+            # Calculate color components based on the gradient
+            r1, g1, b1 = canvas.winfo_rgb(color1)  # Get RGB components of the start color
+            r2, g2, b2 = canvas.winfo_rgb(color2)  # Get RGB components of the end color
+            # Interpolate the RGB components based on the current position
+            r = (r1 + int((r2 - r1) * i / height)) & 0xff00 
+            g = (g1 + int((g2 - g1) * i / height)) & 0xff00 
+            b = (b1 + int((b2 - b1) * i / height)) & 0xff00 
             color = f'#{r:04x}{g:04x}{b:04x}'
-            canvas.create_line(0, i, width, i, fill=color)
+            canvas.create_line(0, i, width, i, fill=color)  # Draw a line with the interpolated color
 
     def start_confetti_animation(self):
         startConfetti(self.bg_canvas)
@@ -109,15 +96,15 @@ class AutoClickerGUI:
 
         # Click Every (Ct) Label and Entry
         tk.Label(top_frame, text="Click Every (Ct): ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
-        self.ct_entry = tk.Entry(top_frame, width=5, font=self.custom_font)
-        self.ct_entry.pack(side=tk.LEFT, padx=(3, 10))
-        self.ct_entry.insert(0, "1")  # Default value
+        self.click_interval = tk.Entry(top_frame, width=5, font=self.custom_font)
+        self.click_interval.pack(side=tk.LEFT, padx=(3, 10))
+        self.click_interval.insert(0, "1")  # Default value
 
         # Random Multiplier (Xt) Label and Entry
         tk.Label(top_frame, text="(+/-) (CXt): ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
-        self.xt_entry = tk.Entry(top_frame, width=5, font=self.custom_font)
-        self.xt_entry.pack(side=tk.LEFT, padx=(3, 10))
-        self.xt_entry.insert(0, "0.1")  # Default value
+        self.click_variance = tk.Entry(top_frame, width=5, font=self.custom_font)
+        self.click_variance.pack(side=tk.LEFT, padx=(3, 10))
+        self.click_variance.insert(0, "0.1")  # Default value
 
         # Max Clicks Label and Entry
         tk.Label(top_frame, text="Max Clicks: ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
@@ -171,17 +158,21 @@ class AutoClickerGUI:
         self.text_box.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
 
     def update_time(self):
-        # Get current date and time with milliseconds
+        # Retrieve the current date and time, including milliseconds
         now = datetime.now()
-        date_str = now.strftime("%B %d, %Y")
-        time_str = now.strftime("%H:%M:%S") + ".{:03d}".format(now.microsecond // 1000)
-
+        date_str = now.strftime(" %B %d, %Y ")  # Format the date string
+        time_str = now.strftime(" %H:%M:%S") + ".{:03d} ".format(now.microsecond // 1000)  # Format the time string with milliseconds
+        # Update the labels with the current date and time
         self.date_label.config(text=date_str)
         self.time_label.config(text=time_str)
-        self.root.after(50, self.update_time)  # Update the time more frequently
+        # Schedule the next update after 50 milliseconds
+        self.root.after(50, self.update_time)
 
     def kill_bot(self):
-        kAltright()
+        self.kill_button.config(text="KILLED", bg="#FF6B6B", fg='#97E469') #Expression of death
+        self.start_confetti_animation()  # Start the confetti animation
+        kAltright()  # Preform the kill operation by automatically pressing the right alt key (Function in Movement.py)
+        self.click_tracking_enabled = False  # Disable click tracking
 
     def append_message(self, message):
         self.text_box.insert(tk.END, message + '\n')
@@ -192,8 +183,6 @@ class AutoClickerGUI:
         with running_lock:
             if not running:
                 self.append_message("Starting in 3, 2, 1..")
-                print("Starting in 3")
-                sleep(1, 0, 0)
                 print("Starting in 2")
                 sleep(1, 0, 0)
                 print("Starting in 1")
@@ -209,22 +198,30 @@ class AutoClickerGUI:
                 self.start_button.config(text="     START     ", bg="#2ECC71", fg='#ECF0F1')  # Green background, white font
                 self.append_message("Bot Paused")
 
+    def on_close(self):
+        global running
+        running = False  # Stop the bot if it's running
+        if bot_thread and bot_thread.is_alive():
+            bot_thread.join()  # Wait for the bot thread to finish
+        self.root.destroy()  # Destroy the root window
+
     def run(self):
-        self.root.mainloop()
+        self.root.protocol("WM_DELETE_WINDOW", self.on_close)  # Bind the close event
+        self.root.mainloop() #Start main loop
 
 
 def walker(gui):
     while True:
         if running:
-            global ClickCount, maxClicks, Ct, Xt
+            global click_count, max_clicks, click_interval, interval_variance
 
             # Retrieve values from entry widgets
             try:
-                maxClicks = int(gui.max_clicks_entry.get())
-                Ct = (float(gui.ct_entry.get() ) - 0.28)
-                if Ct < 0:
-                    Ct = 0.01 #Expect a minimum delay of .23 ~, as thats how long it takes to click minimum average
-                Xt = float(gui.xt_entry.get())
+                max_clicks = int(gui.max_clicks_entry.get())
+                click_interval = (float(gui.click_interval.get()) -.2) #Subtract .2 to account for the average time it takes to click
+                click_interval = max(0, click_interval)  # Ensure non-negative
+                interval_variance = float(gui.click_variance.get())
+                interval_variance = max(0, interval_variance)  # Ensure non-negative
             except ValueError:
                 print("Invalid Ct or Xt value")
                 break
@@ -232,40 +229,40 @@ def walker(gui):
             if not running:
                 break
 
-            if ClickCount == 1:
-               print ("Let's Click; ", maxClicks, "times.")
+            if click_count == 1:
+               print ("Let's Click; ", max_clicks, "times.")
 
             #THE HEART OF THE PROGRAM :)
-            sleep(Ct, Xt/2, Xt/2)
+            sleep(click_interval, interval_variance)
             if not running:
                 break
-            gui.append_message(f"Click #{ClickCount} at {datetime.now().strftime('%H:%M:%S')}")
+            gui.append_message(f"Click #{click_count}/{max_clicks} At: {datetime.now().strftime('%H:%M:%S.%f')[:-3]}")
             click()
-            ClickCount += 1
+            click_count += 1
             #gui.append_message describing the position of the click
 
-            if ((ClickCount - 1) % 10) == 0:
+            if ((click_count - 1) % 10) == 0:
                 gui.append_message(f"❤️============================================❤️")
                 gui.start_confetti_animation()
 
             if gui.random_sleep_enabled:
                 if rnd.random() > 0.98: #2% chance of random sleep after each click
-                    if Ct < 1:
-                        sleep(Ct/3, Ct * 3, Xt)
-                    elif Ct > 1 and Ct <10:
-                        sleep(Ct/10, Ct, Xt)
-                    elif Ct > 10:
-                        sleep(Ct/10, Ct / 5, Xt)
+                    if click_interval < 1:
+                        sleep(click_interval/3, click_interval * 3, interval_variance)
+                    elif click_interval > 1 and click_interval <10:
+                        sleep(click_interval/10, click_interval, interval_variance)
+                    elif click_interval > 10:
+                        sleep(click_interval/10, click_interval / 5, interval_variance)
                     gui.append_message("Random Sleep Activated")
 
             if gui.double_click_enabled:
                 doubleClickWait = float(gui.double_click_wait.get())
-                if ClickCount % 2 == 0:
+                if click_count % 2 == 0:
                     sleep(doubleClickWait, doubleClickWait / 10, doubleClickWait / 50)
 
-            if (ClickCount % maxClicks == 0):
+            if (click_count % max_clicks == 0):
                 gui.start_confetti_animation()
-                gui.append_message(f"You have reached the goal of {ClickCount} clicks!")
+                gui.append_message(f"You have reached the goal of {click_count} clicks!")
                 print ("Time to end script!")
                 stop_bot()
                 
@@ -278,25 +275,29 @@ def stop_bot():
 def togglebot(key, gui):
     global running, bot_thread
     if key == ONOFF:
-        with running_lock:
-            if running:
+        with running_lock:  # Ensure thread-safe access to the 'running' variable
+            if running: # Stop the bot
                 running = False
-                print("Bot Paused")  # Console message
-                gui.append_message("Bot Paused")  # GUI message
-            else:
+                print("Bot Paused")  # Log to the console
+                gui.append_message("Bot Paused")  # Update GUI with the bot's status
+                gui.start_button.config(text="     START     ", bg="#09C159", fg='#FFFFFF')  # Update button appearance while not running
+            else: # Start the bot
                 running = True
-                print("Bot started")  # Console message
-                gui.append_message("Bot Started")  # GUI message
+                print("Bot started")  # Log to the console
+                gui.append_message("Bot Started")  # Update GUI with the bot's status
+                gui.start_button.config(text="       STOP       ", bg="#FF6B6B", fg='#FFFFFF')  # Update button appearance while running
                 if bot_thread is None or not bot_thread.is_alive():
+                    # Start a new thread for the bot if not already running
                     bot_thread = threading.Thread(target=lambda: walker(gui))
                     bot_thread.start()
     elif key == KEY:
-        print("Kill switch activated")
-        gui.append_message("You killed it!")
-        gui.start_confetti_animation()
-        stop_bot()
-        running = False
-        sys.exit()
+        # Handle the kill switch
+        print("Kill switch activated")  # Log to the console
+        gui.append_message("You killed it!")  # Update GUI with the termination message
+        gui.start_confetti_animation()  # Trigger confetti animation as a visual feedback
+        running = False  # Stop the bot's operation
+        sys.exit()  # Exit the application
+
 
 # Start the GUI and bot
 if __name__ == "__main__":

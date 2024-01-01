@@ -281,7 +281,7 @@ def walker(gui):
                 interval_variance = float(gui.xt_entry.get())
                 interval_variance = max(0, interval_variance)  # Ensure non-negative
             except ValueError:
-                print("Invalid Ct or Xt value")
+                print("Invalid values entered")
                 break
 
             if not running:

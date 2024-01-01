@@ -300,7 +300,7 @@ def walker(gui):
                 print("Let's Click;", max_clicks, "times.")
 
             # Sleep logic
-            sleep(click_interval, interval_variance/2, interval_variance/2) #Sleep for a random amount of time between click_interval +/- wait_upto
+            sleep(click_interval, interval_variance, 0) #Sleep for a random amount of time between click_interval +/- wait_upto
             if not running:
                 break
 
