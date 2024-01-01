@@ -25,7 +25,7 @@ OSWS uses altered Bezier curves to create smooth, human-like mouse movements; an
 
 # Scripts
 
-A2 Functions, and AFunctions act as Utility files, containing definitions for various functions that automate the process of time.sleep(),
+A2 Functions, and MainFunctions act as Utility files, containing definitions for various functions that automate the process of time.sleep(),
 and obsfucate mouse.click with pyautogui to click the left mouse button for a duration of .1 - .3 seconds etc..
 Automation for pressing keys 1-9, recommended remapping of keys through runelite to match, and more.
 

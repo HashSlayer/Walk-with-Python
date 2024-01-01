@@ -46,6 +46,8 @@ def startConfetti (on = True):
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 class ClickTracker:
     def __init__(self, output_function):
         self.output_function = output_function
@@ -65,7 +67,7 @@ class ClickTracker:
                 if self.click_count % 10 == 0:
                     message += f"❤️ -+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+-  ❤️\n"
                     startConfetti()
-                print("bezierMove(rnd.randint(",(x - 5),",",(x + 5),"), rnd.randint(",y-5,",",y+5,"), sleep(.3))")
+                print("pyautogui.moveTo(rnd.randint(",(x - 5),",",(x + 5),"), rnd.randint(",y-5,",",y+5,"), sleep(.3))")
                 self.output_function(message)
     def run(self):
         self.tracking = True
@@ -79,7 +81,7 @@ class OSWSGUI:
     def __init__(self, title="OSWS"):
         self.root = tk.Tk()
         self.root.title(title)
-        self.click_tracker = ClickTracker(self.update_text_box)
+        #self.click_tracker = ClickTracker(self.update_text_box)
         self.setup_gui()
 
     def setup_gui(self):
@@ -93,13 +95,15 @@ class OSWSGUI:
         self.canvas.bind("<Configure>", self.on_resize)
 
     def create_top_frame(self):
-        time_frame = tk.Frame(self.canvas, **label_style)
+        # Remove 'fg' and 'font' from label_style when creating the Frame
+        frame_style = {key: label_style[key] for key in label_style if key not in ['fg', 'font']}
+        time_frame = tk.Frame(self.canvas, **frame_style)
         time_frame.pack(anchor="ne", padx=10, pady=10)
 
         self.time_label = tk.Label(time_frame, text="", bg="#FF6B6B", fg="#5BCB77", font=("Consolas", 13, "bold"))
         self.time_label.pack(side="left", padx=10, pady=10)
 
-        self.start_button = tk.Button(time_frame, text="Start Walking!", command=self.click_tracker.toggle_tracking, bg="#4D96FF", fg="#FF6B6B", font=("Consolas", 13, "bold"), activebackground="#F55C47")
+        self.start_button = tk.Button(time_frame, text="Start Walking!", command=k1, bg="#4D96FF", fg="#FF6B6B", font=("Consolas", 13, "bold"), activebackground="#F55C47")
         self.start_button.pack(side="right", padx=10, pady=10)
 
     def create_text_box(self):
@@ -113,6 +117,15 @@ class OSWSGUI:
     def on_resize(self, event):
         self.canvas.delete("gradient")
         self.create_gradient(event.width, event.height)
+
+    def run(self):
+        self.root.mainloop()
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        
+# Somewhere in your bot code
+#message = "Bot is running"
+#OSWSGUI.update_text_box(message)
 #--------------------------------------------------------------------------
 def create_gradient(canvas, color1, color2, width, height):
     for i in range(height):
@@ -125,40 +138,49 @@ def create_gradient(canvas, color1, color2, width, height):
         canvas.create_line(0, i, width, i, fill=color)
 
 #=======================================================================================================================
-        
-def start_tracker():
-    if not tracker.tracking:
-        start_button.config(text="Kill it!")
-        tracker_thread = threading.Thread(target=tracker.run)
-        tracker_thread.daemon = True
-        tracker_thread.start()
-    else:
-        start_button.config(text="You Killed it!!")
-        startConfetti(True)
-        tracker.listener.stop()
 
-def update_text_box(message):
-    text_box.insert(tk.END, message)
-    text_box.see(tk.END)  # Auto-scrolls to the bottom
+   
+def start_tracker():
+    if not isRunning:
+        start_button.config(text="Start it!")
+        #tracker_thread = threading.Thread(target=tracker.run)
+        #tracker_thread.daemon = True
+        #tracker_thread.start()
+    else:
+        start_button.config(text="Kill me!!")
+        #tracker.listener.stop()
+
+def isRunning(running = False): #Will return true if the external program is running
+    return running
+
+def ToggleRunning():
+    #Turn running off and on
+    if isRunning:
+        isRunning = False
+    else:
+        isRunning = True
 
 def on_resize(event):
     # Redraw gradient with new dimensions
     canvas.delete("gradient")
     create_gradient(canvas, background_color_start, background_color_end, event.width, event.height)
 
+def update_time():
+    current_time = datetime.datetime.now().strftime(" %H:%M:%S ")
+    time_label.config(text=current_time)
+    root.after(1000, update_time)
+
 root = tk.Tk()
-root.title("@5MEkailO's Beautiful Clicker Tracker")
+root.title("Old School Walk Scaper")
 #``````````````````````````````````````````````````````````````````````````````````````````````````````````````
-# Reimagined Color Palette and Styling
-background_color_start = "#FF6B6B"  # Vibrant pink for gradient start
-background_color_end = "#FFD93D"    # Bright yellow for gradient end
-text_color = "#6BCB77"              # Fresh green for text
-button_color = "#4D96FF"            # Electric blue for buttons
-button_hover_color = "#F55C47"      # Fiery orange for button hover
-scrollbar_color = "#32AFA9"         # Teal for the scrollbar
+background_color_start = "#FF6B6B"  # Pink for gradient start
+background_color_end = "#4D96FF"    # Blue for gradient end
+text_color = "#FFD93D"              # Yellow for text
+button_color = "#FF8C99"            # Pink for buttons
+button_hover_color = "#E63946"      # Red for button hover
+scrollbar_color = "#2A9D8F"         # Teal for the scrollbar
 
-custom_font = tkFont.Font(family="Consolas", size=13, weight="bold")  # Futuristic monospaced font
-
+custom_font = tkFont.Font(family="Arial", size=13, weight="bold")  # B
 label_style = {
     "bg": background_color_start, 
     "fg": text_color, 
@@ -175,38 +197,34 @@ text_style = {
     "borderwidth": 2
 }
 button_style = {
-    "bg": button_color, 
-    "fg": background_color_start,  # Contrast text color for buttons
+    "bg": background_color_start, 
+    "fg": text_color,  # Contrast text color for buttons
     "font": custom_font, 
     "activebackground": button_hover_color,
-    "relief": "groove",  # Adds depth to buttons
+    "relief": "raised",  # Adds depth to buttons
     "borderwidth": 2
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Create the GUI
 canvas = tk.Canvas(root)
 canvas.pack(fill="both", expand=True)
-create_gradient(canvas, background_color_start, background_color_end, 400, 300) # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+create_gradient(canvas, background_color_start, background_color_end, 400, 300)
 # Bind the resize event
 canvas.bind("<Configure>", on_resize)
 # Time display at the top
 time_frame = tk.Frame(canvas, bg=background_color_start)
 time_frame.pack(anchor="ne", padx=10, pady=10)
 
-def update_time():
-    current_time = datetime.datetime.now().strftime(" %H:%M:%S ")
-    time_label.config(text=current_time)
-    root.after(1000, update_time)
-
 time_label = tk.Label(time_frame, text="", **label_style)
 time_label.pack(side="left", padx=10, pady=10)
 
-start_button = tk.Button(time_frame, text="Start Tracking", command=start_tracker, **button_style)
+start_button = tk.Button(time_frame, text=" Walk / Run ", command=k1, **button_style)
 start_button.pack(side="right", padx=10, pady=10)
-
 update_time()
 
 # Create widgets on the canvas
-duration_label = tk.Label(canvas, text="OSWS Official Clicker Tracker Bot Cracker ", **label_style)
+duration_label = tk.Label(canvas, text=" Mekail's OSWS ", **label_style)
 duration_label.pack(anchor="nw", padx=10, pady=10)
 
 text_box = tk.Text(canvas, wrap="word", **text_style)
@@ -224,7 +242,10 @@ scrollbar = tk.Scrollbar(canvas, command=text_box.yview, **scrollbar_style)
 scrollbar.pack(side="right", fill="y")
 text_box['yscrollcommand'] = scrollbar.set
 
-# Run the GUI main loop
-tracker = ClickTracker(lambda msg: canvas.after(0, update_text_box, msg))
-root.mainloop()
 
+# Run the GUI main loop
+#tracker = ClickTracker(lambda msg: canvas.after(0, update_text_box, msg))
+def startup():
+    root.mainloop()
+
+startup()

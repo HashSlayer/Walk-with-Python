@@ -5,6 +5,11 @@ import threading
 import random as rnd
 from pynput.keyboard import Listener, KeyCode, Key
 # Get the directory of the current script
+current_script_dir = os.path.dirname(__file__)
+# Get the parent directory of the current script
+parent_dir = os.path.abspath(os.path.join(current_script_dir, '..'))
+# Add the parent directory to sys.path
+sys.path.append(parent_dir)
 from Utilities.MainFunctions import *
 from Utilities.Movement import *
 import tkinter as tk
@@ -12,13 +17,13 @@ from tkinter import font as tkFont
 from datetime import datetime
 from Utilities.Conffeti import *
 
-
 # Global variables
 running = False
 running_lock = threading.Lock()
 bot_thread = None
 ClickCount, maxClicks, Ct, Xt, shift_pressed = 1, 420, 1, 0.1, False
 
+# Define your special keys
 ONOFF = Key.alt_l  # Left Alt key for toggling on/off
 KEY = Key.alt_r  # Right Alt key to exit the program
 
@@ -26,8 +31,6 @@ welcome()
 
 def SimulatedPause():
     global ClickCount, SleepWeight
-
-
     if (rnd.random() > 0.8889):
         sleep(.1, 1)
         if (rnd.random() > 0.68):
@@ -53,7 +56,7 @@ class AutoClickerGUI:
     # ... existing methods ...
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("@5MEkailO's Auto Clicker")
+        self.root.title("@5MEkailO's Snowball Bot")
         self.apply_style()
         self.random_sleep_enabled = False
         self.double_click_enabled = False
@@ -65,7 +68,7 @@ class AutoClickerGUI:
     def create_background_canvas(self):
         self.bg_canvas = tk.Canvas(self.root, highlightthickness=0)
         self.bg_canvas.place(relwidth=1, relheight=1)
-        self.apply_gradient(self.bg_canvas, "#9174BB", "#DCC6E0", self.root.winfo_screenwidth(), self.root.winfo_screenheight())
+        self.apply_gradient(self.bg_canvas, "#A7C7E7", "#0077FF", self.root.winfo_screenwidth(), self.root.winfo_screenheight())
 
     def apply_gradient(self, canvas, color1, color2, width, height):
         for i in range(height):
@@ -82,10 +85,10 @@ class AutoClickerGUI:
 
     def apply_style(self):
         # Enhanced color palette
-        self.bg_color = "#9174BB"  # Dark blue-gray
-        self.button_color = "#2ECC71"  # Emerald green
-        self.text_color = "#ECF0F1"  # Off-white
-        self.hover_color = "#E74C3C"  # Soft red
+        self.bg_color = "#A7C7E7"  # Pastel blue
+        self.button_color = "#C6A9E9"  # Soft green, like muted Christmas tree foliage
+        self.text_color = "#F4F4F4"  # Very light gray, for a soft contrast
+        self.hover_color = "#FF6B6B"  # Pastel red,
         # Stylish font
         self.custom_font = tkFont.Font(family="Helvetica", size=12, weight="bold")
         # Set root window background color
@@ -97,27 +100,27 @@ class AutoClickerGUI:
         top_frame.pack(padx=10, pady=10)
 
         # Date Label
-        self.date_label = tk.Label(top_frame, text="", bg="#FFD30D", fg='#FF780D', font=("Consolas", 13, "bold"), relief=tk.RAISED, borderwidth=2)
+        self.date_label = tk.Label(top_frame, text="", bg="#FFDA35", fg='#97E469', font=("Consolas", 13, "bold"), relief=tk.RAISED, borderwidth=2)
         self.date_label.pack(side="left", padx=(80, 2))  # Small separation between date and time
 
         # Time Label
-        self.time_label = tk.Label(top_frame, text="", bg="#FFD30D", fg='#FF780D', font=("Consolas", 13, "bold"), relief=tk.RAISED, borderwidth=2)
+        self.time_label = tk.Label(top_frame, text="", bg="#FFDA35", fg='#97E469', font=("Consolas", 13, "bold"), relief=tk.RAISED, borderwidth=2)
         self.time_label.pack(side="left", padx=2)
 
         # Label style with border
-        label_style = {"bg": "#FFD30D", "fg": "#FF780D", "font": self.custom_font, "relief": tk.FLAT, "borderwidth": 3}
+        label_style = {"bg": "#FFDA35", "fg": "#97E469", "font": self.custom_font, "relief": tk.FLAT, "borderwidth": 3}
 
         # Click Every (Ct) Label and Entry
         tk.Label(top_frame, text="Click Every (Ct): ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.ct_entry = tk.Entry(top_frame, width=5, font=self.custom_font)
         self.ct_entry.pack(side=tk.LEFT, padx=(3, 10))
-        self.ct_entry.insert(0, "1")  # Default value
+        self.ct_entry.insert(0, "25")  # Default value
 
         # Random Multiplier (Xt) Label and Entry
         tk.Label(top_frame, text="(+/-) (CXt): ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.xt_entry = tk.Entry(top_frame, width=5, font=self.custom_font)
         self.xt_entry.pack(side=tk.LEFT, padx=(3, 10))
-        self.xt_entry.insert(0, "0.1")  # Default value
+        self.xt_entry.insert(0, "330")  # Default value
 
         # Max Clicks Label and Entry
         tk.Label(top_frame, text="Max Clicks: ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
@@ -126,11 +129,11 @@ class AutoClickerGUI:
         self.max_clicks_entry.insert(0, "420")  # Default value
 
         # Kill Button
-        self.kill_button = tk.Button(top_frame, text="KILL", command=self.kill_bot, bg='#FF6B6B', fg='#ECF0F1', font=self.custom_font, activebackground=self.hover_color, relief=tk.RAISED, borderwidth=3)
+        self.kill_button = tk.Button(top_frame, text="KILL", command=self.kill_bot, bg='#FF6B6B', fg='#97E469', font=self.custom_font, activebackground=self.hover_color, relief=tk.RAISED, borderwidth=3)
         self.kill_button.pack(side=tk.RIGHT, padx=5)
 
         # Start / Stop Button
-        self.start_button = tk.Button(top_frame, text="  Start / Stop  ", command=self.toggle_bot, bg=self.button_color, fg='#FF780D', font=self.custom_font, activebackground='#28B065', relief=tk.RAISED, borderwidth=3)
+        self.start_button = tk.Button(top_frame, text="  Start / Stop  ", command=self.toggle_bot, bg=self.button_color, fg='#97E469', font=self.custom_font, activebackground='#C8F6AD', relief=tk.RAISED, borderwidth=3)
         self.start_button.pack(side=tk.RIGHT, padx=5)
 
         # Frame for toggle switches
@@ -138,11 +141,11 @@ class AutoClickerGUI:
         toggle_frame.pack(padx=10, pady=(0, 10))
 
         # Random Breaks Toggle Switch
-        self.toggle_button = tk.Button(toggle_frame, text="Random Breaks: OFF", command=self.toggle_sleeps, bg="#FF6B6B", fg='#ECF0F1', font=self.custom_font)
+        self.toggle_button = tk.Button(toggle_frame, text="Random Breaks: OFF", command=self.toggle_sleeps, bg="#FF6B6B", fg='#97E469', font=self.custom_font)
         self.toggle_button.pack(side=tk.LEFT)
 
         # Double-Click Toggle Switch
-        self.double_click_toggle_button = tk.Button(toggle_frame, text="Double Click: OFF", command=self.toggle_double_click, bg="#FF6B6B", fg='#ECF0F1', font=self.custom_font)
+        self.double_click_toggle_button = tk.Button(toggle_frame, text="Double Click: OFF", command=self.toggle_double_click, bg="#FF6B6B", fg='#97E469', font=self.custom_font)
         self.double_click_toggle_button.pack(side=tk.LEFT, padx=(10, 2))
 
         # Double-Click Wait Entry (placed right next to the double-click toggle button)
@@ -173,8 +176,8 @@ class AutoClickerGUI:
     def update_time(self):
         # Get current date and time with milliseconds
         now = datetime.now()
-        date_str = now.strftime("%B %d, %Y")
-        time_str = now.strftime("%H:%M:%S") + ".{:03d}".format(now.microsecond // 1000)
+        date_str = now.strftime(" %B %d, %Y ")
+        time_str = now.strftime(" %H:%M:%S") + ".{:03d} ".format(now.microsecond // 1000)
 
         self.date_label.config(text=date_str)
         self.time_label.config(text=time_str)
@@ -200,13 +203,13 @@ class AutoClickerGUI:
                 sleep(1, 0, 0)
                 print("Turning running to", not running)
                 running = True
-                self.start_button.config(text="       STOP       ", bg="#FF6B6B", fg='#ECF0F1')  # Red background, white font
+                self.start_button.config(text="       STOP       ", bg="#FF6B6B", fg='#97E469')  # Red background, white font
                 if bot_thread is None or not bot_thread.is_alive():
                     bot_thread = threading.Thread(target=lambda: walker(self))
                     bot_thread.start()
             else:
                 running = False
-                self.start_button.config(text="     START     ", bg="#2ECC71", fg='#ECF0F1')  # Green background, white font
+                self.start_button.config(text="     START     ", bg="#2ECC71", fg='#97E469')  # Green background, white font
                 self.append_message("Bot Paused")
 
     def run(self):
@@ -236,7 +239,55 @@ def walker(gui):
                print ("Let's Click; ", maxClicks, "times.")
 
             #THE HEART OF THE PROGRAM :)
-            sleep(Ct, Xt/2, Xt/2)
+            sleep(Ct, Xt/2, Xt/2) #Sleeps for up to 1 min 30 seconds naturally
+            if (rnd.random() > 0.61789):
+                sleep(10, 50, 10) #sleeps up to 1 minute totaling 2.5 minutes
+                if (rnd.random() > 0.51789):
+                    sleep(10, 50, 10) #sleeps up to 1 minute totaling 3.5 minutes
+
+            if (rnd.random() > 0.31789):
+                sleep(5, 60, 20) #sleeps up to 1 minute totaling 4.5 minutes
+            if (rnd.random() > 0.61789):
+                sleep(5, 60, 20) #sleeps up to 1 minute totaling 5.5 minutes
+            if (rnd.random() > 0.81789):
+                sleep(5, 60, 20) #sleeps up to 1 minute totaling 6.5 minutes
+            if (rnd.random() > 0.91789):
+                sleep(5, 60, 20) #sleeps up to 1 minute totaling 7.5 minutes
+            if (rnd.random() > 0.91789):
+                sleep(30, 60, 20) #sleeps up to 1 minute totaling 8.5 minutes
+                if (rnd.random() > 0.91789):
+                    sleep(60, 60, 20) #sleeps up to 2 minutes totaling 11.5 minutes
+
+            if (rnd.random() > 0.8789):
+                click()
+                if rnd.random() > 0.6:
+                    click()
+                    print ("double click")
+            else:  
+                quick_click()
+                if rnd.random() > 0.621:
+                    click()
+                    print ("double click")
+
+            if (rnd.random() > 0.9789):
+                sleep(.1, 4, 1)
+                click()
+                sleep(.21, 4, 1)
+                click()
+                print ("Oops, a double click!!")
+
+            if (rnd.random() > 0.98173):
+                time.sleep(rnd.random() * 0.1 + 0.01)
+                click()
+                time.sleep(rnd.random() * 0.01 + 0.01)
+                click()
+                print ("Oops, a triple click!!!")
+            time.sleep(rnd.random() * 3/27 + 0.43)
+            if (rnd.random() > 0.9789):
+                sleep(6, 1, 1)
+                click()
+                print ("Oops, a double click!!")
+
             if not running:
                 break
             gui.append_message(f"Click #{ClickCount} at {datetime.now().strftime('%H:%M:%S')}")

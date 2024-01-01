@@ -3,7 +3,7 @@ import sys
 import os
 import threading
 import random as rnd
-from pynput.keyboard import Listener, KeyCode, Key
+from pynput.keyboard import Listener, KeyCode
 # Get the directory of the current script
 from Utilities.MainFunctions import *
 from Utilities.Movement import *
@@ -19,23 +19,10 @@ running_lock = threading.Lock()
 bot_thread = None
 ClickCount, maxClicks, Ct, Xt, shift_pressed = 1, 420, 1, 0.1, False
 
-ONOFF = Key.alt_l  # Left Alt key for toggling on/off
-KEY = Key.alt_r  # Right Alt key to exit the program
+ONOFF = KeyCode(char="1")
+KEY = KeyCode(char='2')
 
 welcome()
-
-def SimulatedPause():
-    global ClickCount, SleepWeight
-
-
-    if (rnd.random() > 0.8889):
-        sleep(.1, 1)
-        if (rnd.random() > 0.68):
-            sleep(.1, 1)
-
-    if ((rnd.random() > 0.9889) and (ClickCount > rnd.randint(100, 2000))):
-        sleep(1, rnd.randint(5, 10))
-        print ("Time for a sleep!")
 
 def create_gradient(canvas, color1, color2, width, height):
     for i in range(height):
@@ -49,15 +36,14 @@ def create_gradient(canvas, color1, color2, width, height):
 #=======================================================================================================================
 
 # GUI Class
-class AutoClickerGUI:
+        
+class OswsGUI:
     # ... existing methods ...
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("@5MEkailO's Auto Clicker")
+        self.root.title("@5MEkailO's Non-robotic bot")
         self.apply_style()
         self.random_sleep_enabled = False
-        self.double_click_enabled = False
-        self.double_click_wait = tk.DoubleVar(value=0.5)
         self.create_background_canvas()
         self.create_top_frame()
         self.create_text_box()
@@ -81,12 +67,11 @@ class AutoClickerGUI:
         startConfetti(self.bg_canvas)
 
     def apply_style(self):
-        # Enhanced color palette
+        # Color palette
         self.bg_color = "#9174BB"  # Dark blue-gray
         self.button_color = "#2ECC71"  # Emerald green
         self.text_color = "#ECF0F1"  # Off-white
         self.hover_color = "#E74C3C"  # Soft red
-        # Stylish font
         self.custom_font = tkFont.Font(family="Helvetica", size=12, weight="bold")
         # Set root window background color
         self.root.configure(bg=self.bg_color)
@@ -113,12 +98,6 @@ class AutoClickerGUI:
         self.ct_entry.pack(side=tk.LEFT, padx=(3, 10))
         self.ct_entry.insert(0, "1")  # Default value
 
-        # Random Multiplier (Xt) Label and Entry
-        tk.Label(top_frame, text="(+/-) (CXt): ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
-        self.xt_entry = tk.Entry(top_frame, width=5, font=self.custom_font)
-        self.xt_entry.pack(side=tk.LEFT, padx=(3, 10))
-        self.xt_entry.insert(0, "0.1")  # Default value
-
         # Max Clicks Label and Entry
         tk.Label(top_frame, text="Max Clicks: ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.max_clicks_entry = tk.Entry(top_frame, width=7, font=self.custom_font)
@@ -138,7 +117,7 @@ class AutoClickerGUI:
         toggle_frame.pack(padx=10, pady=(0, 10))
 
         # Random Breaks Toggle Switch
-        self.toggle_button = tk.Button(toggle_frame, text="Random Breaks: OFF", command=self.toggle_sleeps, bg="#FF6B6B", fg='#ECF0F1', font=self.custom_font)
+        self.toggle_button = tk.Button(toggle_frame, text="Random Breaks: OFF", command=self.toggle_breaks, bg="#FF6B6B", fg='#ECF0F1', font=self.custom_font)
         self.toggle_button.pack(side=tk.LEFT)
 
         # Double-Click Toggle Switch
@@ -151,7 +130,10 @@ class AutoClickerGUI:
 
         self.update_time()
 
-    def toggle_sleeps(self):
+#----------------------------------------------------------------------------------------------------------
+#---------------------------------END OF GUI CLASS---------------------------------------------------------
+        
+    def toggle_breaks(self):
         self.random_sleep_enabled = not self.random_sleep_enabled
         if self.random_sleep_enabled:
             self.toggle_button.config(text="Random Breaks: ON", bg="#2ECC71")
@@ -161,9 +143,9 @@ class AutoClickerGUI:
     def toggle_double_click(self):
         self.double_click_enabled = not self.double_click_enabled
         if self.double_click_enabled:
-            self.double_click_toggle_button.config(text="Double Click: ON", bg="#2ECC71")
+            self.double_click_toggle_button.config(text="Button: ON", bg="#2ECC71")
         else:
-            self.double_click_toggle_button.config(text="Double Click: OFF", bg="#FF6B6B")
+            self.double_click_toggle_button.config(text="Button: OFF", bg="#FF6B6B")
 
 
     def create_text_box(self):
@@ -181,7 +163,7 @@ class AutoClickerGUI:
         self.root.after(50, self.update_time)  # Update the time more frequently
 
     def kill_bot(self):
-        kAltright()
+        k2()
 
     def append_message(self, message):
         self.text_box.insert(tk.END, message + '\n')
@@ -216,30 +198,27 @@ class AutoClickerGUI:
 def walker(gui):
     while True:
         if running:
-            global ClickCount, maxClicks, Ct, Xt
 
+            global ClickCount, maxClicks, Ct, Xt, shift_pressed
+            #Insert Program Here
+
+
+
+            ''' 
             # Retrieve values from entry widgets
             try:
                 maxClicks = int(gui.max_clicks_entry.get())
-                Ct = (float(gui.ct_entry.get() ) - 0.28)
-                if Ct < 0:
-                    Ct = 0.01 #Expect a minimum delay of .23 ~, as thats how long it takes to click minimum average
-                Xt = float(gui.xt_entry.get())
+                Ct = (float(gui.ct_entry.get() ))
             except ValueError:
-                print("Invalid Ct or Xt value")
+                print("Invalid Ct value")
                 break
 
             if not running:
                 break
-
-            if ClickCount == 1:
-               print ("Let's Click; ", maxClicks, "times.")
 
             #THE HEART OF THE PROGRAM :)
-            sleep(Ct, Xt/2, Xt/2)
-            if not running:
-                break
-            gui.append_message(f"Click #{ClickCount} at {datetime.now().strftime('%H:%M:%S')}")
+            sleep(Ct, Ct / 10, Ct / 10)
+            gui.append_message(f"Message emmited at {datetime.now().strftime('%H:%M:%S')}")
             click()
             ClickCount += 1
             #gui.append_message describing the position of the click
@@ -268,7 +247,7 @@ def walker(gui):
                 gui.append_message(f"You have reached the goal of {ClickCount} clicks!")
                 print ("Time to end script!")
                 stop_bot()
-                
+ '''             
 
 def stop_bot():
     global running
@@ -300,7 +279,7 @@ def togglebot(key, gui):
 
 # Start the GUI and bot
 if __name__ == "__main__":
-    gui = AutoClickerGUI()
+    gui = OswsGUI()
     listener_thread = threading.Thread(target=lambda: Listener(on_press=lambda key: togglebot(key, gui)).start())
     listener_thread.start()
     gui.run()
