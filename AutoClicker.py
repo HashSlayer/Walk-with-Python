@@ -23,14 +23,16 @@ welcome()
 
 def SimulatedPause():
     global click_count
-    if (rnd.random() > 0.8889):
-        sleep(.1, 1)
+    if (rnd.random() > 0.0089):
+        sleep(.01, 3)
+        gui.append_message("You have encountered Random sleep #1!")
         if (rnd.random() > 0.68):
-            sleep(.1, 1)
+            sleep(.1, 5)
+            gui.append_message("You have encountered Random sleep #2!")
             if (rnd.random() > 0.95):
-                    sleep(.01, 5)
-                    gui.append_message("You have encountered a random sleep!")
-    if ((rnd.random() > 0.9889) and (click_count > rnd.randint(500, 2000))):
+                    sleep(.01, 10)
+                    gui.append_message("You have encountered Random sleep #3!")
+    if ((rnd.random() > 0.9889) and (click_count > rnd.randint(1000, 2000))):
         sleep(1, rnd.randint(5, 60))
         print ("Time for a longer sleep!")
 
@@ -102,7 +104,7 @@ class AutoClickerGUI:
         tk.Label(top_frame, text="Click Interval: ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.click_interval = tk.Entry(top_frame, width=5, font=self.custom_font)
         self.click_interval.pack(side=tk.LEFT, padx=(3, 10))
-        self.click_interval.insert(0, "0.8")  # Default value
+        self.click_interval.insert(0, "0.7")  # Default value
 
         # Random Multiplier (Xt) Label and Entry
         tk.Label(top_frame, text="(+/-): ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
@@ -257,12 +259,15 @@ def walker(gui):
             click_count += 1
             #gui.append_message describing the position of the click
 
+            if rnd.random() > 0.98:
+                k4()
+
             if ((click_count - 1) % 10) == 0:
                 gui.append_message(f"❤️============================================❤️")
                 gui.start_confetti_animation()
 
             if gui.random_sleep_enabled:
-                if rnd.random() > 0.98: #2% chance of random sleep after each click
+                if rnd.random() > 0.97: #3% chance of random sleep after each click
                     SimulatedPause()
                     gui.append_message("Random Sleep Activated")
 
