@@ -270,9 +270,9 @@ def walker(gui):
                 doubleClickWait = float(gui.double_click_wait.get())
                 if click_count % 2 == 0:
                     sleep(doubleClickWait, doubleClickWait / 10, doubleClickWait / 13)
+                    gui.append_message(f"Click #{click_count}/{max_clicks} At: {datetime.now().strftime('%H:%M:%S.%f')[:-3]}")
                     click()
                     click_count += 1
-                    gui.append_message(f"Click #{click_count}/{max_clicks} At: {datetime.now().strftime('%H:%M:%S.%f')[:-3]}")
 
 
             if gui.spam_clicks_enabled:
