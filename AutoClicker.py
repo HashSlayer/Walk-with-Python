@@ -44,6 +44,7 @@ class AutoClickerGUI:
     def __init__(self):
         self.root = tk.Tk()
         self.root.title("@5MEkailO's Auto Clicker")
+        self.root.protocol("WM_DELETE_WINDOW", self.on_close)
         self.apply_style()
         self.random_sleep_enabled = False
         self.double_click_enabled = False
@@ -221,6 +222,8 @@ class AutoClickerGUI:
         running = False  # Stop the bot if it's running
         if bot_thread and bot_thread.is_alive():
             bot_thread.join()  # Wait for the bot thread to finish
+        if listener_thread and listener_thread.is_alive():
+            listener_thread.join()
         self.root.destroy()  # Destroy the root window
 
     def run(self):
@@ -326,11 +329,13 @@ def togglebot(key, gui):
         running = False  # Stop the bot's operation
         sys.exit()  # Exit the application
 
+bot_thread.daemon = True
 
 # Start the GUI and bot
 if __name__ == "__main__":
     gui = AutoClickerGUI()
     listener_thread = threading.Thread(target=lambda: Listener(on_press=lambda key: togglebot(key, gui)).start())
+    listener_thread.daemon = True
     listener_thread.start()
     gui.run()
     listener_thread.join()

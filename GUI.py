@@ -40,6 +40,7 @@ class GGui:
     def __init__(self):
         self.root = tk.Tk()  # Initialize the main window
         self.root.title("5MEkailO's Beautiful Bot")  # Set window title
+        self.root.protocol("WM_DELETE_WINDOW", self.on_close)
         # GUI setup and styling
         self.setup_gui()  # Setup GUI components like background colors
         self.apply_style()  # Apply styles to GUI elements
@@ -213,6 +214,8 @@ class GGui:
         running = False  # Stop the bot if it's running
         if bot_thread and bot_thread.is_alive():
             bot_thread.join()  # Wait for the bot thread to finish
+        if self.click_tracker_thread and self.click_tracker_thread.is_alive():
+            self.click_tracker_thread.join()
         self.save_text()
         self.root.destroy()  # Destroy the root window
                 
@@ -340,12 +343,13 @@ def toggle_walker_key(key, gui):
         running = False  # Stop the bot's operation
         sys.exit()  # Exit the application
 
-
+bot_thread.daemon = True
 
 if __name__ == "__main__":
     gui = GGui()
     listener_thread = threading.Thread(target=lambda: Listener(on_press=lambda key: toggle_walker_key(key, gui)).start())
     listener_thread.start()
+    listener_thread.daemon = True
     gui.run()
     listener_thread.join()
 
