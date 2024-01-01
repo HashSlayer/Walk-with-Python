@@ -102,7 +102,7 @@ class AutoClickerGUI:
         tk.Label(top_frame, text="Click Interval: ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.click_interval = tk.Entry(top_frame, width=5, font=self.custom_font)
         self.click_interval.pack(side=tk.LEFT, padx=(3, 10))
-        self.click_interval.insert(0, "1.2")  # Default value
+        self.click_interval.insert(0, "0.8")  # Default value
 
         # Random Multiplier (Xt) Label and Entry
         tk.Label(top_frame, text="(+/-): ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
@@ -271,6 +271,9 @@ def walker(gui):
                 if click_count % 2 == 0:
                     sleep(doubleClickWait, doubleClickWait / 10, doubleClickWait / 13)
                     click()
+                    click_count += 1
+                    gui.append_message(f"Click #{click_count}/{max_clicks} At: {datetime.now().strftime('%H:%M:%S.%f')[:-3]}")
+
 
             if gui.spam_clicks_enabled:
                 if rnd.random() > 0.97: 
