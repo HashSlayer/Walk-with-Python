@@ -23,15 +23,21 @@ welcome()
 
 def SimulatedPause():
     global click_count
-    if (rnd.random() > 0.0089):
-        sleep(.01, 3)
-        gui.append_message("You have encountered Random sleep #1!")
-        if (rnd.random() > 0.68):
-            sleep(.1, 5)
-            gui.append_message("You have encountered Random sleep #2!")
-            if (rnd.random() > 0.95):
-                    sleep(.01, 10)
-                    gui.append_message("You have encountered Random sleep #3!")
+    sleep(0,0.9)
+    if (rnd.random() > 0.05):
+        sleep(.05, 2)
+    gui.append_message("You have encountered Random sleep #1!")
+    if (rnd.random() > 0.50):
+        sleep(.1, 5)
+    if (rnd.random() > 0.85):
+        sleep(.2, 5)
+    gui.append_message("You have encountered Random sleep #2!")
+    if (rnd.random() > 0.93):
+            sleep(.5, 9)
+    gui.append_message("You have encountered Random sleep #3!")
+    if (rnd.random() > 0.97):
+        sleep(3, 80)
+        gui.append_message("You have encountered Random sleep #4!")
     if ((rnd.random() > 0.9889) and (click_count > rnd.randint(1000, 2000))):
         sleep(1, rnd.randint(5, 60))
         print ("Time for a longer sleep!")
@@ -46,9 +52,9 @@ class AutoClickerGUI:
         self.root.title("@5MEkailO's Auto Clicker")
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
         self.apply_style()
-        self.random_sleep_enabled = False
+        self.random_sleep_enabled = True
         self.double_click_enabled = False
-        self.double_click_wait = tk.DoubleVar(value=0.5)
+        self.double_click_wait = tk.DoubleVar(value=0.9)
         self.spam_clicks_enabled = False
         self.alchemy_interval_cycles = False
         self.create_background_canvas()
@@ -106,19 +112,19 @@ class AutoClickerGUI:
         tk.Label(top_frame, text="Click Interval: ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.click_interval = tk.Entry(top_frame, width=5, font=self.custom_font)
         self.click_interval.pack(side=tk.LEFT, padx=(3, 10))
-        self.click_interval.insert(0, "0.7")  # Default value
+        self.click_interval.insert(0, "1.3")  # Default value
 
         # Random Multiplier (Xt) Label and Entry
         tk.Label(top_frame, text="(+/-): ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.click_variance = tk.Entry(top_frame, width=5, font=self.custom_font)
         self.click_variance.pack(side=tk.LEFT, padx=(3, 10))
-        self.click_variance.insert(0, "0.3")  # Default value
+        self.click_variance.insert(0, "0.35")  # Default value
 
         # Max Clicks Label and Entry
         tk.Label(top_frame, text="Max Clicks: ", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.max_clicks_entry = tk.Entry(top_frame, width=7, font=self.custom_font)
         self.max_clicks_entry.pack(side=tk.LEFT, padx=(3, 10))
-        self.max_clicks_entry.insert(0, "4200")  # Default value
+        self.max_clicks_entry.insert(0, "2880")  # Default value
 
         # Kill Button
         self.kill_button = tk.Button(top_frame, text="KILL", command=self.kill_bot, bg='#FF6B6B', fg='#ECF0F1', font=self.custom_font, activebackground=self.hover_color, relief=tk.RAISED, borderwidth=3)
@@ -138,7 +144,7 @@ class AutoClickerGUI:
 
         # Random Breaks Toggle Switch
         self.toggle_button = tk.Button(toggle_frame, text="Random Breaks: OFF", command=self.toggle_sleeps, bg="#FF6B6B", fg='#ECF0F1', font=self.custom_font)
-        self.toggle_button.pack(side=tk.LEFT)
+        self.toggle_button.pack(side=tk.LEFT, padx=(10, 2))
 
         # spam_clicks_enabled Toggle Switch
         self.spam_clicks_toggle_button = tk.Button(toggle_frame, text="Spam Clicks: OFF", command=self.toggle_spam_clicks_enabled, bg="#FF6B6B", fg='#ECF0F1', font=self.custom_font)
@@ -177,13 +183,12 @@ class AutoClickerGUI:
             self.spam_clicks_toggle_button.config(text="Spam Clicks: OFF", bg="#FF6B6B")
         
     def alchemy_interval_cycles(self):
-        self.alchemy_interval_cycles = not self.alchemy_interval_cycles
-        if self.alchemy_interval_cycles:
+        alchemy_interval_cycles = not alchemy_interval_cycles
+        if alchemy_interval_cycles:
             self.alchemy_interval_cycles_button.config(text="Alchemy Interval Cycles: ON", bg="#2ECC71")
-            alchemy_interval_cycles = True
         else:
             self.alchemy_interval_cycles_button.config(text="Alchemy Interval Cycles: OFF", bg="#FF6B6B")
-            alchemy_interval_cycles = False
+
 
 
     def create_text_box(self):
@@ -281,14 +286,14 @@ def walker(gui):
                 gui.start_confetti_animation()
 
             if gui.random_sleep_enabled:
-                if rnd.random() > 0.97: #3% chance of random sleep after each click
+                if rnd.random() > 0.95: #3% chance of random sleep after each click
                     SimulatedPause()
                     gui.append_message("Random Sleep Activated")
 
             if gui.double_click_enabled:
                 doubleClickWait = float(gui.double_click_wait.get())
                 if click_count % 2 == 0:
-                    sleep(doubleClickWait, doubleClickWait / 10, doubleClickWait / 13)
+                    sleep(interval_variance, doubleClickWait / 10, doubleClickWait / 100)
                     gui.append_message(f"Click #{click_count}/{max_clicks} At: {datetime.now().strftime('%H:%M:%S.%f')[:-3]}")
                     click()
                     click_count += 1
@@ -297,7 +302,8 @@ def walker(gui):
                 initial_click_interval = click_interval
                 initial_interval_variance = interval_variance
                 initial_doubleClickWait = doubleClickWait
-                if rnd.random() > 0.93:
+                gui.append_message("Alchemy Interval Cycles Activated")
+                if rnd.random() > 0.95:
                     if rnd.random() > 0.70:
                         click_interval = 1 + rnd.random() * 0.8
                         interval_variance = 0.25 + rnd.random() * 0.1
@@ -306,7 +312,7 @@ def walker(gui):
                     elif rnd.random() > 0.70:
                         click_interval = 1.3
                         interval_variance = 0.3
-                        doubleClickWait = 1
+                        doubleClickWait = 0.9
                         gui.append_message("Main Alchemy Interval Cycle Activated")
                     elif rnd.random() > 0.70:
                         click_interval = initial_click_interval * ((rnd.randint(1, 10) *rnd.random()) / 10)

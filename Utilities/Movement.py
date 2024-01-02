@@ -4,21 +4,37 @@ import random as rnd
 import math
 from .MainFunctions import *
 
+def bezier_between(x1, x2, y1, y2, time = 1.1):
+    bezierMoveSmooth(rnd.randint(x1, x2), rnd.randint(y1, y2), (rnd.random() * time/2) + (time - time/9)) # move mouse to banker.
 
-def fluidMove(x, y, t= rnd.random() * 0.1 + 0.18, stepx =80, stepy = 190):
+def bezier_relative(x1, x2, y1, y2, time = 0.3):
+    bezierMoveRelative(rnd.randint(x1, x2), rnd.randint(y1, y2), (rnd.random() * time/2) + (time - time/9)) # move mouse to banker.
+
+
+def bezierMoveRelative(dx, dy, duration=0.23 + rnd.random() * 0.15):
     start_x, start_y = pag.position()
-    steps = int(t * rnd.randint(stepx, stepy))  # Number of steps, defining steps as parameter for use in other functions
+    end_x, end_y = start_x + dx, start_y + dy  # Calculate the absolute end position
+
+    # Choose control points
+    control_x = rnd.choice([start_x, end_x]) + rnd.randint(-100, 100)
+    control_y = rnd.choice([start_y, end_y]) + rnd.randint(-100, 100)
+    p0 = (start_x, start_y)
+    p1 = (control_x, control_y)
+    p2 = (end_x, end_y)
+
+    steps = int(duration * rnd.randint(90, 190))
     for i in range(steps):
-        progress = i / float(steps)
-        target_x = start_x + (x - start_x) * progress
-        target_y = start_y + (y - start_y) * progress
-        # Add a small, random deviation
-        deviation = 3  # Max deviation in pixels
-        target_x += rnd.uniform(-deviation, deviation)
-        target_y += rnd.uniform(-deviation, deviation)
-        pag.moveTo(target_x, target_y, _pause=False, duration= rnd.random() * 0.02 + 0.02)
-        time.sleep(t / steps)
-    pag.moveTo(x, y, _pause=False, duration= rnd.random() * 0.02 + 0.02)
+        t = i / float(steps)
+        target_x, target_y = quadratic_bezier(p0, p1, p2, t)
+        perturbation_x = rnd.randint(-1, 1)
+        perturbation_y = rnd.randint(-1, 1)
+        pag.moveTo(target_x + perturbation_x, target_y + perturbation_y, _pause=False)
+        time.sleep(duration / steps * (0.1 + 0.2 * math.sin(math.pi * t / 2)))
+        if rnd.random() < 0.03:
+            time.sleep(rnd.uniform(0.03, 0.1))
+
+    # Ensure final position is reached accurately
+    pag.moveTo(end_x, end_y, _pause=False, duration=rnd.random() * 0.04 + 0.04)
     
 
 #Moving into bezierMove we aim to use multiple bezier curves to move the mouse in a more human like fashion, with dynamic speed and acceleration.
@@ -28,63 +44,19 @@ def quadratic_bezier(p0, p1, p2, t):
     y = ((1 - t) ** 2) * p0[1] + 2 * (1 - t) * t * p1[1] + (t ** 2) * p2[1]
     return (x, y)
 
-def bezierMove(x, y, duration= 0.23 + rnd.random() * 0.15):
-    start_x, start_y = pag.position()
-    # More sophisticated control point randomization
-    control_x = rnd.choice([start_x, x]) + rnd.randint(-100, 100)
-    control_y = rnd.choice([start_y, y]) + rnd.randint(-100, 100)
-    p0 = (start_x, start_y)
-    p1 = (control_x, control_y)
-    p2 = (x, y)
 
-    steps = int(duration * rnd.randint(90, 190))
-    for i in range(steps):
-        t = i / float(steps)
-        target_x, target_y = quadratic_bezier(p0, p1, p2, t)
-        # Subtle perturbations
-        perturbation_x = rnd.randint(-1, 1)
-        perturbation_y = rnd.randint(-1, 1)
-        pag.moveTo(target_x + perturbation_x, target_y + perturbation_y, _pause=False)
-        # Non-linear speed variation
-        time.sleep(duration / steps * (0.1 + 0.2 * math.sin(math.pi * t / 2)))
-        # Irregular pauses
-        if rnd.random() < 0.03:
-            time.sleep(rnd.uniform(0.03, 0.1))
-
-    # Ensure final position is reached
-    pag.moveTo(x, y, _pause=False, duration=rnd.random() * 0.04 + 0.04)
-
-def bezierMoveWild(x, y, duration= 0.1 + rnd.random() * 0.15):
-    start_x, start_y = pag.position()
-    # Randomize the control point
-    control_x = (start_x + x) // 2 + rnd.randint(-50, 50)
-    control_y = (start_y + y) // 2 + rnd.randint(-50, 50)
-    p0 = (start_x, start_y)
-    p1 = (control_x, control_y)
-    p2 = (x, y)
-
-    steps = int(duration * rnd.randint(80, 190))  # Number of steps 
-    for i in range(steps):
-        t = i / float(steps)
-        target_x, target_y = quadratic_bezier(p0, p1, p2, t)
-        # Add perturbation
-        perturbation_x = rnd.randint(-1, 1)
-        perturbation_y = rnd.randint(-1, 1)
-        # N O T E : BELOW IS pag.moveTo CHANGED TO BEZIERMOVE FOR IMBEDDED FUN
-        bezierMove(target_x + perturbation_x, target_y + perturbation_y)
-        # Dynamic speed variation and random pauses
-        if rnd.random() < 0.06:  # 6% chance of a brief pause
-            time.sleep(rnd.uniform(0.01, 0.05))
-        time.sleep(duration / steps * (.1 + 0.4 * math.sin(math.pi * t)))
-    pag.moveTo(x, y, _pause=False, duration= rnd.random() * 0.03 + 0.04)
-
-def bezierMoveSmooth(x, y, duration= 0.2 + rnd.random() * 0.15):
+def bezierMove(x, y, speed_multiplier= 1 + rnd.random() * 0.01):
     start_x, start_y = pag.position()
     distance = math.hypot(x - start_x, y - start_y)
-    control_variation = min(150, max(50, int(distance / 4)))  # Control point variation based on distance
+
+    # Dynamic duration based on distance and speed_multiplier
+    duration = (max(0.1, 0.15 + rnd.random() * 0.1 * (distance / 130))) * speed_multiplier
+
+    # Dynamically adjust control point variation based on distance
+    control_variation = min(100, max(30, int(distance / 6)))
 
     # Initial delay
-    time.sleep(rnd.uniform(0.05, 0.2))
+    time.sleep(rnd.uniform(0.05, 0.1))
 
     control_x = rnd.choice([start_x, x]) + rnd.randint(-control_variation, control_variation)
     control_y = rnd.choice([start_y, y]) + rnd.randint(-control_variation, control_variation)
@@ -92,20 +64,21 @@ def bezierMoveSmooth(x, y, duration= 0.2 + rnd.random() * 0.15):
     p1 = (control_x, control_y)
     p2 = (x, y)
 
-    steps = int(duration * rnd.randint(90, 190))
+    steps = int(duration * 100)  # More steps for smoother movement
     for i in range(steps):
         t = i / float(steps)
+        # Adaptive speed: start slow, speed up, then slow down
+        adaptive_speed = duration / steps * (0.1 + 0.5 * math.sin(math.pi * t))
         target_x, target_y = quadratic_bezier(p0, p1, p2, t)
         perturbation_x = rnd.randint(-1, 1)
         perturbation_y = rnd.randint(-1, 1)
         pag.moveTo(target_x + perturbation_x, target_y + perturbation_y, _pause=False)
-        time.sleep(duration / steps * (0.1 + 0.5 * math.sin(math.pi * t / 2)))
+        time.sleep(adaptive_speed)
         if rnd.random() < 0.03:
             time.sleep(rnd.uniform(0.03, 0.1))
 
-    # Slight inaccuracy at the end
+    # Slight inaccuracy at the end for realism
     pag.moveTo(x, y, _pause=False, duration=rnd.random() * 0.02 + 0.03)
-    pag.moveTo(x, y, _pause=False, duration= rnd.random() * 0.02 + 0.03)
         
 
 def randomMove(duration=0.5):
