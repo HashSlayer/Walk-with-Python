@@ -1,5 +1,5 @@
 import time
-import pyautogui
+import pyautogui as pag
 import random as rnd
 from .Movement import *
 
