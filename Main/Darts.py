@@ -34,15 +34,15 @@ def winemaker():
             
             if rnd.random() > 0.389:
                 #favorable coordinates
-                pyautogui.moveTo(rnd.randint(1180,1185), rnd.randint(483, 488), rnd.random() * 0.0281 + 0.021) #move to feather
+                pag.moveTo(rnd.randint(1180,1185), rnd.randint(483, 488), rnd.random() * 0.0281 + 0.021) #move to feather
                 if rnd.random() > 0.989:
                     #move relative by 3 pixels
-                    pyautogui.moveRel(rnd.randint(-3,3), rnd.randint(-3,3), rnd.random() * 0.01 + 0.001)
+                    pag.moveRel(rnd.randint(-3,3), rnd.randint(-3,3), rnd.random() * 0.01 + 0.001)
             else:
-                pyautogui.moveTo(rnd.randint(1175,1185), rnd.randint(480, 490), rnd.random() * 0.0281 + 0.021) #move to feather
+                pag.moveTo(rnd.randint(1175,1185), rnd.randint(480, 490), rnd.random() * 0.0281 + 0.021) #move to feather
                 if rnd.random() > 0.989:
                     #move relative by 3 pixels
-                    pyautogui.moveRel(rnd.randint(-3,3), rnd.randint(-3,3), rnd.random() * 0.01 + 0.001)
+                    pag.moveRel(rnd.randint(-3,3), rnd.randint(-3,3), rnd.random() * 0.01 + 0.001)
             
             sleep(0.0001, 0.0001, 0.0002)
             click() #click feather
@@ -57,15 +57,15 @@ def winemaker():
    
             if rnd.random() > 0.239:
                 #favorable coordinates for right item (darts)
-                pyautogui.moveTo(rnd.randint(1220, 1233), rnd.randint(483, 488), rnd.random() * 0.028 + 0.02)
+                pag.moveTo(rnd.randint(1220, 1233), rnd.randint(483, 488), rnd.random() * 0.028 + 0.02)
                 if rnd.random() > 0.989:
                     #move relative by 3 pixels
-                    pyautogui.moveRel(rnd.randint(-3,3), rnd.randint(-3,3), rnd.random() * 0.01 + 0.001)
+                    pag.moveRel(rnd.randint(-3,3), rnd.randint(-3,3), rnd.random() * 0.01 + 0.001)
             else:
-                pyautogui.moveTo(rnd.randint(1228, 1233), rnd.randint(480, 489), rnd.random() * 0.028 + 0.02) #move to dart tip
+                pag.moveTo(rnd.randint(1228, 1233), rnd.randint(480, 489), rnd.random() * 0.028 + 0.02) #move to dart tip
                 if rnd.random() > 0.989:
                     #move relative by 3 pixels
-                    pyautogui.moveRel(rnd.randint(-3,3), rnd.randint(-3,3), rnd.random() * 0.01 + 0.001)
+                    pag.moveRel(rnd.randint(-3,3), rnd.randint(-3,3), rnd.random() * 0.01 + 0.001)
             sleep(0.0001, 0.0001, 0.0002)
             click() #click dart tip
 

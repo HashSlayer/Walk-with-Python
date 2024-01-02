@@ -4,10 +4,28 @@ import random as rnd
 from .Movement import bezierMove
 from .MainFunctions import click, sleep
 
+def bezier_between(x1, x2, y1, y2, time = 1.1):
+    bezierMove(rnd.randint(x1, x2), rnd.randint(y1, y2), (rnd.random() * time/2) + time) # move mouse to banker.
 
-def Deposit():
-    sleep(.1, 1)
-    bezierMove(rnd.randint(990, 1008), rnd.randint(817, 830), 0.3 + 0.1 * rnd.random() + 3/27 * rnd.random())
+def bank_near_inv(x =1510, y = 695, time = 0.5, pause_upto = 2):
+    bezier_between(x-50, x+50, y-75, y+75, time) 
+    sleep()
+    if (rnd.random() > 0.3):
+        sleep(.05,pause_upto)
+    click() #open up the bank.
+    sleep()
+
+def exit_bank(x = 1075, y = 92, time = 1, pause_upto = .5):
+    bezierMove(rnd.randint(x-9, x+9), rnd.randint(y-9, y+9), (rnd.random() * (time * .6)) + time) # X of the bank
+    if rnd.random() > 0.33:
+        bezierMove(rnd.randint(x-6, x+6), rnd.randint(y-4, y+6), (rnd.random() * .1 + .05)) # Interrupt entirely random variance by centering some clicks
+    if (rnd.random() > 0.3):
+        sleep(.05,pause_upto)
+    click() #exit bank
+    sleep()
+
+def deposit(x=1020, y=770, size=9, time=1, pause_upto=.5):
+    bezierMove(rnd.randint(x-size, x+size), rnd.randint(y-size, y+size), (rnd.random() * (time * .6)) + time)
     #50/50 if statement to move to the same spot with closer X and Y values
     if (rnd.random() > 0.4):
         bezierMove(rnd.randint(994, 1007), rnd.randint(819, 827), 0.08 + 0.01 * rnd.random() + 3/27 * rnd.random())
@@ -17,6 +35,20 @@ def Deposit():
     time.sleep(0.07 + 0.01 * rnd.random()) #sleep
 
 #Define a function that drops down to get X amount of items.
+    
+def withdraw_as_note(x = 695, y = 775, time = 1, pause_upto = .5):
+    if (rnd.random() > 0.8):
+        sleep()
+    bezierMove(rnd.randint(685, 705), rnd.randint(1853, 1858), 0.3 + 0.1 * rnd.random() + 3/27 * rnd.random())
+    #50/50 if statement to mo ve to the same spot with closer X and Y values
+    if (rnd.random() > 0.4):
+        bezierMove(rnd.randint(994, 1007), rnd.randint(819, 827), 0.08 + 0.01 * rnd.random() + 3/27 * rnd.random())
+    time.sleep(0.1 + 0.1 * rnd.random() + 0.1 * rnd.random())
+    click()
+    pag.moveRel(rnd.randint(-4, 3), rnd.randint(-2,2), 0.01 + 0.01 * rnd.random() + 3/27 * rnd.random())
+    time.sleep(0.07 + 0.01 * rnd.random()) #sleep
+
+
 
 def Getitems():
     time.sleep((rnd.random() * 0.01 + 0.05)) # Sleep

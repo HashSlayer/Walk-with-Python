@@ -11,7 +11,7 @@ def fluidMove(x, y, t= rnd.random() * 0.1 + 0.18, stepx =80, stepy = 190):
     x, y: The destination coordinates.
     t: Duration of the movement in seconds.
     """
-    start_x, start_y = pyautogui.position()
+    start_x, start_y = pag.position()
     steps = int(t * rnd.randint(stepx, stepy))  # Number of steps, defining steps as parameter for use in other functions
     for i in range(steps):
         progress = i / float(steps)
@@ -23,10 +23,10 @@ def fluidMove(x, y, t= rnd.random() * 0.1 + 0.18, stepx =80, stepy = 190):
         target_x += rnd.uniform(-deviation, deviation)
         target_y += rnd.uniform(-deviation, deviation)
 
-        pyautogui.moveTo(target_x, target_y, _pause=False, duration= rnd.random() * 0.02 + 0.02)
+        pag.moveTo(target_x, target_y, _pause=False, duration= rnd.random() * 0.02 + 0.02)
 
         time.sleep(t / steps)
-    pyautogui.moveTo(x, y, _pause=False, duration= rnd.random() * 0.02 + 0.02)
+    pag.moveTo(x, y, _pause=False, duration= rnd.random() * 0.02 + 0.02)
     
 
 #Moving into bezierMove we aim to use multiple bezier curves to move the mouse in a more human like fashion, with dynamic speed and acceleration.
@@ -40,7 +40,7 @@ def quadratic_bezier(p0, p1, p2, t):
     return (x, y)
 
 def bezierMove(x, y, duration= 0.23 + rnd.random() * 0.15):
-    start_x, start_y = pyautogui.position()
+    start_x, start_y = pag.position()
     # More sophisticated control point randomization
     control_x = rnd.choice([start_x, x]) + rnd.randint(-100, 100)
     control_y = rnd.choice([start_y, y]) + rnd.randint(-100, 100)
@@ -55,7 +55,7 @@ def bezierMove(x, y, duration= 0.23 + rnd.random() * 0.15):
         # Subtle perturbations
         perturbation_x = rnd.randint(-1, 1)
         perturbation_y = rnd.randint(-1, 1)
-        pyautogui.moveTo(target_x + perturbation_x, target_y + perturbation_y, _pause=False)
+        pag.moveTo(target_x + perturbation_x, target_y + perturbation_y, _pause=False)
         # Non-linear speed variation
         time.sleep(duration / steps * (0.1 + 0.2 * math.sin(math.pi * t / 2)))
         # Irregular pauses
@@ -63,10 +63,10 @@ def bezierMove(x, y, duration= 0.23 + rnd.random() * 0.15):
             time.sleep(rnd.uniform(0.03, 0.1))
 
     # Ensure final position is reached
-    pyautogui.moveTo(x, y, _pause=False, duration=rnd.random() * 0.04 + 0.04)
+    pag.moveTo(x, y, _pause=False, duration=rnd.random() * 0.04 + 0.04)
 
 def bezierMoveWild(x, y, duration= 0.1 + rnd.random() * 0.15):
-    start_x, start_y = pyautogui.position()
+    start_x, start_y = pag.position()
     # Randomize the control point
     control_x = (start_x + x) // 2 + rnd.randint(-50, 50)
     control_y = (start_y + y) // 2 + rnd.randint(-50, 50)
@@ -81,16 +81,16 @@ def bezierMoveWild(x, y, duration= 0.1 + rnd.random() * 0.15):
         # Add perturbation
         perturbation_x = rnd.randint(-1, 1)
         perturbation_y = rnd.randint(-1, 1)
-        # N O T E : BELOW IS pyautogui.moveTo CHANGED TO BEZIERMOVE FOR IMBEDDED FUN
+        # N O T E : BELOW IS pag.moveTo CHANGED TO BEZIERMOVE FOR IMBEDDED FUN
         bezierMove(target_x + perturbation_x, target_y + perturbation_y)
         # Dynamic speed variation and random pauses
         if rnd.random() < 0.06:  # 6% chance of a brief pause
             time.sleep(rnd.uniform(0.01, 0.05))
         time.sleep(duration / steps * (.1 + 0.4 * math.sin(math.pi * t)))
-    pyautogui.moveTo(x, y, _pause=False, duration= rnd.random() * 0.03 + 0.04)
+    pag.moveTo(x, y, _pause=False, duration= rnd.random() * 0.03 + 0.04)
 
 def bezierMoveSmooth(x, y, duration= 0.2 + rnd.random() * 0.15):
-    start_x, start_y = pyautogui.position()
+    start_x, start_y = pag.position()
     distance = math.hypot(x - start_x, y - start_y)
     control_variation = min(150, max(50, int(distance / 4)))  # Control point variation based on distance
 
@@ -109,14 +109,14 @@ def bezierMoveSmooth(x, y, duration= 0.2 + rnd.random() * 0.15):
         target_x, target_y = quadratic_bezier(p0, p1, p2, t)
         perturbation_x = rnd.randint(-1, 1)
         perturbation_y = rnd.randint(-1, 1)
-        pyautogui.moveTo(target_x + perturbation_x, target_y + perturbation_y, _pause=False)
+        pag.moveTo(target_x + perturbation_x, target_y + perturbation_y, _pause=False)
         time.sleep(duration / steps * (0.1 + 0.5 * math.sin(math.pi * t / 2)))
         if rnd.random() < 0.03:
             time.sleep(rnd.uniform(0.03, 0.1))
 
     # Slight inaccuracy at the end
-    pyautogui.moveTo(x, y, _pause=False, duration=rnd.random() * 0.02 + 0.03)
-    pyautogui.moveTo(x, y, _pause=False, duration= rnd.random() * 0.02 + 0.03)
+    pag.moveTo(x, y, _pause=False, duration=rnd.random() * 0.02 + 0.03)
+    pag.moveTo(x, y, _pause=False, duration= rnd.random() * 0.02 + 0.03)
         
 
 def randomMove(duration=0.5):
@@ -124,7 +124,7 @@ def randomMove(duration=0.5):
     while time.time() - start_time < duration:
         # Random small movements
         dx, dy = rnd.randint(-1, 1), rnd.randint(-1, 1)
-        pyautogui.moveRel(dx, dy, duration=0.1)
+        pag.moveRel(dx, dy, duration=0.1)
 
         # Random short pauses
         time.sleep(rnd.uniform(0.05, 0.2))
@@ -197,77 +197,77 @@ def sleepif(x=0.01):
 
 #Define a function that presses down the 1 key for a short random amount of time, then releases it.
 def k1(): #Inventory
-    pyautogui.keyDown('1')
+    pag.keyDown('1')
     sleepif(x=0.0102)
-    pyautogui.keyUp('1')
+    pag.keyUp('1')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 #Define functions for the rest of the number keys
 def k2(): #Prayer
-    pyautogui.keyDown('2')
+    pag.keyDown('2')
     sleepif(x=0.0104)
-    pyautogui.keyUp('2')
+    pag.keyUp('2')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def k3(): #Combat Styles
-    pyautogui.keyDown('3')
+    pag.keyDown('3')
     sleepif(x=0.0123)
-    pyautogui.keyUp('3')
+    pag.keyUp('3')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def k4(): #Spellbook
-    pyautogui.keyDown('4')
+    pag.keyDown('4')
     sleepif(x=.0107)
-    pyautogui.keyUp('4')
+    pag.keyUp('4')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def k5(): #Equipment
-    pyautogui.keyDown('5')
+    pag.keyDown('5')
     sleepif(x=.0111)
-    pyautogui.keyUp('5')
+    pag.keyUp('5')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def k6(): #Emotes
-    pyautogui.keyDown('6')
+    pag.keyDown('6')
     sleepif(x=.0112)
-    pyautogui.keyUp('6')
+    pag.keyUp('6')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def k7(): #Clan Chat
-    pyautogui.keyDown('7')
+    pag.keyDown('7')
     sleepif(x=.011)
-    pyautogui.keyUp('7')
+    pag.keyUp('7')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def k8(): #Friends List
-    pyautogui.keyDown('8')
+    pag.keyDown('8')
     sleepif(x=.011)
-    pyautogui.keyUp('8')
+    pag.keyUp('8')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def k9(): #Quests
-    pyautogui.keyDown('9')
+    pag.keyDown('9')
     sleepif(x=.011)
-    pyautogui.keyUp('9')
+    pag.keyUp('9')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def kminus(): #Quick Hop down a world
-    pyautogui.keyDown('-')
+    pag.keyDown('-')
     sleepif()
-    pyautogui.keyUp('-')
+    pag.keyUp('-')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def kplus(): #Quick Hop up a world
-    pyautogui.keyDown('+')
+    pag.keyDown('+')
     sleepif()
-    pyautogui.keyUp('+')
+    pag.keyUp('+')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def kspace(constant=.01, x=.01): #Spacebar
-    pyautogui.keyDown('space')
+    pag.keyDown('space')
     sleep(constant, x, 0.01) #Control the duration of the spacebar press
     sleepif(x=0.0113)
-    pyautogui.keyUp('space')
+    pag.keyUp('space')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def kRandom(LastK = "k1"): #Press a random number key
@@ -278,15 +278,15 @@ def kRandom(LastK = "k1"): #Press a random number key
     return LastK
 
 def kAltleft(): #Press the left alt key
-    pyautogui.keyDown('altleft')
+    pag.keyDown('altleft')
     sleepif()
-    pyautogui.keyUp('altleft')
+    pag.keyUp('altleft')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def kAltright(): #Press the right alt key
-    pyautogui.keyDown('altright')
+    pag.keyDown('altright')
     sleepif()
-    pyautogui.keyUp('altright')
+    pag.keyUp('altright')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 

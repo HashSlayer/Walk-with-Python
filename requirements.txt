@@ -1,4 +1,4 @@
-pyautogui
+pag
 pynput
 tkinter
 pynput

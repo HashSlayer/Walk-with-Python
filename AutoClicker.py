@@ -329,7 +329,7 @@ def walker(gui):
                             sleep(0.001, 0.1)
                             gui.append_message(f"You have encountered a spam click! hit {i} times!")
 
-            if (click_count % max_clicks == 0):
+            if (click_count >= max_clicks):
                 gui.start_confetti_animation()
                 gui.append_message(f"You have reached the goal of {click_count} clicks!")
                 print ("Time to end script!")

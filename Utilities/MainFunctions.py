@@ -69,48 +69,48 @@ def sleepif(x=0.01):
 #Define a more human like click.
 def click(hold = 0):
     sleep(.001)
-    pyautogui.mouseDown(button='left')  # Press the right button down
+    pag.mouseDown(button='left')  # Press the right button down
     sleepif()
     time.sleep(hold)
-    pyautogui.mouseUp(button='left') # Lift right button up (Finish click)
+    pag.mouseUp(button='left') # Lift right button up (Finish click)
     time.sleep(rnd.random() *0.001 + 0.001)
 
 def quick_click(): #Another Left Click variant
     time.sleep(rnd.random() *0.0001 + 0.0003)
-    pyautogui.mouseDown(button='left')  # press the right button down
-    pyautogui.mouseUp(button='left')
+    pag.mouseDown(button='left')  # press the right button down
+    pag.mouseUp(button='left')
     #Hold the mouse down for a period of time rather a simple click
     time.sleep(rnd.random() *0.0001 + 0.00003)
 
 def right_click(hold =0):
     sleep(.001)
-    pyautogui.mouseDown(button='right')  # Press the right button down
+    pag.mouseDown(button='right')  # Press the right button down
     sleepif()
     time.sleep(hold)
-    pyautogui.mouseUp(button='right') # Lift right button up (Finish click)
+    pag.mouseUp(button='right') # Lift right button up (Finish click)
     time.sleep(rnd.random() *0.001 + 0.001)
 
 
 def upkey(hold = 2): #Hold the up key to adjust the camera view
-    pyautogui.keyDown('up')
+    pag.keyDown('up')
     sleep(hold, .01, .001)
-    pyautogui.keyUp('up')
+    pag.keyUp('up')
     sleep()
 
 #Define downkey function
 
 def downkey(hold =2): #Hold the down key to adjust camera view
-    pyautogui.keyDown('down')
+    pag.keyDown('down')
     sleep(hold, .01, .001)
-    pyautogui.keyUp('down')
+    pag.keyUp('down')
     sleep()
 
 #Define a function that will push down the left key for 3 seconds, then release it.
 
 def leftkey(x = 1):
-    pyautogui.keyDown('left')
+    pag.keyDown('left')
     sleep(x, .001, .001)
-    pyautogui.keyUp('left')
+    pag.keyUp('left')
     sleep()
 
 #Define a function that will click on the map
@@ -127,14 +127,14 @@ def Compass():
 
 def Zoomout():
     for i in range (1, 12):
-        pyautogui.scroll(-1)
+        pag.scroll(-1)
         time.sleep(0.13 * rnd.random() + 0.19)
 
 #Define a function that scrolls the mouse wheel up by 20 clicks, spaced out like a human would.
 
 def Zoomin():
     for i in range (1, 12):
-        pyautogui.scroll(1)
+        pag.scroll(1)
         time.sleep(0.13 * rnd.random() + 0.19)
 
 # Get into birds eye view
@@ -212,77 +212,77 @@ def sleepif(x=0.01):
 
 #Define a function that presses down the 1 key for a short random amount of time, then releases it.
 def k1(): #Inventory
-    pyautogui.keyDown('1')
+    pag.keyDown('1')
     sleepif(x=0.0102)
-    pyautogui.keyUp('1')
+    pag.keyUp('1')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 #Define functions for the rest of the number keys
 def k2(): #Prayer
-    pyautogui.keyDown('2')
+    pag.keyDown('2')
     sleepif(x=0.0104)
-    pyautogui.keyUp('2')
+    pag.keyUp('2')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def k3(): #Combat Styles
-    pyautogui.keyDown('3')
+    pag.keyDown('3')
     sleepif(x=0.0123)
-    pyautogui.keyUp('3')
+    pag.keyUp('3')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def k4(): #Spellbook
-    pyautogui.keyDown('4')
+    pag.keyDown('4')
     sleepif(x=.0107)
-    pyautogui.keyUp('4')
+    pag.keyUp('4')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def k5(): #Equipment
-    pyautogui.keyDown('5')
+    pag.keyDown('5')
     sleepif(x=.0111)
-    pyautogui.keyUp('5')
+    pag.keyUp('5')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def k6(): #Emotes
-    pyautogui.keyDown('6')
+    pag.keyDown('6')
     sleepif(x=.0112)
-    pyautogui.keyUp('6')
+    pag.keyUp('6')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def k7(): #Clan Chat
-    pyautogui.keyDown('7')
+    pag.keyDown('7')
     sleepif(x=.011)
-    pyautogui.keyUp('7')
+    pag.keyUp('7')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def k8(): #Friends List
-    pyautogui.keyDown('8')
+    pag.keyDown('8')
     sleepif(x=.011)
-    pyautogui.keyUp('8')
+    pag.keyUp('8')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def k9(): #Quests
-    pyautogui.keyDown('9')
+    pag.keyDown('9')
     sleepif(x=.011)
-    pyautogui.keyUp('9')
+    pag.keyUp('9')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def kminus(): #Quick Hop down a world
-    pyautogui.keyDown('-')
+    pag.keyDown('-')
     sleepif()
-    pyautogui.keyUp('-')
+    pag.keyUp('-')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def kplus(): #Quick Hop up a world
-    pyautogui.keyDown('+')
+    pag.keyDown('+')
     sleepif()
-    pyautogui.keyUp('+')
+    pag.keyUp('+')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def kspace(constant=.01, x=.01): #Spacebar
-    pyautogui.keyDown('space')
+    pag.keyDown('space')
     sleep(constant, x, 0.01) #Control the duration of the spacebar press
     sleepif(x=0.0113)
-    pyautogui.keyUp('space')
+    pag.keyUp('space')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def kRandom(LastK = "k1"): #Press a random number key
@@ -293,13 +293,13 @@ def kRandom(LastK = "k1"): #Press a random number key
     return LastK
 
 def kAltleft(): #Press the left alt key
-    pyautogui.keyDown('altleft')
+    pag.keyDown('altleft')
     sleepif()
-    pyautogui.keyUp('altleft')
+    pag.keyUp('altleft')
     time.sleep(0.1 * rnd.random() + 0.01)
 
 def kAltright(): #Press the right alt key
-    pyautogui.keyDown('altright')
+    pag.keyDown('altright')
     sleepif()
-    pyautogui.keyUp('altright')
+    pag.keyUp('altright')
     time.sleep(0.1 * rnd.random() + 0.01)

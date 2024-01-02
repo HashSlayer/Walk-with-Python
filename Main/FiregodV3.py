@@ -47,11 +47,11 @@ def burner():
             if (cycles % 2 == 0 or cycles == 0):
                 print (" Odd session begin.")
                 time.sleep(rnd.random() * 0.01 + 0.07) # wait before next action
-                pyautogui.moveTo(rnd.randint(1245,1255), rnd.randint(690,730), 0.43 + 0.151 * rnd.random() + 3/27 * rnd.random()) # move mouse to bank, sit at top left of GE.
+                pag.moveTo(rnd.randint(1245,1255), rnd.randint(690,730), 0.43 + 0.151 * rnd.random() + 3/27 * rnd.random()) # move mouse to bank, sit at top left of GE.
                 time.sleep(rnd.random() * 0.31 + 0.07) # wait before next action
                 quick_click()
                 time.sleep(rnd.random() * 0.31 + 0.07) # wait before next action
-                pyautogui.moveRel(rnd.randint(-10,10), rnd.randint(-10,14), rnd.random() * 0.43 + 0.9) #Move around from current spot
+                pag.moveRel(rnd.randint(-10,10), rnd.randint(-10,14), rnd.random() * 0.43 + 0.9) #Move around from current spot
                 Notbotting2()
                 print ("Getting wood.")
                 Slot2()
@@ -63,43 +63,43 @@ def burner():
                     print (" 50% Shot hit, moving mouse to random spot.")
                 time.sleep((rnd.random() * 3) + 0.9) # wait before next action
                 if (rnd.random() > 0.74):
-                    pyautogui.moveRel(rnd.randint(-7,3), rnd.randint(-1,4), rnd.random() * 0.03 + 0.1) #Move around from current spot
+                    pag.moveRel(rnd.randint(-7,3), rnd.randint(-1,4), rnd.random() * 0.03 + 0.1) #Move around from current spot
                     time.sleep(rnd.random() * 4.5 + 1) # wait before next action
                     if (rnd.random() > 0.64):
-                        pyautogui.moveRel(rnd.randint(-17,13), rnd.randint(-10,14), rnd.random() * 0.03 + 0.3) #Move around from current spot
+                        pag.moveRel(rnd.randint(-17,13), rnd.randint(-10,14), rnd.random() * 0.03 + 0.3) #Move around from current spot
                 # Moving to burn spot 1
-                pyautogui.moveTo(rnd.randint(1504, 1522), rnd.randint(727, 733), rnd.random() * 0.233 + 0.66) # move to burn spot 1 !
+                pag.moveTo(rnd.randint(1504, 1522), rnd.randint(727, 733), rnd.random() * 0.233 + 0.66) # move to burn spot 1 !
                 if (rnd.random() > 0.417):
-                    pyautogui.moveTo(rnd.randint(1504, 1516), rnd.randint(731, 733), rnd.random() * 0.133 + 0.36) # move to burn spot 1 !
+                    pag.moveTo(rnd.randint(1504, 1516), rnd.randint(731, 733), rnd.random() * 0.133 + 0.36) # move to burn spot 1 !
                 time.sleep(rnd.random() * 0.1 + 0.19)
-                #pyautogui.moveRel(rnd.randint(-1,1), rnd.randint(1,2), rnd.random() * 0.13 + 0.1) #Move around from current spot
+                #pag.moveRel(rnd.randint(-1,1), rnd.randint(1,2), rnd.random() * 0.13 + 0.1) #Move around from current spot
                 quick_click()
-                pyautogui.moveRel(rnd.randint(-20,40), rnd.randint(-100,-20), rnd.random() * 0.131 + 0.1) #Move around from current spot
-                pyautogui.moveRel(rnd.randint(-32, 42), rnd.randint(6,12), rnd.random() * 0.131 + 0.1) # random movement
-                pyautogui.moveRel(rnd.randint(-12, 12), rnd.randint(6,12), rnd.random() * 0.135 + 0.11) # random movement
+                pag.moveRel(rnd.randint(-20,40), rnd.randint(-100,-20), rnd.random() * 0.131 + 0.1) #Move around from current spot
+                pag.moveRel(rnd.randint(-32, 42), rnd.randint(6,12), rnd.random() * 0.131 + 0.1) # random movement
+                pag.moveRel(rnd.randint(-12, 12), rnd.randint(6,12), rnd.random() * 0.135 + 0.11) # random movement
                 time.sleep(rnd.random() * 0.19 + 4.329)
 
             if (cycles > 0 and (cycles + 1) % 2 == 0): #sesh 2 sesh 2 sesh 2 sesh 2 sesh 2 sesh 2 sesh 2 sesh 2
                 print ("Even session begin.")
-                pyautogui.moveTo(rnd.randint(1196, 1208), rnd.randint(369,379), 0.43 + 0.5 * rnd.random() + 3/27 * rnd.random()) #move to bank after sesh 1
+                pag.moveTo(rnd.randint(1196, 1208), rnd.randint(369,379), 0.43 + 0.5 * rnd.random() + 3/27 * rnd.random()) #move to bank after sesh 1
                 time.sleep(rnd.random() * 0.2 + 0.3) # wait before next action, use .1 multiplier because we aren't moving mouse position. 
                 quick_click() # Open up bank
-                print("Mouse position at banker to start sesh 2:", pyautogui.position()) # print position
+                print("Mouse position at banker to start sesh 2:", pag.position()) # print position
                 print ("Getting wood for the even sessions.")
                 time.sleep(rnd.random() * .1 + 3.35)                 
                 Slot2()
                 Getall()
                 print (" Let's get ready to burn!!")
 
-                ## pyautogui.moveRel(rnd.randint(0, 5), rnd.randint(38,40), 0.2 + 0.3 * rnd.random()) #Move mouse down to open bank when right clicked
-                print("Grabbed wood at at:", pyautogui.position()) # print position  
-                pyautogui.moveTo(rnd.randint(1375, 1380), rnd.randint(385, 390), 0.43 + 0.5 * rnd.random() + 0.73)  #Odd spot beginning   !!!!!!!!!!!!    
+                ## pag.moveRel(rnd.randint(0, 5), rnd.randint(38,40), 0.2 + 0.3 * rnd.random()) #Move mouse down to open bank when right clicked
+                print("Grabbed wood at at:", pag.position()) # print position  
+                pag.moveTo(rnd.randint(1375, 1380), rnd.randint(385, 390), 0.43 + 0.5 * rnd.random() + 0.73)  #Odd spot beginning   !!!!!!!!!!!!    
                 time.sleep((rnd.random() * 0.2 + 0.02)) # Short sleep 
                 quick_click() #Move to spot 2
-                pyautogui.moveRel(rnd.randint(-20,40), rnd.randint(-8,12), rnd.random() * 0.131 + 0.1) #Move around from current spot
-                pyautogui.moveRel(rnd.randint(-2, 12), rnd.randint(-6,12), rnd.random() * 0.0131 + 0.1) # random movement
-                pyautogui.moveRel(rnd.randint(-32, 42), rnd.randint(-6,12), rnd.random() * 0.131 + 0.1) # random movement
-                pyautogui.moveRel(rnd.randint(-12, 12), rnd.randint(6,12), rnd.random() * 0.135 + 0.1) # random movement
+                pag.moveRel(rnd.randint(-20,40), rnd.randint(-8,12), rnd.random() * 0.131 + 0.1) #Move around from current spot
+                pag.moveRel(rnd.randint(-2, 12), rnd.randint(-6,12), rnd.random() * 0.0131 + 0.1) # random movement
+                pag.moveRel(rnd.randint(-32, 42), rnd.randint(-6,12), rnd.random() * 0.131 + 0.1) # random movement
+                pag.moveRel(rnd.randint(-12, 12), rnd.randint(6,12), rnd.random() * 0.135 + 0.1) # random movement
                 time.sleep(4.22 + 0.131 * rnd.random()) # sleep extra for run to spot
                 logsBurnt = logsBurnt - 1
 
@@ -114,16 +114,16 @@ def burner():
             for i in range (1, 22):
                 #if statement with a 50% chance of moving to the tinder box at closer perameters
                 if (rnd.random() > 0.367621):
-                    pyautogui.moveTo(rnd.randint(1696,1708), rnd.randint(766, 771), rnd.random() * 0.03 + 0.197)
+                    pag.moveTo(rnd.randint(1696,1708), rnd.randint(766, 771), rnd.random() * 0.03 + 0.197)
                 else:
-                    pyautogui.moveTo(rnd.randint(1690,1709), rnd.randint(760, 773), rnd.random() * 0.03 + 0.197) #move to tinder box
+                    pag.moveTo(rnd.randint(1690,1709), rnd.randint(760, 773), rnd.random() * 0.03 + 0.197) #move to tinder box
                 time.sleep(rnd.random() *0.01 + 0.236)
                 quick_click() #use tinder box
                 time.sleep(rnd.random() *0.01 + 0.3)
                 if (rnd.random() > 0.397621):
-                    pyautogui.moveTo(rnd.randint(xpus - 3, xpus + 2), rnd.randint(ypus - 2, ypus + 4), rnd.random() * 0.03 + 0.349 + burnt/171 ) # move to log 
+                    pag.moveTo(rnd.randint(xpus - 3, xpus + 2), rnd.randint(ypus - 2, ypus + 4), rnd.random() * 0.03 + 0.349 + burnt/171 ) # move to log 
                 else:
-                    pyautogui.moveTo(rnd.randint(xpus - 3, xpus + 3), rnd.randint(ypus - 3, ypus + 3), rnd.random() * 0.03 + 0.349 + burnt/171 ) # move to log 
+                    pag.moveTo(rnd.randint(xpus - 3, xpus + 3), rnd.randint(ypus - 3, ypus + 3), rnd.random() * 0.03 + 0.349 + burnt/171 ) # move to log 
                 time.sleep(rnd.random() * 0.02 + 0.21 - burnt/201)
                 quick_click() # burn log 1 
                 xpus = xpus + 40 # Adjust X Position; moves mouse to right by one item in inventory
@@ -148,7 +148,7 @@ def burner():
             print( (maxLogs - logsBurnt), "logs to go.")
             print("Keep it up !")
             time.sleep( 0.01 + rnd.random() *0.001)
-            pyautogui.moveTo(rnd.randint(856,864), rnd.randint(560,586), 0.13 + 5/27 * rnd.random()) # move mouse to banker?
+            pag.moveTo(rnd.randint(856,864), rnd.randint(560,586), 0.13 + 5/27 * rnd.random()) # move mouse to banker?
             time.sleep( 0.01 + rnd.random() *0.001)
             burnt = 0
 

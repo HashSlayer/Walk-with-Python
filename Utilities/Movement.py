@@ -6,7 +6,7 @@ from .MainFunctions import *
 
 
 def fluidMove(x, y, t= rnd.random() * 0.1 + 0.18, stepx =80, stepy = 190):
-    start_x, start_y = pyautogui.position()
+    start_x, start_y = pag.position()
     steps = int(t * rnd.randint(stepx, stepy))  # Number of steps, defining steps as parameter for use in other functions
     for i in range(steps):
         progress = i / float(steps)
@@ -16,9 +16,9 @@ def fluidMove(x, y, t= rnd.random() * 0.1 + 0.18, stepx =80, stepy = 190):
         deviation = 3  # Max deviation in pixels
         target_x += rnd.uniform(-deviation, deviation)
         target_y += rnd.uniform(-deviation, deviation)
-        pyautogui.moveTo(target_x, target_y, _pause=False, duration= rnd.random() * 0.02 + 0.02)
+        pag.moveTo(target_x, target_y, _pause=False, duration= rnd.random() * 0.02 + 0.02)
         time.sleep(t / steps)
-    pyautogui.moveTo(x, y, _pause=False, duration= rnd.random() * 0.02 + 0.02)
+    pag.moveTo(x, y, _pause=False, duration= rnd.random() * 0.02 + 0.02)
     
 
 #Moving into bezierMove we aim to use multiple bezier curves to move the mouse in a more human like fashion, with dynamic speed and acceleration.
@@ -29,7 +29,7 @@ def quadratic_bezier(p0, p1, p2, t):
     return (x, y)
 
 def bezierMove(x, y, duration= 0.23 + rnd.random() * 0.15):
-    start_x, start_y = pyautogui.position()
+    start_x, start_y = pag.position()
     # More sophisticated control point randomization
     control_x = rnd.choice([start_x, x]) + rnd.randint(-100, 100)
     control_y = rnd.choice([start_y, y]) + rnd.randint(-100, 100)
@@ -44,7 +44,7 @@ def bezierMove(x, y, duration= 0.23 + rnd.random() * 0.15):
         # Subtle perturbations
         perturbation_x = rnd.randint(-1, 1)
         perturbation_y = rnd.randint(-1, 1)
-        pyautogui.moveTo(target_x + perturbation_x, target_y + perturbation_y, _pause=False)
+        pag.moveTo(target_x + perturbation_x, target_y + perturbation_y, _pause=False)
         # Non-linear speed variation
         time.sleep(duration / steps * (0.1 + 0.2 * math.sin(math.pi * t / 2)))
         # Irregular pauses
@@ -52,10 +52,10 @@ def bezierMove(x, y, duration= 0.23 + rnd.random() * 0.15):
             time.sleep(rnd.uniform(0.03, 0.1))
 
     # Ensure final position is reached
-    pyautogui.moveTo(x, y, _pause=False, duration=rnd.random() * 0.04 + 0.04)
+    pag.moveTo(x, y, _pause=False, duration=rnd.random() * 0.04 + 0.04)
 
 def bezierMoveWild(x, y, duration= 0.1 + rnd.random() * 0.15):
-    start_x, start_y = pyautogui.position()
+    start_x, start_y = pag.position()
     # Randomize the control point
     control_x = (start_x + x) // 2 + rnd.randint(-50, 50)
     control_y = (start_y + y) // 2 + rnd.randint(-50, 50)
@@ -70,16 +70,16 @@ def bezierMoveWild(x, y, duration= 0.1 + rnd.random() * 0.15):
         # Add perturbation
         perturbation_x = rnd.randint(-1, 1)
         perturbation_y = rnd.randint(-1, 1)
-        # N O T E : BELOW IS pyautogui.moveTo CHANGED TO BEZIERMOVE FOR IMBEDDED FUN
+        # N O T E : BELOW IS pag.moveTo CHANGED TO BEZIERMOVE FOR IMBEDDED FUN
         bezierMove(target_x + perturbation_x, target_y + perturbation_y)
         # Dynamic speed variation and random pauses
         if rnd.random() < 0.06:  # 6% chance of a brief pause
             time.sleep(rnd.uniform(0.01, 0.05))
         time.sleep(duration / steps * (.1 + 0.4 * math.sin(math.pi * t)))
-    pyautogui.moveTo(x, y, _pause=False, duration= rnd.random() * 0.03 + 0.04)
+    pag.moveTo(x, y, _pause=False, duration= rnd.random() * 0.03 + 0.04)
 
 def bezierMoveSmooth(x, y, duration= 0.2 + rnd.random() * 0.15):
-    start_x, start_y = pyautogui.position()
+    start_x, start_y = pag.position()
     distance = math.hypot(x - start_x, y - start_y)
     control_variation = min(150, max(50, int(distance / 4)))  # Control point variation based on distance
 
@@ -98,14 +98,14 @@ def bezierMoveSmooth(x, y, duration= 0.2 + rnd.random() * 0.15):
         target_x, target_y = quadratic_bezier(p0, p1, p2, t)
         perturbation_x = rnd.randint(-1, 1)
         perturbation_y = rnd.randint(-1, 1)
-        pyautogui.moveTo(target_x + perturbation_x, target_y + perturbation_y, _pause=False)
+        pag.moveTo(target_x + perturbation_x, target_y + perturbation_y, _pause=False)
         time.sleep(duration / steps * (0.1 + 0.5 * math.sin(math.pi * t / 2)))
         if rnd.random() < 0.03:
             time.sleep(rnd.uniform(0.03, 0.1))
 
     # Slight inaccuracy at the end
-    pyautogui.moveTo(x, y, _pause=False, duration=rnd.random() * 0.02 + 0.03)
-    pyautogui.moveTo(x, y, _pause=False, duration= rnd.random() * 0.02 + 0.03)
+    pag.moveTo(x, y, _pause=False, duration=rnd.random() * 0.02 + 0.03)
+    pag.moveTo(x, y, _pause=False, duration= rnd.random() * 0.02 + 0.03)
         
 
 def randomMove(duration=0.5):
@@ -113,7 +113,7 @@ def randomMove(duration=0.5):
     while time.time() - start_time < duration:
         # Random small movements
         dx, dy = rnd.randint(-1, 1), rnd.randint(-1, 1)
-        pyautogui.moveRel(dx, dy, duration=0.1)
+        pag.moveRel(dx, dy, duration=0.1)
 
         # Random short pauses
         time.sleep(rnd.uniform(0.05, 0.2))

@@ -37,8 +37,8 @@ def winemaker():
 
             if (fruits > 28):
                 for i in range (1, 29):
-                    pyautogui.keyDown('shift')
-                    pyautogui.moveTo(rnd.randint(xpus - 3, xpus + 3), rnd.randint(ypus - 3, ypus + 3), rnd.random() * 0.13 + 0.09) # move
+                    pag.keyDown('shift')
+                    pag.moveTo(rnd.randint(xpus - 3, xpus + 3), rnd.randint(ypus - 3, ypus + 3), rnd.random() * 0.13 + 0.09) # move
                     time.sleep(rnd.random() * 0.1 + 0.086)
                     mouse.click() # burn log 1 
                     burnt = burnt + 1
@@ -49,12 +49,12 @@ def winemaker():
                         xpus = xpus - 160 # pull mouse back to the first coulum for the next iteration
                         time.sleep( 0.199 + rnd.random() *0.11)
 
-                    pyautogui.keyUp('shift')
+                    pag.keyUp('shift')
                 fruits = 0
 
 
-                pyautogui.moveTo(rnd.randint(750, 840), rnd.randint(535, 580), rnd.random() * 0.00181 + 0.11) #move to fruit
-                pyautogui.keyUp('shift')
+                pag.moveTo(rnd.randint(750, 840), rnd.randint(535, 580), rnd.random() * 0.00181 + 0.11) #move to fruit
+                pag.keyUp('shift')
             #End of wine run; time to sleep and repeat     
 
 def togglebot(key):

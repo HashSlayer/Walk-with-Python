@@ -42,14 +42,14 @@ def smegic():
             if (rounds == 0):
                 Compass()
                 #Move mouse to the left and down towards middle of screen
-                pyautogui.moveRel(rnd.randint(-400, -200), rnd.randint(100, 300), rnd.random() * 0.181 + 0.41)
+                pag.moveRel(rnd.randint(-400, -200), rnd.randint(100, 300), rnd.random() * 0.181 + 0.41)
                 leftkey()
                 downkey()
                 Zoomin()
             time.sleep(rnd.random() *0.1 + 0.8)
             Notbotting3()
             #move the mouse to the banker between X= 645, 1068, and Y 490, 700
-            pyautogui.moveTo(rnd.randint(645, 1068), rnd.randint(490, 700), rnd.random() * 0.181 + 0.41) #Move to banker
+            pag.moveTo(rnd.randint(645, 1068), rnd.randint(490, 700), rnd.random() * 0.181 + 0.41) #Move to banker
             click()
             Deposit()
             if (rounds > rnd.randint(50, 1000)):
@@ -78,28 +78,28 @@ def smegic():
             #Another if statement giving a 4% chance to move the mouse to the center of the screen, wait, and then right click
             if (rnd.random() > 0.96):
                 time.sleep(0.1 * rnd.random() + 0.1)
-                pyautogui.moveTo(960, 540, rnd.random() * 0.181 + 0.41)
+                pag.moveTo(960, 540, rnd.random() * 0.181 + 0.41)
                 #move to the same location but with a pixel variation of 20
-                pyautogui.moveTo(rnd.randint(691, 984), rnd.randint(420, 701), rnd.random() * 0.181 + 0.41)
+                pag.moveTo(rnd.randint(691, 984), rnd.randint(420, 701), rnd.random() * 0.181 + 0.41)
                 time.sleep(0.1 * rnd.random() + 0.1)
-                pyautogui.rightClick()
+                pag.rightClick()
                 time.sleep(0.1 * rnd.random() + 0.1)
 
             if (rounds == 0 or rnd.random() > 0.42069):
                 #"Tap" down the F4 key
                 time.sleep(0.1 * rnd.random() + 0.3)
                 time.sleep(1 * rnd.random()) 
-                pyautogui.keyDown('f4')
+                pag.keyDown('f4')
                 time.sleep(0.1 * rnd.random() + 0.09)
-                pyautogui.keyUp('f4')
+                pag.keyUp('f4')
             
             #move to the spell
             time.sleep(0.03 * rnd.random() + 0.01)
             if (rnd.random() > 0.683):
                 time.sleep(rnd.random() + 0.1)
-            pyautogui.moveTo(rnd.randint(1695, 1702), rnd.randint(906, 910), rnd.random() * 0.181 + 0.41)
+            pag.moveTo(rnd.randint(1695, 1702), rnd.randint(906, 910), rnd.random() * 0.181 + 0.41)
             if (rnd.random() > 0.783):
-                pyautogui.moveTo(rnd.randint(1695, 1699), rnd.randint(910, 914), rnd.random() * 0.181 + 0.41)
+                pag.moveTo(rnd.randint(1695, 1699), rnd.randint(910, 914), rnd.random() * 0.181 + 0.41)
             #if statement to move to the same spot but slower if past round 200
             if ((rounds > 23) & (rnd.random() > 0.6)):
                 time.sleep(0.03 * rnd.random() + 0.03)

@@ -77,46 +77,46 @@ def sleepif(x=0.01):
 #Define a more human like click.
 def click():
     sleep(.001)
-    pyautogui.mouseDown(button='left')  # Press the right button down
+    pag.mouseDown(button='left')  # Press the right button down
     sleepif()
-    pyautogui.mouseUp(button='left') # Lift right button up (Finish click)
+    pag.mouseUp(button='left') # Lift right button up (Finish click)
     time.sleep(rnd.random() *0.001 + 0.001)
 
 def quick_click(): #Another Left Click variant
     time.sleep(rnd.random() *0.0001 + 0.0003)
-    pyautogui.mouseDown(button='left')  # press the right button down
-    pyautogui.mouseUp(button='left')
+    pag.mouseDown(button='left')  # press the right button down
+    pag.mouseUp(button='left')
     #Hold the mouse down for a period of time rather a simple click
     time.sleep(rnd.random() *0.0001 + 0.00003)
 
 def right_click():
     sleep(.001)
-    pyautogui.mouseDown(button='right')  # Press the right button down
+    pag.mouseDown(button='right')  # Press the right button down
     sleepif()
-    pyautogui.mouseUp(button='right') # Lift right button up (Finish click)
+    pag.mouseUp(button='right') # Lift right button up (Finish click)
     time.sleep(rnd.random() *0.001 + 0.001)
 
 
 def upkey(): #Hold the up key to adjust the camera view
-    pyautogui.keyDown('up')
+    pag.keyDown('up')
     sleep(2, 1, 1)
-    pyautogui.keyUp('up')
+    pag.keyUp('up')
     sleep()
 
 #Define downkey function
 
 def downkey(): #Hold the down key to adjust camera view
-    pyautogui.keyDown('down')
+    pag.keyDown('down')
     sleep(2,1,1)
-    pyautogui.keyUp('down')
+    pag.keyUp('down')
     sleep()
 
 #Define a function that will push down the left key for 3 seconds, then release it.
 
 def leftkey(x = .70):
-    pyautogui.keyDown('left')
+    pag.keyDown('left')
     sleep(x, .001, .001)
-    pyautogui.keyUp('left')
+    pag.keyUp('left')
     sleep()
 
 #Define a function that will click on the map
@@ -133,14 +133,14 @@ def Compass():
 
 def Zoomout():
     for i in range (1, 12):
-        pyautogui.scroll(-1)
+        pag.scroll(-1)
         time.sleep(0.13 * rnd.random() + 0.19)
 
 #Define a function that scrolls the mouse wheel up by 20 clicks, spaced out like a human would.
 
 def Zoomin():
     for i in range (1, 12):
-        pyautogui.scroll(1)
+        pag.scroll(1)
         time.sleep(0.13 * rnd.random() + 0.19)
 
 # Get into birds eye view
@@ -195,34 +195,34 @@ def Deposit():
         bezierMove(rnd.randint(994, 1007), rnd.randint(819, 827), 0.08 + 0.01 * rnd.random() + 3/27 * rnd.random())
     time.sleep(0.1 + 0.1 * rnd.random() + 0.1 * rnd.random())
     click()
-    pyautogui.moveRel(rnd.randint(-4, 3), rnd.randint(-2,2), 0.01 + 0.01 * rnd.random() + 3/27 * rnd.random())
+    pag.moveRel(rnd.randint(-4, 3), rnd.randint(-2,2), 0.01 + 0.01 * rnd.random() + 3/27 * rnd.random())
     time.sleep(0.07 + 0.01 * rnd.random()) #sleep
 
 #Define a function that drops down to get X amount of items.
 
 def Getitems():
     time.sleep((rnd.random() * 0.01 + 0.05)) # Sleep
-    pyautogui.rightClick #open item options         
+    pag.rightClick #open item options         
     time.sleep((0.12 + rnd.random() * 0.15)) #sleep
     if (rnd.random() > 0.619):
-        pyautogui.moveRel(rnd.randint(-21,11), rnd.randint(71,73), rnd.random() *0.12 +0.13) #move mouse down to quantity of X
+        pag.moveRel(rnd.randint(-21,11), rnd.randint(71,73), rnd.random() *0.12 +0.13) #move mouse down to quantity of X
     else:
-        pyautogui.moveRel(rnd.randint(-21, 1), rnd.randint(71, 73), rnd.random() * 0.121 + 0.13)
+        pag.moveRel(rnd.randint(-21, 1), rnd.randint(71, 73), rnd.random() * 0.121 + 0.13)
     time.sleep((rnd.random() * 0.087 + rnd.random() * 0.23 + 0.15)) #sleep
     click() # Get X amount of items
     time.sleep((0.01 + rnd.random() * 0.01)) #Short Sleep
 
-     # Copy the Getitems() function with this line: pyautogui.moveRel(rnd.randint(-30, 17), rnd.randint(101, 114), yrt * 0.12 + 0.23) #move mouse down to quantity of all
+     # Copy the Getitems() function with this line: pag.moveRel(rnd.randint(-30, 17), rnd.randint(101, 114), yrt * 0.12 + 0.23) #move mouse down to quantity of all
 
 
 def Getall():
     time.sleep(rnd.random()* 0.173 + 0.21) #Sleep
-    pyautogui.rightClick  #open wood options now.
+    pag.rightClick  #open wood options now.
     time.sleep(0.181 * rnd.random() + 0.2) #sleep
     if (rnd.random() > 0.4):
-        pyautogui.moveRel(rnd.randint(-19, 12), rnd.randint(100, 112), rnd.random() * 0.121 + 0.25) #move mouse down to quantity of ALL
+        pag.moveRel(rnd.randint(-19, 12), rnd.randint(100, 112), rnd.random() * 0.121 + 0.25) #move mouse down to quantity of ALL
     else:
-        pyautogui.moveRel(rnd.randint(-19, 5), rnd.randint(103, 109), rnd.random() * 0.121 + 0.28)
+        pag.moveRel(rnd.randint(-19, 5), rnd.randint(103, 109), rnd.random() * 0.121 + 0.28)
     time.sleep(rnd.random() * 0.19 + 0.29)
     click() #Get wood
     time.sleep(rnd.random() * 0.19 + 0.29)
@@ -267,7 +267,7 @@ def Slot5():
 
 def Left35():
     time.sleep(0.1 + 0.01 * rnd.random() + rnd.random()) #sleep
-    pyautogui.moveRel(rnd.randint(-34, -36), rnd.randint(-2,2), 0.3 + 0.1 * rnd.random() + 3/27 * rnd.random())
+    pag.moveRel(rnd.randint(-34, -36), rnd.randint(-2,2), 0.3 + 0.1 * rnd.random() + 3/27 * rnd.random())
     time.sleep(0.13 + 0.01 * rnd.random() + 3/27 * rnd.random()) #sleep
 
 def Xbank():
@@ -275,5 +275,5 @@ def Xbank():
     bezierMove(rnd.randint(1040, 1044), rnd.randint(68, 70), rnd.random() * 0.1 + 0.24) # X of the bank
     time.sleep(0.01 + rnd.random() *0.198)
     click() #exit bank
-    pyautogui.moveRel(rnd.randint(-20, 12), rnd.randint(-6,12), rnd.random() * 0.1 + 0.04) # random movement
+    pag.moveRel(rnd.randint(-20, 12), rnd.randint(-6,12), rnd.random() * 0.1 + 0.04) # random movement
 

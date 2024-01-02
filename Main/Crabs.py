@@ -36,7 +36,7 @@ def crabKiller():
             
             if (rounds == 0):
                 Compass()
-                pyautogui.moveRel(rnd.randint(-400, -200), rnd.randint(100, 300), rnd.random() * 0.181 + 0.41)
+                pag.moveRel(rnd.randint(-400, -200), rnd.randint(100, 300), rnd.random() * 0.181 + 0.41)
                 upkey()
                 Zoomout()
                 print("Lessss gooo!")
@@ -51,10 +51,10 @@ def crabKiller():
                 else:
                      #Location 1
                     print ("Jogger v2 activated")
-                    pyautogui.moveTo(rnd.randint(816, 828), rnd.randint(391, 403), rnd.random() * 0.1 + 0.41)
+                    pag.moveTo(rnd.randint(816, 828), rnd.randint(391, 403), rnd.random() * 0.1 + 0.41)
                     click()
                     time.sleep(rnd.random() * 0.5 + 1.9)
-                    pyautogui.moveRel(rnd.randint(-100, -10), rnd.randint(-30, 30), rnd.random() * 0.081 + 0.1)
+                    pag.moveRel(rnd.randint(-100, -10), rnd.randint(-30, 30), rnd.random() * 0.081 + 0.1)
                     jog3()
                 roundset = roundset + 6
 

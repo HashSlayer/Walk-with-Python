@@ -67,7 +67,7 @@ class ClickTracker:
                 if self.click_count % 10 == 0:
                     message += f"❤️ -+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+~~~+-  ❤️\n"
                     startConfetti()
-                print("pyautogui.moveTo(rnd.randint(",(x - 5),",",(x + 5),"), rnd.randint(",y-5,",",y+5,"), sleep(.3))")
+                print("pag.moveTo(rnd.randint(",(x - 5),",",(x + 5),"), rnd.randint(",y-5,",",y+5,"), sleep(.3))")
                 self.output_function(message)
     def run(self):
         self.tracking = True
