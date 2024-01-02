@@ -347,7 +347,6 @@ if __name__ == "__main__":
     gui = GGui()
     listener_thread = threading.Thread(target=lambda: Listener(on_press=lambda key: toggle_walker_key(key, gui)).start())
     listener_thread.start()
-    listener_thread.daemon = True
     gui.run()
     listener_thread.join()
 

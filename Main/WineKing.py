@@ -27,11 +27,10 @@ def winemaker():
             global winecount2
 
             if (winecount == 0):
-                pyautogui.moveTo(rnd.randint(480,1303), rnd.randint(1,13), rnd.random() * 0.9 + 0.18)
-                pyautogui.moveRel(rnd.randint(-40, 40), rnd.randint(0,2), rnd.random() * 0.8 + 0.1)
+                print ("First time running, let's get some grapes!")
                 time.sleep(rnd.random()**2 + 0.1)
             ## ~~~ Random mouse movement ~~~~ ####
-            Notbotting3()
+            Notbotting()
 
             #Begin opening bank: 
             pyautogui.moveTo(rnd.randint(880,900), rnd.randint(220,280), rnd.random()) # move mouse to banker.
