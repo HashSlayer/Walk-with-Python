@@ -57,6 +57,7 @@ class GGui:
         # Click tracking setup
         self.click_tracker = ClickTracker(self.append_message, self.canvas)  # Initialize the click tracker
         self.click_tracker_thread = None  # Initialize the click tracker thread
+        self.click_tracking_enabled = False
         self.random_sleep_enabled = False  # Initialize random sleep flag
         self.spam_clicks_enabled = False
         self.double_click_enabled = False
@@ -321,7 +322,6 @@ class GGui:
         self.start_button.pack(side=tk.RIGHT, padx=9)
 
         # Create and pack the 'Track Clicks' toggle button
-        self.click_tracking_enabled = False  # Initialize the click tracking flag as False
         self.toggle_button = tk.Button(top_frame, text=" Track Clicks ", command=self.track_clicks, bg=self.button_color, fg='#97E469', font=self.custom_font, activebackground='#C8F6AD', relief=tk.RAISED, borderwidth=3)
         self.toggle_button.pack(side=tk.LEFT, padx=9)
 
@@ -404,7 +404,7 @@ def walker(gui):
             if gui.double_click_enabled:
                 doubleClickWait = float(gui.double_click_wait.get())
                 if click_count % 2 == 0:
-                    sleep(interval_variance, doubleClickWait / 10, doubleClickWait / 100)
+                    sleep(doubleClickWait, interval_variance / 2, interval_variance / 3)
                     click()
                     click_count += 1
                     gui.append_message(f"Click #{click_count}/{max_clicks} At: {datetime.now().strftime('%H:%M:%S.%f')[:-3]}")

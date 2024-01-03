@@ -14,7 +14,7 @@ from Utilities.Banking import *
 # Global variables
 running = False
 running_lock = threading.Lock()
-bot_thread = threading.Thread(target=lambda: winer(gui), daemon=True)
+bot_thread = threading.Thread(target=lambda: walker(gui), daemon=True)
 click_count, max_clicks, click_interval, interval_variance, = 1, 420, 1, 0.1
 
 # Define your special keys
@@ -57,6 +57,7 @@ class GGui:
         # Click tracking setup
         self.click_tracker = ClickTracker(self.append_message, self.canvas)  # Initialize the click tracker
         self.click_tracker_thread = None  # Initialize the click tracker thread
+        self.click_tracking_enabled = False
         self.random_sleep_enabled = False  # Initialize random sleep flag
         self.spam_clicks_enabled = False
         self.double_click_enabled = False
@@ -65,24 +66,23 @@ class GGui:
         # Load text from file when initializing
         self.load_text()
 
+
     def setup_gui(self):
         self.background_color_start = "#FF6B6B"  # Set the start color for the gradient (Vibrant pink)
         self.background_color_end = "#4D96FF"    # Set the end color for the gradient (Bright blue)
         self.create_gradient_background()  # Call method to create the gradient background
 
+
     def apply_style(self):
         # Set colors and font for various GUI elements
-        self.bg_color = self.background_color_end        # Background color (Vibrant pink) FF6B6B Electric blue: #4D96FF
-        self.button_color = self.background_color_start   # Button color (Also set to Vibrant pink, consider changing to a different color)
-        self.text_color = "#99E1A2"      # Text color (Fresh green) 97E469
+        self.bg_color = "#4D96FF"        # Background color (Vibrant pink) FF6B6B Electric blue: #4D96FF
+        self.button_color = "#FF6B6B"    # Button color (Also set to Vibrant pink, consider changing to a different color)
+        self.text_color = "#99E1A2"      # Text color (Fresh green)
         self.hover_color = "#F55C47"     # Button hover color (Fiery orange)
         self.custom_font = tkFont.Font(family="Consolas", size=13, weight="bold")  # Custom font for GUI elements
-        self.button_on_color = "#2ECC71"       # Button color when enabled (Fresh green) 2ECC71
-        self.button_off_color = "#FF6B6B"      # Button color when disabled (Vibrant pink) ~?~?~?~?~?~?~?~?~?~?~?~?~?~?~?~?~?~?~??~? keep?
-        self.text_box_bg = "#FFFF76"     # Text box background color (Yellow)
-        self.text_box_fg = "#217BFF"     # Text box foreground color (Blue)
         self.root.configure(bg=self.bg_color)  # Apply the background color to the root window
 
+    
     def create_gradient(self, canvas, color1, color2, width, height):
         for i in range(height):
             # Calculate color components based on the gradient
@@ -95,11 +95,13 @@ class GGui:
             color = f'#{r:04x}{g:04x}{b:04x}'
             canvas.create_line(0, i, width, i, fill=color)  # Draw a line with the interpolated color
 
+
     def create_gradient_background(self):
         self.canvas = tk.Canvas(self.root)  # Initialize a canvas in the main window
         self.canvas.pack(fill="both", expand=True)  # Pack the canvas to fill the entire window
         self.canvas.bind("<Configure>", self.on_resize)  # Bind the resize event to the on_resize method
         self.on_resize(None)  # Make an initial call to set up the gradient background
+
 
     def update_time(self):
         # Retrieve the current date and time, including milliseconds
@@ -112,8 +114,10 @@ class GGui:
         # Schedule the next update after 50 milliseconds
         self.root.after(50, self.update_time)
 
+
     def start_confetti_animation(self):
         startConfetti(self.canvas)  # Initiate the confetti animation on the canvas
+
 
     def create_text_box(self):
         # Initialize a PanedWindow for layout management
@@ -121,7 +125,7 @@ class GGui:
         self.pane.pack(fill=tk.BOTH, expand=True, padx=33, pady=23)  # Set padding and make it expandable
 
         # Create the main text box for user input
-        self.text_box = tk.Text(self.pane, wrap="word", bg=self.text_box_bg, fg=self.text_box_fg, font=self.custom_font, insertbackground="#5BCB77", relief="sunken", borderwidth=5, height=10)
+        self.text_box = tk.Text(self.pane, wrap="word", bg="#FFFF76", fg="#217BFF", font=("Consolas", 13), insertbackground="#5BCB77", relief="sunken", borderwidth=5, height=10)
         self.pane.add(self.text_box, stretch="always")  # Add to the pane with stretch option
         self.text_box.insert(tk.END, " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
         self.text_box.insert(tk.END, "      Welcome                                       \n")                         # Prepopulate with a welcome message
@@ -130,9 +134,10 @@ class GGui:
         self.text_box.insert(tk.END, "    ❤️ Enjoy your walk!                                                     \n")  # Prepopulate with a welcome message
         self.text_box.insert(tk.END, " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")  # Prepopulate with a welcome message
 
+
     def create_additional_text_box(self):
         # Create an additional text box for notes
-        self.notepad_text_box = tk.Text(self.pane, wrap="word", bg=self.text_box_bg, fg=self.text_box_fg, font=("Consolas", 12), relief="sunken", borderwidth=5, height=10)
+        self.notepad_text_box = tk.Text(self.pane, wrap="word", bg="#FFFF76", fg="#217BFF", font=("Consolas", 12), relief="sunken", borderwidth=5, height=10)
         self.pane.add(self.notepad_text_box, width= 444)  # Set a fixed width for the notepad
         self.notepad_text_box.insert(tk.END, "Notes: \n")  # Prepopulate with "Notes:"
 
@@ -148,6 +153,7 @@ class GGui:
                 self.notepad_text_box.delete("1.0", tk.END)
                 self.notepad_text_box.insert(tk.END, file.read())
 
+
     def on_resize(self, event):
         if event:  # Check if event is None
             width, height = event.width, event.height
@@ -156,6 +162,7 @@ class GGui:
         self.canvas.delete("gradient")
         self.create_gradient(self.canvas, self.background_color_start, self.background_color_end, width, height)
 
+
     def kill_bot(self):
         global running, bot_thread
         # Immediate UI feedback to indicate shutdown is in progress
@@ -163,13 +170,15 @@ class GGui:
         self.click_tracking_enabled = False
         running = False
         self.toggle_button.config(text=" Track Clicks: OFF ", bg="#FF6B6B")
-        self.start_button.config(text="    START    ", bg=self.button_on_color, fg=self.text_color)
+        self.start_button.config(text="    START    ", bg="#2ECC73", fg='#97E469')
         # GUI-specific logic
         self.start_confetti_animation()
         # Ensure this operation is safe and necessary
         kAltright()
         # Restore the kill button state after shutdown process
         self.kill_button.config(text="KILLED", state=tk.NORMAL)
+
+
 
     def append_message(self, message):
         self.text_box.insert(tk.END, message + '\n')  # Insert the message at the end of the text box
@@ -182,15 +191,15 @@ class GGui:
                 running = False
                 print("Bot Paused")  # Log to the console
                 gui.append_message("Bot Paused")  # Update GUI with the bot's status
-                gui.start_button.config(text="     START     ", bg=self.button_on_color, fg=self.text_color)  # Update button appearance while not running
+                gui.start_button.config(text="     START     ", bg="#09C159", fg='#97E469')  # Update button appearance while not running
             else: # Start the bot
                 running = True
                 print("Bot started")  # Log to the console
                 gui.append_message("Bot Started")  # Update GUI with the bot's status
-                gui.start_button.config(text="       STOP       ", bg=self.button_off_color, fg=self.text_color)  # Update button appearance while running
+                gui.start_button.config(text="       STOP       ", bg="#FF6B6B", fg='#97E469')  # Update button appearance while running
                 if bot_thread is None or not bot_thread.is_alive():
                     # Start a new thread for the bot if not already running
-                    bot_thread = threading.Thread(target=lambda: winer(gui), daemon=True)
+                    bot_thread = threading.Thread(target=lambda: walker(gui), daemon=True)
                     bot_thread.start()
 
     def track_clicks(self):
@@ -211,41 +220,44 @@ class GGui:
             else:
                 # Enable click processing
                 self.click_tracker.process_clicks = True
-            self.toggle_button.config(text=" Track Clicks: ON ", bg="#2ECC71")
+            self.toggle_button.config(text=" Track Clicks: ON ", bg="#2ECC73")
         else:
             # Disable click processing
             self.click_tracker.process_clicks = False
             # Optionally, implement a mechanism to gracefully stop the thread if required
             self.toggle_button.config(text=" Track Clicks: OFF ", bg="#FF6B6B")
 
+
+
     def toggle_sleeps(self):
         self.random_sleep_enabled = not self.random_sleep_enabled
         if self.random_sleep_enabled:
-            self.toggle_sleep_button.config(text="Random Breaks: ON", bg=self.button_on_color)
+            self.toggle_sleep_button.config(text="Random Breaks: ON", bg="#2ECC71")
         else:
-            self.toggle_sleep_button.config(text="Random Breaks: OFF", bg=self.button_off_color)
+            self.toggle_sleep_button.config(text="Random Breaks: OFF", bg="#FF6B6B")
 
     def toggle_double_click(self):
         self.double_click_enabled = not self.double_click_enabled
         if self.double_click_enabled:
-            self.double_click_toggle_button.config(text="Double Click: ON", bg=self.button_on_color)
+            self.double_click_toggle_button.config(text="Double Click: ON", bg="#2ECC71")
         else:
-            self.double_click_toggle_button.config(text="Double Click: OFF", bg=self.button_off_color)
+            self.double_click_toggle_button.config(text="Double Click: OFF", bg="#FF6B6B")
 
     def toggle_spam_clicks_enabled(self):
         self.spam_clicks_enabled = not self.spam_clicks_enabled
         if self.spam_clicks_enabled:
-            self.spam_clicks_toggle_button.config(text="Spam Clicks: ON", bg=self.button_on_color)
+            self.spam_clicks_toggle_button.config(text="Spam Clicks: ON", bg="#2ECC71")
         else:
-            self.spam_clicks_toggle_button.config(text="Spam Clicks: OFF", bg=self.button_off_color)
+            self.spam_clicks_toggle_button.config(text="Spam Clicks: OFF", bg="#FF6B6B")
         
     def alchemy_cycles_enabled(self):
         self.alchemy_interval_cycles = not self.alchemy_interval_cycles
         if self.alchemy_interval_cycles:
-            self.alchemy_interval_cycles_button.config(text="Alchemy Interval Cycles: ON", bg=self.button_on_color)
+            self.alchemy_interval_cycles_button.config(text="Alchemy Interval Cycles: ON", bg="#2ECC71")
         else:
-            self.alchemy_interval_cycles_button.config(text="Alchemy Interval Cycles: OFF", bg=self.button_off_color)
+            self.alchemy_interval_cycles_button.config(text="Alchemy Interval Cycles: OFF", bg="#FF6B6B")
 
+                
     def on_close(self):
         global running
         running = False  # Signal all threads to stop
@@ -269,53 +281,48 @@ class GGui:
         print("Exiting... Text File save <3" )
         # Close the GUI
         self.root.destroy()
-  
+
+                
     def create_top_frame(self):
         # Initialize the top frame of the GUI
-        top_frame = tk.Frame(self.canvas, bg=self.background_color_start, bd=0, relief=tk.FLAT)
+        top_frame = tk.Frame(self.canvas, bg='#FF6B6B')
         top_frame.pack(padx=15, pady=15)  # Pack the frame with padding
+
+        # Create and pack the date label
+        self.date_label = tk.Label(top_frame, text="", bg="#FF6B6B", fg='#97E469', font=("Consolas", 13, "bold"), relief=tk.RAISED, borderwidth=1)
+        self.date_label.pack(side="left", padx=(80, 2))  # Position it on the left with padding
+        # Create and pack the time label
+        self.time_label = tk.Label(top_frame, text="", bg="#FF6B6B", fg='#97E469', font=("Consolas", 13, "bold"), relief=tk.RAISED, borderwidth=1)
+        self.time_label.pack(side="left", padx=2)  # Position next to the date label
 
         # Define the style for labels and entries
         label_style = {"bg": "#FF6B6B", "fg": "#97E469", "font": self.custom_font, "relief": tk.FLAT, "borderwidth": 0}
         entry_style = {"bg": "#FFFAE4", "fg": "#217BFF", "font": self.custom_font, "relief": tk.SUNKEN, "borderwidth": 1}
-
-        # Create and pack the date label
-        self.date_label = tk.Label(top_frame, text="", bg=self.background_color_start, fg=self.text_color, font=("Consolas", 13, "bold"), relief=tk.RAISED, borderwidth=1)
-        self.date_label.pack(side="left", padx=(80, 2))  # Position it on the left with padding
-
-        # Create and pack the time label
-        self.time_label = tk.Label(top_frame, text="", bg=self.background_color_start, fg=self.text_color, font=("Consolas", 13, "bold"), relief=tk.RAISED, borderwidth=1)
-        self.time_label.pack(side="left", padx=2)  # Position next to the date label
 
         # Create the 'Click Interval' label and entry box
         tk.Label(top_frame, text="Click Interval:", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.click_interval = tk.Entry(top_frame, width=5, **entry_style)
         self.click_interval.pack(side=tk.LEFT, padx=(3, 10))
         self.click_interval.insert(0, "1.0")  # Set the default value
-
         # Create the 'Random Multiplier' label and entry box
         tk.Label(top_frame, text="(+/-):", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.click_variance = tk.Entry(top_frame, width=5, **entry_style)
         self.click_variance.pack(side=tk.LEFT, padx=(3, 10))
         self.click_variance.insert(0, "0.5")  # Set the default value
-
         # Create the 'Max Clicks' label and entry box
         tk.Label(top_frame, text="Max Clicks:", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.max_clicks_entry = tk.Entry(top_frame, width=7, **entry_style)
         self.max_clicks_entry.pack(side=tk.LEFT, padx=(3, 10))
         self.max_clicks_entry.insert(0, "420")  # Set the default value
-
         # Create and pack the 'Kill' button
-        self.kill_button = tk.Button(top_frame, text="KILL", command=self.kill_bot, bg=self.button_color, fg=self.text_color, font=self.custom_font, activebackground=self.hover_color, relief=tk.RAISED, borderwidth=3)
+        self.kill_button = tk.Button(top_frame, text="KILL", command=self.kill_bot, bg=self.button_color, fg='#97E469', font=self.custom_font, activebackground=self.hover_color, relief=tk.RAISED, borderwidth=3)
         self.kill_button.pack(side=tk.RIGHT, padx=9)
-
         # Create and pack the 'Start / Stop' button
-        self.start_button = tk.Button(top_frame, text="  Start / Stop  ", command=self.toggle_walk_button, bg=self.button_color, fg=self.text_color, font=self.custom_font, activebackground='#C8F6AD', relief=tk.RAISED, borderwidth=3)
+        self.start_button = tk.Button(top_frame, text="  Start / Stop  ", command=self.toggle_walk_button, bg=self.button_color, fg='#97E469', font=self.custom_font, activebackground='#C8F6AD', relief=tk.RAISED, borderwidth=3)
         self.start_button.pack(side=tk.RIGHT, padx=9)
 
         # Create and pack the 'Track Clicks' toggle button
-        self.click_tracking_enabled = False  # Initialize the click tracking flag as False
-        self.toggle_button = tk.Button(top_frame, text=" Track Clicks ", command=self.track_clicks, bg=self.button_color, fg=self.text_color, font=self.custom_font, activebackground='#C8F6AD', relief=tk.RAISED, borderwidth=3)
+        self.toggle_button = tk.Button(top_frame, text=" Track Clicks ", command=self.track_clicks, bg=self.button_color, fg='#97E469', font=self.custom_font, activebackground='#C8F6AD', relief=tk.RAISED, borderwidth=3)
         self.toggle_button.pack(side=tk.LEFT, padx=9)
 
         # Frame for toggle switches
@@ -323,25 +330,26 @@ class GGui:
         toggle_frame.pack(padx=10, pady=(0, 10))
 
         # Alchemy Interval Cycles Toggle Switch
-        self.alchemy_interval_cycles_button = tk.Button(toggle_frame, text="Alchemy Interval Cycles: OFF", command=self.alchemy_cycles_enabled, bg=self.button_off_color, fg=self.text_color, font=self.custom_font)
+        self.alchemy_interval_cycles_button = tk.Button(toggle_frame, text="Alchemy Interval Cycles: OFF", command=self.alchemy_cycles_enabled, bg="#FF6B6B", fg='#97E469', font=self.custom_font)
         self.alchemy_interval_cycles_button.pack(side=tk.LEFT, padx=(10, 2))
 
         # Random Breaks Toggle Switch
-        self.toggle_sleep_button = tk.Button(toggle_frame, text="Random Breaks: OFF", command=self.toggle_sleeps, bg=self.button_off_color, fg=self.text_color, font=self.custom_font)
+        self.toggle_sleep_button = tk.Button(toggle_frame, text="Random Breaks: OFF", command=self.toggle_sleeps, bg="#FF6B6B", fg='#97E469', font=self.custom_font)
         self.toggle_sleep_button.pack(side=tk.LEFT, padx=(10, 2))
 
         # spam_clicks_enabled Toggle Switch
-        self.spam_clicks_toggle_button = tk.Button(toggle_frame, text="Spam Clicks: OFF", command=self.toggle_spam_clicks_enabled, bg=self.button_off_color, fg=self.text_color, font=self.custom_font)
+        self.spam_clicks_toggle_button = tk.Button(toggle_frame, text="Spam Clicks: OFF", command=self.toggle_spam_clicks_enabled, bg="#FF6B6B", fg='#97E469', font=self.custom_font)
         self.spam_clicks_toggle_button.pack(side=tk.LEFT, padx=(10, 2))
 
         # Double-Click Toggle Switch
-        self.double_click_toggle_button = tk.Button(toggle_frame, text="Double Click Every: OFF", command=self.toggle_double_click, bg=self.button_off_color, fg=self.text_color, font=self.custom_font)
+        self.double_click_toggle_button = tk.Button(toggle_frame, text="Double Click Every: OFF", command=self.toggle_double_click, bg="#FF6B6B", fg='#97E469', font=self.custom_font)
         self.double_click_toggle_button.pack(side=tk.LEFT, padx=(10, 2))
 
         # Double-Click Wait Entry (placed right next to the double-click toggle button)
-        self.double_click_wait_entry = tk.Entry(toggle_frame, textvariable=self.double_click_wait, width=5, **entry_style)
+        self.double_click_wait_entry = tk.Entry(toggle_frame, textvariable=self.double_click_wait, width=5, font=self.custom_font, relief=tk.SUNKEN, borderwidth=1, bg="#FFFAE4", fg="#217BFF")
         self.double_click_wait_entry.pack(side=tk.LEFT, padx=(10, 2))
         self.double_click_wait_entry.insert(0, "0.8")  # Set the default value
+
 
         # Call the method to update the time display
         self.update_time()
@@ -357,7 +365,7 @@ class GGui:
 #  =========================================== | End of GUI Class | ===========================================
         
 #WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW        
-def winer(gui):
+def walker(gui):
     while True:
         if running:
             global click_count, max_clicks, click_interval, interval_variance
@@ -396,7 +404,7 @@ def winer(gui):
             if gui.double_click_enabled:
                 doubleClickWait = float(gui.double_click_wait.get())
                 if click_count % 2 == 0:
-                    sleep(interval_variance, doubleClickWait / 10, doubleClickWait / 100)
+                    sleep(doubleClickWait, interval_variance / 2, interval_variance / 3)
                     click()
                     click_count += 1
                     gui.append_message(f"Click #{click_count}/{max_clicks} At: {datetime.now().strftime('%H:%M:%S.%f')[:-3]}")
@@ -465,15 +473,15 @@ def toggle_walker_key(key, gui):
                 running = False
                 print("Bot Paused")  # Log to the console
                 gui.append_message("Bot Paused")  # Update GUI with the bot's status
-                gui.start_button.config(text="     START     ", bg="#2ECC71", fg='#99E1A2')  # Update button appearance while not running
+                gui.start_button.config(text="       STOP       ", bg="#FF6B6B", fg='#97E469')  # Update button appearance while running
             else: # Start the bot
                 running = True
                 print("Bot started")  # Log to the console
                 gui.append_message("Bot Started")  # Update GUI with the bot's status
-                gui.start_button.config(text="       STOP       ", bg="#FF6B6B", fg='#99E1A2')  # Update button appearance while running
+                gui.start_button.config(text="     START     ", bg="#09C159", fg='#97E469')  # Update button appearance while not running
                 if bot_thread is None or not bot_thread.is_alive():
                     # Start a new thread for the bot if not already running
-                    bot_thread = threading.Thread(target=lambda: winer(gui), daemon=True)
+                    bot_thread = threading.Thread(target=lambda: walker(gui), daemon=True)
                     bot_thread.start()
     elif key == KEY:
         # Handle the kill switch
