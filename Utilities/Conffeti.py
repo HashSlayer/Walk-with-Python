@@ -1,5 +1,6 @@
 import random
 import time
+import os
 from datetime import datetime
 import tkinter as tk
 from tkinter import font as tkFont
@@ -86,3 +87,39 @@ class ClickTracker:
             print(f"Error in ClickTracker: {e}")
         finally:
             self.tracking = False
+
+class GoodGUI:
+    def __init__(self, root, output_function):
+        self.root = root
+        self.output_function = output_function
+        self.background_color_start = "#FF6B6B"
+        self.background_color_end = "#4D96FF"
+        self.canvas_height = self.canvas.winfo_height()  # Get initial canvas height
+        self.create_gradient_background()
+
+    def create_gradient(self, canvas, color1, color2, width, height):
+        for i in range(height):
+            # Calculate color components based on the gradient
+            r1, g1, b1 = canvas.winfo_rgb(color1)  # Get RGB components of the start color
+            r2, g2, b2 = canvas.winfo_rgb(color2)  # Get RGB components of the end color
+            # Interpolate the RGB components based on the current position
+            r = (r1 + int((r2 - r1) * i / height)) & 0xff00 
+            g = (g1 + int((g2 - g1) * i / height)) & 0xff00 
+            b = (b1 + int((b2 - b1) * i / height)) & 0xff00 
+            color = f'#{r:04x}{g:04x}{b:04x}'
+            canvas.create_line(0, i, width, i, fill=color)  # Draw a line with the interpolated color
+
+
+    def create_gradient_background(self):
+        self.canvas = tk.Canvas(self.root)  # Initialize a canvas in the main window
+        self.canvas.pack(fill="both", expand=True)  # Pack the canvas to fill the entire window
+        self.canvas.bind("<Configure>", self.on_resize)  # Bind the resize event to the on_resize method
+        self.on_resize(None)  # Make an initial call to set up the gradient background
+
+    def on_resize(self, event):
+        if event:  # Check if event is None
+            width, height = event.width, event.height
+        else:
+            width, height = self.root.winfo_reqwidth(), self.root.winfo_reqheight()
+        self.canvas.delete("gradient")
+        self.create_gradient(self.canvas, self.background_color_start, self.background_color_end, width, height)

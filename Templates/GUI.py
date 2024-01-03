@@ -153,14 +153,6 @@ class GGui:
                 self.notepad_text_box.insert(tk.END, file.read())
 
 
-    def on_resize(self, event):
-        if event:  # Check if event is None
-            width, height = event.width, event.height
-        else:
-            width, height = self.root.winfo_reqwidth(), self.root.winfo_reqheight()
-        self.canvas.delete("gradient")
-        self.create_gradient(self.canvas, self.background_color_start, self.background_color_end, width, height)
-
 
     def kill_bot(self):
         global running, bot_thread
@@ -363,8 +355,6 @@ class GGui:
 
 
 #  =========================================== | End of GUI Class | ===========================================
-        
-#WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW        
 def walker(gui):
     while True:
         if running:
@@ -462,8 +452,6 @@ def walker(gui):
                 if running: # Ensure the bot is even running
                     gui.toggle_bot() # Toggle bot off when goal is reached
                 break
-
-#WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW            
 
 def toggle_walker_key(key, gui):
     global running, bot_thread

@@ -275,8 +275,7 @@ class GGui:
 def walker(gui):
     while True:
         if running:
-            global click_count, max_clicks, click_interval, interval_variance
-
+            global click_count, max_clicks, click_interval, interval_variance, running
             # Retrieve values from entry widgets
             try:
                 max_clicks = int(gui.max_clicks_entry.get())
