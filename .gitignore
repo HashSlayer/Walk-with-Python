@@ -1,4 +1,4 @@
 #ignore
 .env
 *.env
-
+*notepad_content.txt
