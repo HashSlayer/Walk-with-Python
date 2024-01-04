@@ -11,13 +11,8 @@ from Utilities.Movement import *
 from Utilities.Conffeti import *
 from Utilities.Banking import *
 welcome()     
-sleep(2)
 #------------------------------------------------------------------
 # Example usage   
 
-inv_slot(0, 1, 2)
-inv_slot(27)
-
-
-
+deposit_all()
 

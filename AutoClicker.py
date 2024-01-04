@@ -299,40 +299,15 @@ def walker(gui):
                     click_count += 1
 
             if gui.alchemy_interval_cycles:
-                initial_click_interval = click_interval
-                initial_interval_variance = interval_variance
-                initial_doubleClickWait = doubleClickWait
-                gui.append_message("Alchemy Interval Cycles Activated")
-                if rnd.random() > 0.95:
-                    if rnd.random() > 0.70:
-                        click_interval = 1 + rnd.random() * 0.8
-                        interval_variance = 0.25 + rnd.random() * 0.1
-                        doubleClickWait = 1
-                        gui.append_message("Alchemy Interval Cycle 1 Activated")
-                    elif rnd.random() > 0.70:
-                        click_interval = 1.3
-                        interval_variance = 0.3
-                        doubleClickWait = 0.9
-                        gui.append_message("Main Alchemy Interval Cycle Activated")
-                    elif rnd.random() > 0.70:
-                        click_interval = initial_click_interval * ((rnd.randint(1, 10) *rnd.random()) / 10)
-                        interval_variance = 0.3 * ((rnd.randint(1, 10) *rnd.random()) / 10)
-                        doubleClickWait = 1 + rnd.random() * 0.5
-                        gui.append_message("Main Alchemy Interval Cycle Activated")
-                        
-                    else:
-                        click_interval = initial_click_interval
-                        interval_variance = initial_interval_variance
-                        doubleClickWait = initial_doubleClickWait
-                        gui.append_message("Alchemy Interval Cycle 2 Activated")
+                sleep()
 
 
             if gui.spam_clicks_enabled:
                 if rnd.random() > 0.97: 
                     for i in range(0, rnd.randint(2, 16)):
-                        if rnd.random() > 0.1:
+                        if rnd.random() > 0.15:
                             click()
-                            sleep(0.001, 0.1)
+                            sleep(0.01, 0.2)
                             gui.append_message(f"You have encountered a spam click! hit {i} times!")
 
             if (click_count >= max_clicks):

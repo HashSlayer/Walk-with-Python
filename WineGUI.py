@@ -15,7 +15,7 @@ from Utilities.Banking import *
 running = False
 running_lock = threading.Lock()
 bot_thread = threading.Thread(target=lambda: walker(gui), daemon=True)
-click_count, max_clicks, click_interval, interval_variance, = 1, 420, 1, 0.1
+wine_laps, max_laps, speed_multiple, interval_variance, = 1, 420, 1, 0.1
 
 # Define your special keys
 ONOFF = Key.alt_l  # Left Alt key for toggling on/off
@@ -27,26 +27,12 @@ welcome()
 # Functions
 # =======================================================================================================================
 
-def SimulatedPause():
-    global click_count
-    sleep(0,0.9)
-    if (rnd.random() > 0.05):
-        sleep(.05, 2)
-    gui.append_message("You have encountered Random sleep #1!")
-    if (rnd.random() > 0.50):
-        sleep(.1, 5)
-    if (rnd.random() > 0.85):
-        sleep(.2, 5)
-    gui.append_message("You have encountered Random sleep #2!")
-    if (rnd.random() > 0.93):
-            sleep(.5, 9)
-    gui.append_message("You have encountered Random sleep #3!")
-    if (rnd.random() > 0.97):
-        sleep(3, 90)
-        gui.append_message("You have encountered Random sleep #4!")
-    if ((rnd.random() > 0.9889) and (click_count > rnd.randint(2000, 3000))):
-        sleep(1, rnd.randint(5, 120))
-        print ("Time for a longer sleep!")
+def SimulatedPause(): #Example of a function
+    global wine_laps
+    if (rnd.random() > 0.8):
+        sleep(.01, 1)
+        if (rnd.random() > 0.8):
+            sleep(.01, 5)
 
 # [~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ GUI Class ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]
 #GGui
@@ -54,7 +40,7 @@ class GGui:
 
     def __init__(self):
         self.root = tk.Tk()  # Initialize the main window
-        self.root.title("5MEkailO's Beautiful Bot")  # Set window title
+        self.root.title("5MEkailO's Beautiful Wine Bot")  # Set window title
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
         # GUI setup and styling
         self.setup_gui()  # Setup GUI components like background colors
@@ -82,18 +68,18 @@ class GGui:
 
 
     def setup_gui(self):
-        self.background_color_start = "#FF6B6B"  # Set the start color for the gradient (Vibrant pink)
-        self.background_color_end = "#4D96FF"    # Set the end color for the gradient (Bright blue)
+        self.background_color_start = "#4D96FF"  # Set the start color for the gradient (Vibrant pink)
+        self.background_color_end = "#AB49FF"    # Set the end color for the gradient (Bright blue)
         self.create_gradient_background()  # Call method to create the gradient background
 
 
     def apply_style(self):
         # Set colors and font for various GUI elements
-        self.bg_color = "#4D96FF"        # Background color (Vibrant pink) FF6B6B Electric blue: #4D96FF
-        self.button_color = "#FF6B6B"    # Button color (Also set to Vibrant pink, consider changing to a different color)
+        self.bg_color = "#AB49FF"        # Background color (Vibrant pink) 4D96FF Electric blue: #AB49FF
+        self.button_color = "#4D96FF"    # Button color (Also set to Vibrant pink, consider changing to a different color)
         self.text_color = "#99E1A2"      # Text color (Fresh green)
         self.hover_color = "#F55C47"     # Button hover color (Fiery orange)
-        self.custom_font = tkFont.Font(family="Consolas", size=13, weight="bold")  # Custom font for GUI elements
+        self.custom_font = tkFont.Font(family="Vani", size=13, weight="bold")  # Custom font for GUI elements
         self.root.configure(bg=self.bg_color)  # Apply the background color to the root window
 
     
@@ -135,23 +121,23 @@ class GGui:
 
     def create_text_box(self):
         # Initialize a PanedWindow for layout management
-        self.pane = tk.PanedWindow(self.canvas, bd=0, sashwidth=3, orient=tk.HORIZONTAL, bg='#4D96FF')
+        self.pane = tk.PanedWindow(self.canvas, bd=0, sashwidth=3, orient=tk.HORIZONTAL, bg='#AB49FF')
         self.pane.pack(fill=tk.BOTH, expand=True, padx=33, pady=23)  # Set padding and make it expandable
 
         # Create the main text box for user input
-        self.text_box = tk.Text(self.pane, wrap="word", bg="#FFFF76", fg="#217BFF", font=("Consolas", 13), insertbackground="#5BCB77", relief="sunken", borderwidth=5, height=10)
+        self.text_box = tk.Text(self.pane, wrap="word", bg="#FFFF76", fg="#217BFF", font=("Vani", 13), insertbackground="#5BCB77", relief="sunken", borderwidth=5, height=10)
         self.pane.add(self.text_box, stretch="always")  # Add to the pane with stretch option
-        self.text_box.insert(tk.END, " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
+        self.text_box.insert(tk.END, " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
         self.text_box.insert(tk.END, "      Welcome                                       \n")                         # Prepopulate with a welcome message
         self.text_box.insert(tk.END, "    ❤️ Press the [left alt] key to toggle the bot OFF/ON ; or (START/STOP)  \n")  # Prepopulate with a welcome message
         self.text_box.insert(tk.END, "    ❤️ Press the [right alt] key to Kill the bot                            \n")  # Prepopulate with a welcome message
         self.text_box.insert(tk.END, "    ❤️ Enjoy your walk!                                                     \n")  # Prepopulate with a welcome message
-        self.text_box.insert(tk.END, " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")  # Prepopulate with a welcome message
+        self.text_box.insert(tk.END, " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")  # Prepopulate with a welcome message
 
 
     def create_additional_text_box(self):
         # Create an additional text box for notes
-        self.notepad_text_box = tk.Text(self.pane, wrap="word", bg="#FFFF76", fg="#217BFF", font=("Consolas", 12), relief="sunken", borderwidth=5, height=10)
+        self.notepad_text_box = tk.Text(self.pane, wrap="word", bg="#FFFF76", fg="#217BFF", font=("Vani", 12), relief="sunken", borderwidth=5, height=10)
         self.pane.add(self.notepad_text_box, width= 444)  # Set a fixed width for the notepad
         self.notepad_text_box.insert(tk.END, "Notes: \n")  # Prepopulate with "Notes:"
 
@@ -183,7 +169,7 @@ class GGui:
         # Disable click tracking UI update
         self.click_tracking_enabled = False
         running = False
-        self.toggle_button.config(text=" Track Clicks: OFF ", bg="#FF6B6B")
+        self.toggle_button.config(text=" Track Clicks: OFF ", bg="#4D96FF")
         self.start_button.config(text="    START    ", bg="#2ECC73", fg='#97E469')
         # GUI-specific logic
         self.start_confetti_animation()
@@ -210,24 +196,12 @@ class GGui:
                 running = True
                 print("Bot started")  # Log to the console
                 gui.append_message("Bot Started")  # Update GUI with the bot's status
-                gui.start_button.config(text="       STOP       ", bg="#FF6B6B", fg='#97E469')  # Update button appearance while running
-                inv_slot(13)
-                sleep()
-                click()
-                k4()
-                sleep(.3, 3)
-                click()
-                sleep(1,5)
+                gui.start_button.config(text="       STOP       ", bg="#4D96FF", fg='#97E469')  # Update button appearance while running
                 if bot_thread is None or not bot_thread.is_alive():
                     # Start a new thread for the bot if not already running
                     bot_thread = threading.Thread(target=lambda: walker(gui), daemon=True)
                     bot_thread.start()
 
-    def track_clicks(self):
-        if not self.click_tracking_enabled:
-            self.track_clicks()  # Start click tracking if it's not already enabled
-        else:
-            self.track_clicks()  # Stop click tracking if it's already enabled
 
     def track_clicks(self):
         self.click_tracking_enabled = not self.click_tracking_enabled  # Toggle the state
@@ -246,7 +220,7 @@ class GGui:
             # Disable click processing
             self.click_tracker.process_clicks = False
             # Optionally, implement a mechanism to gracefully stop the thread if required
-            self.toggle_button.config(text=" Track Clicks: OFF ", bg="#FF6B6B")
+            self.toggle_button.config(text=" Track Clicks: OFF ", bg="#4D96FF")
 
 
 
@@ -255,28 +229,28 @@ class GGui:
         if self.random_sleep_enabled:
             self.toggle_sleep_button.config(text="Random Breaks: ON", bg="#2ECC71")
         else:
-            self.toggle_sleep_button.config(text="Random Breaks: OFF", bg="#FF6B6B")
+            self.toggle_sleep_button.config(text="Random Breaks: OFF", bg="#4D96FF")
 
     def toggle_double_click(self):
         self.double_click_enabled = not self.double_click_enabled
         if self.double_click_enabled:
             self.double_click_toggle_button.config(text="Double Click: ON", bg="#2ECC71")
         else:
-            self.double_click_toggle_button.config(text="Double Click: OFF", bg="#FF6B6B")
+            self.double_click_toggle_button.config(text="Double Click: OFF", bg="#4D96FF")
 
     def toggle_spam_clicks_enabled(self):
         self.spam_clicks_enabled = not self.spam_clicks_enabled
         if self.spam_clicks_enabled:
             self.spam_clicks_toggle_button.config(text="Spam Clicks: ON", bg="#2ECC71")
         else:
-            self.spam_clicks_toggle_button.config(text="Spam Clicks: OFF", bg="#FF6B6B")
+            self.spam_clicks_toggle_button.config(text="Spam Clicks: OFF", bg="#4D96FF")
         
     def alchemy_cycles_enabled(self):
         self.alchemy_interval_cycles = not self.alchemy_interval_cycles
         if self.alchemy_interval_cycles:
             self.alchemy_interval_cycles_button.config(text="Alchemy Interval Cycles: ON", bg="#2ECC71")
         else:
-            self.alchemy_interval_cycles_button.config(text="Alchemy Interval Cycles: OFF", bg="#FF6B6B")
+            self.alchemy_interval_cycles_button.config(text="Alchemy Interval Cycles: OFF", bg="#4D96FF")
 
                 
     def on_close(self):
@@ -306,35 +280,35 @@ class GGui:
                 
     def create_top_frame(self):
         # Initialize the top frame of the GUI
-        top_frame = tk.Frame(self.canvas, bg='#FF6B6B')
+        top_frame = tk.Frame(self.canvas, bg='#4D96FF')
         top_frame.pack(padx=15, pady=15)  # Pack the frame with padding
 
         # Create and pack the date label
-        self.date_label = tk.Label(top_frame, text="", bg="#FF6B6B", fg='#97E469', font=("Consolas", 13, "bold"), relief=tk.RAISED, borderwidth=1)
+        self.date_label = tk.Label(top_frame, text="", bg="#4D96FF", fg='#97E469', font=("Vani", 13, "bold"), relief=tk.RAISED, borderwidth=1)
         self.date_label.pack(side="left", padx=(80, 2))  # Position it on the left with padding
         # Create and pack the time label
-        self.time_label = tk.Label(top_frame, text="", bg="#FF6B6B", fg='#97E469', font=("Consolas", 13, "bold"), relief=tk.RAISED, borderwidth=1)
+        self.time_label = tk.Label(top_frame, text="", bg="#4D96FF", fg='#97E469', font=("Vani", 13, "bold"), relief=tk.RAISED, borderwidth=1)
         self.time_label.pack(side="left", padx=2)  # Position next to the date label
 
         # Define the style for labels and entries
-        label_style = {"bg": "#FF6B6B", "fg": "#97E469", "font": self.custom_font, "relief": tk.FLAT, "borderwidth": 0}
-        entry_style = {"bg": "#FFFAE4", "fg": "#217BFF", "font": self.custom_font, "relief": tk.SUNKEN, "borderwidth": 1}
+        label_style = {"bg": "#4D96FF", "fg": "#97E469", "font": self.custom_font, "relief": tk.FLAT, "borderwidth": 0}
+        entry_style = {"bg": "#FFFFE4", "fg": "#217BFF", "font": self.custom_font, "relief": tk.SUNKEN, "borderwidth": 1}
 
         # Create the 'Click Interval' label and entry box
-        tk.Label(top_frame, text="Click Interval:", **label_style).pack(side=tk.LEFT, padx=(10, 0))
-        self.click_interval = tk.Entry(top_frame, width=5, **entry_style)
-        self.click_interval.pack(side=tk.LEFT, padx=(3, 10))
-        self.click_interval.insert(0, "1.26")  # Set the default value
+        tk.Label(top_frame, text="Speed Multiplier:", **label_style).pack(side=tk.LEFT, padx=(10, 0))
+        self.speed_multiple = tk.Entry(top_frame, width=5, **entry_style)
+        self.speed_multiple.pack(side=tk.LEFT, padx=(3, 10))
+        self.speed_multiple.insert(0, "0.5")  # Set the default value
         # Create the 'Random Multiplier' label and entry box
         tk.Label(top_frame, text="(+/-):", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.click_variance = tk.Entry(top_frame, width=5, **entry_style)
         self.click_variance.pack(side=tk.LEFT, padx=(3, 10))
-        self.click_variance.insert(0, "0.33")  # Set the default value
+        self.click_variance.insert(0, "0.5")  # Set the default value
         # Create the 'Max Clicks' label and entry box
-        tk.Label(top_frame, text="Max Clicks:", **label_style).pack(side=tk.LEFT, padx=(10, 0))
+        tk.Label(top_frame, text="Max Wine Laps:", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.max_clicks_entry = tk.Entry(top_frame, width=7, **entry_style)
         self.max_clicks_entry.pack(side=tk.LEFT, padx=(3, 10))
-        self.max_clicks_entry.insert(0, "10420")  # Set the default value
+        self.max_clicks_entry.insert(0, "420")  # Set the default value
         # Create and pack the 'Kill' button
         self.kill_button = tk.Button(top_frame, text="KILL", command=self.kill_bot, bg=self.button_color, fg='#97E469', font=self.custom_font, activebackground=self.hover_color, relief=tk.RAISED, borderwidth=3)
         self.kill_button.pack(side=tk.RIGHT, padx=9)
@@ -343,7 +317,7 @@ class GGui:
         self.start_button.pack(side=tk.RIGHT, padx=9)
 
         # Create and pack the 'Track Clicks' toggle button
-        self.toggle_button = tk.Button(top_frame, text=" Track Clicks ", command=self.track_clicks, bg=self.button_color, fg='#97E469', font=self.custom_font, activebackground='#C8F6AD', relief=tk.RAISED, borderwidth=3)
+        self.toggle_button = tk.Button(top_frame, text="   Track Clicks?   ", command=self.track_clicks, bg=self.button_color, fg='#97E469', font=self.custom_font, activebackground='#C8F6AD', relief=tk.RAISED, borderwidth=3)
         self.toggle_button.pack(side=tk.LEFT, padx=9)
 
         # Frame for toggle switches
@@ -351,25 +325,25 @@ class GGui:
         toggle_frame.pack(padx=10, pady=(0, 10))
 
         # Alchemy Interval Cycles Toggle Switch
-        self.alchemy_interval_cycles_button = tk.Button(toggle_frame, text="Alchemy Interval Cycles: OFF", command=self.alchemy_cycles_enabled, bg="#FF6B6B", fg='#97E469', font=self.custom_font)
+        self.alchemy_interval_cycles_button = tk.Button(toggle_frame, text="Alchemy Interval Cycles: OFF", command=self.alchemy_cycles_enabled, bg="#4D96FF", fg='#97E469', font=self.custom_font)
         self.alchemy_interval_cycles_button.pack(side=tk.LEFT, padx=(10, 2))
 
         # Random Breaks Toggle Switch
-        self.toggle_sleep_button = tk.Button(toggle_frame, text="Random Breaks: OFF", command=self.toggle_sleeps, bg="#FF6B6B", fg='#97E469', font=self.custom_font)
+        self.toggle_sleep_button = tk.Button(toggle_frame, text="Random Breaks: OFF", command=self.toggle_sleeps, bg="#4D96FF", fg='#97E469', font=self.custom_font)
         self.toggle_sleep_button.pack(side=tk.LEFT, padx=(10, 2))
 
         # spam_clicks_enabled Toggle Switch
-        self.spam_clicks_toggle_button = tk.Button(toggle_frame, text="Spam Clicks: OFF", command=self.toggle_spam_clicks_enabled, bg="#FF6B6B", fg='#97E469', font=self.custom_font)
+        self.spam_clicks_toggle_button = tk.Button(toggle_frame, text="Spam Clicks: OFF", command=self.toggle_spam_clicks_enabled, bg="#4D96FF", fg='#97E469', font=self.custom_font)
         self.spam_clicks_toggle_button.pack(side=tk.LEFT, padx=(10, 2))
 
         # Double-Click Toggle Switch
-        self.double_click_toggle_button = tk.Button(toggle_frame, text="Double Click Every: OFF", command=self.toggle_double_click, bg="#FF6B6B", fg='#97E469', font=self.custom_font)
+        self.double_click_toggle_button = tk.Button(toggle_frame, text="Double Click Every: OFF", command=self.toggle_double_click, bg="#4D96FF", fg='#97E469', font=self.custom_font)
         self.double_click_toggle_button.pack(side=tk.LEFT, padx=(10, 2))
 
         # Double-Click Wait Entry (placed right next to the double-click toggle button)
-        self.double_click_wait_entry = tk.Entry(toggle_frame, textvariable=self.double_click_wait, width=5, font=self.custom_font, relief=tk.SUNKEN, borderwidth=1, bg="#FFFAE4", fg="#217BFF")
+        self.double_click_wait_entry = tk.Entry(toggle_frame, textvariable=self.double_click_wait, width=5, font=self.custom_font, relief=tk.SUNKEN, borderwidth=1, bg="#FFFFE4", fg="#217BFF")
         self.double_click_wait_entry.pack(side=tk.LEFT, padx=(10, 2))
-        self.double_click_wait_entry.insert(0, "0.99")  # Set the default value
+        self.double_click_wait_entry.insert(0, "0.8")  # Set the default value
 
 
         # Call the method to update the time display
@@ -389,12 +363,12 @@ class GGui:
 def walker(gui):
     while True:
         if running:
-            global click_count, max_clicks, click_interval, interval_variance
+            global wine_laps, max_laps, speed_multiple, interval_variance
             # Retrieve values from entry widgets
             try:
-                max_clicks = int(gui.max_clicks_entry.get())
-                click_interval = (float(gui.click_interval.get()) -.2) #Subtract .2 to account for the average time it takes to click
-                click_interval = max(0, click_interval)  # Ensure non-negative
+                max_laps = int(gui.max_clicks_entry.get())
+                speed_multiple = (float(gui.speed_multiple.get())) #Subtract .2 to account for the average time it takes to click
+                speed_multiple = max(0, speed_multiple)  # Ensure non-negative
                 interval_variance = float(gui.click_variance.get())
                 interval_variance = max(0, interval_variance)  # Ensure non-negative
             except ValueError:
@@ -404,19 +378,116 @@ def walker(gui):
             if not running:
                 break
 
-            if click_count == 1:
-                print("Let's Click;", max_clicks, "times.")
+            if wine_laps == 1:
+                print("Let's Click;", max_laps, "times.")
 
-            # Sleep logic
-            sleep(click_interval, interval_variance, 0) #Sleep for a random amount of time between click_interval +/- wait_upto
-            if not running:
-                break
+
+            if (wine_laps == 1):
+                print ("First time running, let's get some grapes!")
+                time.sleep(rnd.random()**2 + 0.1)
+            ## ~~~ Random mouse movement ~~~~ ####
 
             # Click action
-            click()
-            click_count += 1
-            gui.append_message(f"Click #{click_count}/{max_clicks} At: {datetime.now().strftime('%H:%M:%S.%f')[:-3]}")
+            wine_laps += 1
 
+            #Begin opening bank:
+            gui.append_message(f"~ ❤️ Lap #{wine_laps -1}/{max_laps} At: {datetime.now().strftime('%H:%M:%S.%f')[:-3]} ❤️ ~") 
+            bank_near_inv(x1=1377, x2=1560, y1=600, y2=777, time= rnd.randint(23, 48)/100, wait=.3)
+            bezierMoveRelative(rnd.randint(-151, -53), rnd.randint(-11, 84), rnd.random() * 0.03 + 0.05) #random movement
+            sleep(.15,rnd.randint(40, 70)/100)
+            if gui.random_sleep_enabled:
+                if rnd.random() > 0.85:
+                    Notbotting()
+            deposit_all(x=1020, y=770, size=9, time = rnd.randint(30, 45)/100, pause_upto=.5)
+            bezierMoveRelative(rnd.randint(-121, 52), rnd.randint(-11, 82), rnd.random() * 0.03 + 0.05) #random movement
+            sleep(.1,.2)
+            if rnd.random() > 0.77:
+                Notbotting()
+
+            print ("Getting grapes")
+            bank_slot(7,rnd.randint(31, 63)/100)
+            get_x_items(x1 = -30, x2 = 20, y1 = 93, y2 = 97, time= rnd.random() * 0.1 + rnd.randint(13,28)/100, pause_upto=.5)
+            if gui.random_sleep_enabled:
+                if rnd.random() > 0.97:
+                    Notbotting()
+
+            if not running:
+                break
+            
+            print ("Getting water")
+            bank_slot(8, rnd.randint(24, 40)/100)
+            get_x_items(x1 = -30, x2 = 20, y1 = 93, y2 = 97, time= rnd.random() * 0.1 + rnd.randint(13, 28)/100, pause_upto=.2)
+            if gui.random_sleep_enabled:
+                if rnd.random() > 0.87:
+                    Notbotting()
+                    if rnd.random() > 0.97:
+                        Notbotting()
+            print (" Let's Make Some Wine!")
+
+            # WINE PROCESS BEGIN !
+            exit_bank(x1=1066, x2=1084, y1=83, y2=100, time= rnd.randint(30, 52)/100, pause_upto=.2)
+            if gui.random_sleep_enabled:
+                if rnd.random() > 0.93:
+                    Notbotting()
+                    if rnd.random() > 0.97:
+                        Notbotting()
+
+            bezierMoveRelative(rnd.randint(-30, 50), rnd.randint(-20, 10), rnd.random() * 0.03 + 0.03) #move mouse down to quantity of all
+
+            if rnd.random() > 0.4:
+                inv_slot(13, rnd.randint(26, 42)/100)
+            elif rnd.random() > 0.7:
+                inv_slot(1, rnd.randint(26, 42)/100)
+            else:
+                inv_slot(rnd.randint(1,13), rnd.randint(26, 42)/100)
+
+            time.sleep(rnd.random() *0.07 + 0.05)
+            click()
+            sleep(.1, .1)
+            if rnd.random() > 0.7:
+                inv_slot(15, rnd.randint(20, 33)/100)
+            elif rnd.random() > 0.8:
+                inv_slot(rnd.randint(16,24), rnd.randint(20, 40)/100)
+            else:
+                inv_slot(17, rnd.randint(20, 33)/100)
+            time.sleep(rnd.random() * 0.2 + 0.05)
+            click()
+
+            bezierMoveRelative(rnd.randint(-200, 10), rnd.randint(-20, 20), rnd.random() * 0.03 + 0.05) #random movement
+            bezierMoveRelative(rnd.randint(-200, 10), rnd.randint(-20, 20), rnd.random() * 0.03 + 0.05) #random movement
+            if rnd.random() > 0.7:
+                bezierMoveRelative(rnd.randint(-50, 10), rnd.randint(-20, 20), rnd.random() * 0.03 + 0.03) #random movement
+
+            time.sleep(rnd.random() * 0.2 + 0.23)
+            pag.keyDown('space')
+            time.sleep(rnd.random() * 1 + 0.3)
+            pag.keyUp('space')
+            sleep()
+            if gui.spam_clicks_enabled:
+                for i in range(rnd.randint(2, 4)):
+                    kspace()
+                    if rnd.random() > 0.5:
+                        sleep()
+
+            gui.append_message("Dip da grapes in da water!")
+
+            Notbotting()
+
+            if rnd.random() > 0.5:
+                time.sleep(12.8 + rnd.random() * 2) # double this time while making fert.. normally it is 10.8 + x, but for fert is 22
+            else:
+                time.sleep(10.8 + rnd.random() * 2.5)
+
+            print ("Smells great! This is batch number:", wine_laps -1)
+            gui.append_message(f"Smells great! This is batch number: {wine_laps -1}")
+            if gui.alchemy_interval_cycles:
+                if (wine_laps % rnd.randint(69,104) == 0):
+                    print ("Break time!")
+                    print (" We made", wine_laps, "batches so far")
+                    gui.append_message(f" We made {wine_laps} batches so far")
+                    time.sleep(rnd.randint(3, 90))
+
+            #End of wine run; time to sleep and repeat     
             if gui.random_sleep_enabled:
                 if rnd.random() > 0.95: #3% chance of random sleep after each click
                     SimulatedPause()
@@ -424,60 +495,19 @@ def walker(gui):
 
             if gui.double_click_enabled:
                 doubleClickWait = float(gui.double_click_wait.get())
-                if click_count % 2 == 0:
-                    sleep(doubleClickWait, interval_variance / 2, interval_variance / 3)
-                    click()
-                    click_count += 1
-                    gui.append_message(f"Click #{click_count}/{max_clicks} At: {datetime.now().strftime('%H:%M:%S.%f')[:-3]}")
-
-            if gui.alchemy_interval_cycles:
-                if rnd.random() > 0.95:
-                    gui.append_message("Alchemy Interval Cycles Chance Activated")
-                    # Define the parameters for each cycle
-                    cycles = [
-                        (1.5, 0.25 + rnd.random() * 0.1, 0.7, "Alchemy Interval Cycle 1 Activated"),
-                        (1.3, 0.25 + rnd.random() * 0.05, 0.9, "Alchemy Interval Cycle 2 Activated"),
-                        (1.8, 0.3 + rnd.random() * 0.1, 0.4, "Alchemy Interval Cycle 3 Activated"),
-                        (1.4 + rnd.random() * 0.5, 0.2 + rnd.random() * 0.2, 0.45 + rnd.random() * 0.3, "Alchemy Interval Cycle 4 Activated")
-                    ]
-
-                    if rnd.random() > 0.95:
-                        gui.append_message("Alchemy Interval Cycles Activated")
-                        selected_cycle = rnd.choice(cycles)
-                        click_interval, interval_variance, doubleClickWait, message = selected_cycle
-                        gui.append_message(message)
-
-                    gui.double_click_wait_entry.delete(0, tk.END)
-                    gui.double_click_wait_entry.insert(0, doubleClickWait)
-                    gui.click_interval.delete(0, tk.END)
-                    gui.click_interval.insert(0, click_interval)
-                    gui.click_variance.delete(0, tk.END)
-                    gui.click_variance.insert(0, interval_variance)
-
-            if gui.spam_clicks_enabled:
-                if rnd.random() > 0.97: 
-                    if rnd.random() > 0.7:
-                        for i in range(0, rnd.randint(2, 16)):
-                            if rnd.random() > 0.1:
-                                click()
-                                sleep(0.001, 0.1)
-                                gui.append_message(f"You have encountered a spam click! hit {i} times!")
-                    else:
-                        for i in range(0, rnd.randint(2, 9)):
-                            if rnd.random() > 0.1:
-                                click()
-                                sleep(0.001, 0.1)
-                                gui.append_message(f"You have encountered a spam click! hit {i} times!")
+                if wine_laps % 1000 == 0:
+                    gui.append_message(f"Click #{wine_laps}/{max_laps} At: {datetime.now().strftime('%H:%M:%S.%f')[:-3]}")
+                    sleep(10,30,60)
 
 
             # Confetti animation and message every "100 clicks"
-            if (click_count - 1) % 100 == 0: # Subtract 1 from click_count to account for the initial click
-                gui.append_message(f"❤️ =================={click_count}======================== ❤️")
+            if (wine_laps) % 11 == 0: # Subtract 1 from click_count to account for the initial click
+                gui.append_message(f"❤️ ================= {wine_laps -1} LAPS ======================= ❤️")
                 gui.start_confetti_animation()
 
-            if click_count > max_clicks:  # Check if the goal has been reached
+            if wine_laps > max_laps == 0:  # Check if the goal has been reached
                 gui.start_confetti_animation() # Start the confetti animation
-                gui.append_message(f"You have reached the goal of {click_count} clicks!")
+                gui.append_message(f"You have reached the goal of {wine_laps} clicks!")
                 print("Goal Reached!")
                 if running: # Ensure the bot is even running
                     gui.toggle_bot() # Toggle bot off when goal is reached
@@ -493,7 +523,7 @@ def toggle_walker_key(key, gui):
                 running = False
                 print("Bot Paused")  # Log to the console
                 gui.append_message("Bot Paused")  # Update GUI with the bot's status
-                gui.start_button.config(text="       STOP       ", bg="#FF6B6B", fg='#97E469')  # Update button appearance while running
+                gui.start_button.config(text="       STOP       ", bg="#4D96FF", fg='#97E469')  # Update button appearance while running
             else: # Start the bot
                 running = True
                 print("Bot started")  # Log to the console

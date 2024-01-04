@@ -73,7 +73,7 @@ def click(hold = 0):
     sleepif()
     time.sleep(hold)
     pag.mouseUp(button='left') # Lift right button up (Finish click)
-    time.sleep(rnd.random() *0.001 + 0.001)
+    time.sleep(rnd.random() *0.003 + 0.003)
 
 def quick_click(): #Another Left Click variant
     time.sleep(rnd.random() *0.0001 + 0.0003)
