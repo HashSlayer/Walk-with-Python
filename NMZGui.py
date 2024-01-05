@@ -67,6 +67,11 @@ def PotCounter():
         if (rows >= 7):
             print("Sleeping for ever hours")
             sys.exit()
+
+def click_near():
+    bezier_between(700, 1510, 316, 916, rnd.randint(23, 67)/100)
+    sleep(.1, .1, .1)
+    click()
 # =======================================================================================================================
 
 def SimulatedPause(): #Example of a function
@@ -422,6 +427,7 @@ def walker(gui):
 
             sleep(35, 3, 3)
             if rnd.random() > 0.889:
+                click_near()
                 Notbotting()
                 Notbotting()
             sleep(25, 5, 3)
@@ -443,7 +449,8 @@ def walker(gui):
                 print("No single sip this lap. Time for one more.")
                 gui.append_message("No single sip this lap. Time for one more.")
                 
-                sleep(60, 9 , 8)
+                sleep(60, 7, 8)
+                click_near()
                 if rnd.random() > 0.889:
                     Notbotting()
                     Notbotting()
