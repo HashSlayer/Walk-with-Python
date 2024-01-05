@@ -90,7 +90,10 @@ def inv_slot(slot = 1, time_multiplier = 1, sleep_for = .01, sleep_upto = .01, x
     y = y + (46 * row)
     if slot == 1:
         time_multiplier = 1.2
-    print("Slot:", slot, " Row:", row, " Column:", column, " X:", x, " Y:", y)
-    bezierMove(rnd.randint(x-z, x+z), rnd.randint(y-z, y+z), time_multiplier)
-    sleep(sleep_for, sleep_upto, sleep_upto/10) #sleep
+    if slot < 29:
+        print("Slot:", slot, " Row:", row, " Column:", column, " X:", x, " Y:", y)
+        bezierMove(rnd.randint(x-z, x+z), rnd.randint(y-z, y+z), time_multiplier)
+        sleep(sleep_for, sleep_upto, sleep_upto/10) #sleep
+    else:
+        sleep(.1,.9,.9)
 

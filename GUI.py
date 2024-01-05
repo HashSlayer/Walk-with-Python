@@ -16,6 +16,7 @@ running = False
 running_lock = threading.Lock()
 bot_thread = threading.Thread(target=lambda: walker(gui), daemon=True)
 click_count, max_clicks, click_interval, interval_variance, = 1, 420, 1, 0.1
+alch_variance = 0.3
 
 # Define your special keys
 ONOFF = Key.alt_l  # Left Alt key for toggling on/off
@@ -389,11 +390,11 @@ class GGui:
 def walker(gui):
     while True:
         if running:
-            global click_count, max_clicks, click_interval, interval_variance
+            global click_count, max_clicks, click_interval, interval_variance, alch_variance
             # Retrieve values from entry widgets
             try:
                 max_clicks = int(gui.max_clicks_entry.get())
-                click_interval = (float(gui.click_interval.get()) -.2) #Subtract .2 to account for the average time it takes to click
+                click_interval = (float(gui.click_interval.get())) #Subtract .2 to account for the average time it takes to click
                 click_interval = max(0, click_interval)  # Ensure non-negative
                 interval_variance = float(gui.click_variance.get())
                 interval_variance = max(0, interval_variance)  # Ensure non-negative
@@ -431,21 +432,26 @@ def walker(gui):
                     gui.append_message(f"Click #{click_count}/{max_clicks} At: {datetime.now().strftime('%H:%M:%S.%f')[:-3]}")
 
             if gui.alchemy_interval_cycles:
-                if rnd.random() > 0.95:
-                    gui.append_message("Alchemy Interval Cycles Chance Activated")
+                if rnd.random() > 0.9:
+                    gui.append_message("Alchemy Interval Cycles Chance")
                     # Define the parameters for each cycle
                     cycles = [
-                        (1.5, 0.25 + rnd.random() * 0.1, 0.7, "Alchemy Interval Cycle 1 Activated"),
-                        (1.3, 0.25 + rnd.random() * 0.05, 0.9, "Alchemy Interval Cycle 2 Activated"),
-                        (1.8, 0.3 + rnd.random() * 0.1, 0.4, "Alchemy Interval Cycle 3 Activated"),
-                        (1.4 + rnd.random() * 0.5, 0.2 + rnd.random() * 0.2, 0.45 + rnd.random() * 0.3, "Alchemy Interval Cycle 4 Activated")
+                        (1.05 + rnd.random() * 0.16, alch_variance + rnd.random() * 0.2, .95 + rnd.random() *.1, "Alchemy Interval Cycle 1 Activated"),
+                        (1.15 + rnd.random() * 0.16, alch_variance + rnd.random() * 0.2, 0.85 + rnd.random() *.1, "Alchemy Interval Cycle 2 Activated"),
+                        (1.35 + rnd.random() * 0.16, alch_variance + rnd.random() * 0.2, 0.65 + rnd.random() *.1, "Alchemy Interval Cycle 3 Activated"),
+                        (1.55 + rnd.random() * 0.16, alch_variance + rnd.random() * 0.2, 0.45 + rnd.random() *.1, "Alchemy Interval Cycle 4 Activated"),
+                        (1.73 + rnd.random() * 0.16, alch_variance + rnd.random() * 0.2, 0.36 +rnd.random() *.1, "Alchemy Interval Cycle 5 Activated")
                     ]
 
-                    if rnd.random() > 0.95:
-                        gui.append_message("Alchemy Interval Cycles Activated")
+                    if rnd.random() > 0.30:
+                        gui.append_message("Alchemy Interval Cycle Change Activated")
                         selected_cycle = rnd.choice(cycles)
                         click_interval, interval_variance, doubleClickWait, message = selected_cycle
                         gui.append_message(message)
+                    
+                    if rnd.random() > 0.8 and (click_count) > (max_clicks * 0.913):
+                        alch_variance += 1 - alch_variance # Increase variance dynamically up to the value of 1 dyanmically 
+                        gui.append_message("Alchemy Interval Cycle Change Activated")
 
                     gui.double_click_wait_entry.delete(0, tk.END)
                     gui.double_click_wait_entry.insert(0, doubleClickWait)
