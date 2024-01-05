@@ -52,8 +52,6 @@ def SipCounter():
                 sleep(.05, .1)
                 skill_pot_number += 1
                 skill_pot_sips = 0
-                if skill_pot_number >= 28:
-                    skill_pot_number = 31
         sleep(.2, .2, .1)
         click()
         sleep()
