@@ -14,5 +14,6 @@ welcome()
 #------------------------------------------------------------------
 # Example usage   
 
-deposit_all()
+sleep(1)
+drop_inventory(25)
 

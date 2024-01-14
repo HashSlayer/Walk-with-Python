@@ -41,32 +41,34 @@ def SipCounter():
     sips = sips
     if (sips >= 4):
         print("Drank 4 sips, moving to next potion next time.")
+        gui.append_message(f"Drank 4 sips, moving to next potion {pot_number} next time.")
         pots += 1
         sleep(1.2, .6, .6)
-        if rnd.random() > 0.5:
+        if rnd.random() > 0.3:
             inv_slot(skill_pot_number)
-            sleep(.08, .09, .03)
+            sleep(1.08, .59, .43)
+            click()
             skill_pot_sips +=1
-            if (skill_pot_sips >= 4):
+            if (skill_pot_sips % 4 == 0):
                 print("Drank 4 sips, moving to next range potion.")
                 sleep(.05, .1)
                 skill_pot_number += 1
                 skill_pot_sips = 0
-        sleep(.2, .2, .1)
-        click()
+        sleep(1.3, 1.2, .1)
         sleep()
         sips = 0
 
 def PotCounter():
     global pots, rows
-    if (pots % 5 == 0):
+    if (pots % 4 == 0 and sips == 0):
         print("Drank 4 potions, moving to next range potion.")
+        gui.append_message("Drank 4 potions, moving to next range potion.")
         sleep(.08, .07, .03)
         rows += 1
+        gui.append_message(f"Row: {rows}")
         print ("Rows:", rows)
-        if (rows >= 7):
-            print("Sleeping for ever hours")
-            sys.exit()
+        if pots >= 24:
+            sleep(6000, 3, 3)
 
 def click_near():
     bezier_between(700, 1510, 316, 916, rnd.randint(23, 67)/100)
@@ -425,19 +427,19 @@ def walker(gui):
 
             global sips, pots, rows, sipped
 
-            sleep(35, 3, 3)
+            sleep(60, 6, 6) # SLEEP SLEEP SLEEP SLEEP SLEEP SLEEP SLEEP SLEEP HERE
             if rnd.random() > 0.889:
                 click_near()
                 Notbotting()
                 Notbotting()
-            sleep(25, 5, 3)
+            sleep(5, 2, 3) # SLEEP SLEEP SLEEP SLEEP SLEEP SLEEP SLEEP SLEEP HERE
             if rnd.random() > 0.289:
                     Notbotting()
 
             print("Starting loop!")
             gui.append_message("Starting loop!")
 
-            if ((rnd.random() > 0.79388)):
+            if ((rnd.random() > 0.71388)):
                 inv_slot(pots)
                 click()
                 sips += 1
@@ -449,9 +451,9 @@ def walker(gui):
                 print("No single sip this lap. Time for one more.")
                 gui.append_message("No single sip this lap. Time for one more.")
                 
-                sleep(60, 7, 8)
+                sleep(65, 8, 8) # SLEEP SLEEP SLEEP SLEEP SLEEP SLEEP SLEEP SLEEP HERE
                 click_near()
-                if rnd.random() > 0.889:
+                if rnd.random() > 0.489:
                     Notbotting()
                     Notbotting()
                 #sleep(24, 3, 2)
@@ -459,29 +461,34 @@ def walker(gui):
                     Notbotting()
                     if rnd.random() > 0.889:
                         Notbotting()
-                print("Starting loop!")
                 sleep(.1, .5, .2)
                 inv_slot(pots)
+                sleep(.3, .3, .25)
                 click()
                 sleep(.3, .3, .25)
                 sips += 1
                 print ("sips:", sips)
-                sleep(1.6, 2, 2)
+                sleep(1.9, 1, 2)
                 SipCounter()
                 PotCounter()
+
                 inv_slot(pots)
                 click()
                 sips += 1
+                SipCounter()
+                PotCounter()
                 print ("sips:", sips)
                 sipped = True
-            SipCounter()    
-            PotCounter()
+
             if (rows >= 7):
                 print("Sleeping for ever hours, FAIL SAFE ACTIVATED.")
                 gui.append_message("Sleeping for ever hours, FAIL SAFE ACTIVATED.")
                 sys.exit()
             print (" Time for another loop!")
             gui.append_message(" Time for another loop!")
+
+            if pots >= 23:
+                sleep(6000, 3, 3)
         #Not Running
     #Not True
 #End of NMZ()

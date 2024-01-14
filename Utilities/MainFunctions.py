@@ -152,6 +152,21 @@ def Flatview():
     downkey()
     time.sleep(0.0003 * rnd.random() + 0.01)
 
+def inv_slot(slot = 1, time_multiplier = 1, sleep_for = .01, sleep_upto = .01, x = 1645, y=660, z=10): #Can +/- 20 pixels and be fine
+    slot -= 1
+    row = slot // 4
+    column = slot % 4
+    x = x + (55 * column)
+    y = y + (46 * row)
+    if slot == 1:
+        time_multiplier = 1.2
+    if slot < 29:
+        print("Slot:", slot, " Row:", row, " Column:", column, " X:", x, " Y:", y)
+        bezierMove(rnd.randint(x-z, x+z), rnd.randint(y-z, y+z), time_multiplier)
+        sleep(sleep_for, sleep_upto, sleep_upto/10) #sleep
+    else:
+        sleep(.1,.9,.9)
+
 
 #A function that iterates click through items in the inventory, clicking on the first spot at bezierMove(rnd.randint(1690,1710), rnd.randint(760, 774), rnd.random() * 0.03 + 0.197)
 #and moving to the next spot at bezierMove(rnd.randint(xpus - 3, xpus + 3), rnd.randint(ypus - 3, ypus + 3), rnd.random() * 0.03 + 0.399) # move to log
@@ -175,6 +190,22 @@ def Burn(xpus=1700, ypus=766):
             ypus = ypus + 35 # drop the mouse down one row of items for the next iteration
             xpus = xpus - 160 # pull mouse back to the first coulum for the next iteration
             time.sleep( 0.009 + rnd.random() *0.05)
+
+def drop_inventory(drop_x = 24):
+        drop_x_items = drop_x + 1
+        if rnd.random() > 0.5:
+            bezierMoveRelative(rnd.randint(-10, 10), rnd.randint(-10, 10), rnd.random() * 0.03 + 0.199) # random movement
+        for i in range (1, drop_x_items):
+            sleep(.1, .1, .01) #sleep
+            pag.keyDown('shift')
+            inv_slot(i)
+            time.sleep(rnd.random() * 0.01 + 0.0078)
+            click() # drop ore
+            if (rnd.random() > 0.97):
+                click()
+                print ("Nice double click!")
+        pag.keyUp('shift')
+
 
 #Let's simplify the time.sleep function slightly since we will be using it extensively..
 def sleep(c = .01 , x = .008, z = 0.008): #C is a constant. X and Z are both multiplied by a number between 0-1.

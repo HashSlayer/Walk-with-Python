@@ -16,6 +16,7 @@ running = False
 running_lock = threading.Lock()
 bot_thread = threading.Thread(target=lambda: walker(gui), daemon=True)
 wine_laps, max_laps, speed_multiple, interval_variance, = 1, 420, 1, 0.1
+lap_time = 30
 
 # Define your special keys
 ONOFF = Key.alt_l  # Left Alt key for toggling on/off
@@ -363,7 +364,7 @@ class GGui:
 def walker(gui):
     while True:
         if running:
-            global wine_laps, max_laps, speed_multiple, interval_variance
+            global wine_laps, max_laps, speed_multiple, interval_variance, lap_time
             # Retrieve values from entry widgets
             try:
                 max_laps = int(gui.max_clicks_entry.get())
@@ -398,59 +399,108 @@ def walker(gui):
             if gui.random_sleep_enabled:
                 if rnd.random() > 0.85:
                     Notbotting()
-            deposit_all(x=1020, y=770, size=9, time = rnd.randint(30, 45)/100, pause_upto=.5)
-            bezierMoveRelative(rnd.randint(-121, 52), rnd.randint(-11, 82), rnd.random() * 0.03 + 0.05) #random movement
+            sleep()
+
+            deposit_all(x=1020, y=770, size=9, time = rnd.randint(33, 75)/100, pause_upto=.5)
+            bezierMoveRelative(rnd.randint(-121, 52), rnd.randint(-11, 82), rnd.random() * 0.08 + 0.05) #random movement
             sleep(.1,.2)
             if rnd.random() > 0.77:
                 Notbotting()
+            if gui.random_sleep_enabled:
+                sleep(.1, .3, .2)
+                if rnd.random() > 0.95:
+                    sleep(1, 3, 2)
+                if rnd.random() > 0.8:
+                    Notbotting()
+                    if rnd.random() > 0.9:
+                        Notbotting()
 
             print ("Getting grapes")
             bank_slot(7,rnd.randint(31, 63)/100)
-            get_x_items(x1 = -30, x2 = 20, y1 = 93, y2 = 97, time= rnd.random() * 0.1 + rnd.randint(13,28)/100, pause_upto=.5)
+            get_x_items(x1 = -30, x2 = 20, y1 = 93, y2 = 97, time= rnd.random() * 0.1 + rnd.randint(17,38)/100, pause_upto=.5)
             if gui.random_sleep_enabled:
                 if rnd.random() > 0.97:
                     Notbotting()
+            if gui.random_sleep_enabled:
+                sleep(.1, .3, .2)
+                if rnd.random() > 0.95:
+                    sleep(1, 3, 2)
+                if rnd.random() > 0.8:
+                    Notbotting()
+                    if rnd.random() > 0.9:
+                        Notbotting()
 
             if not running:
                 break
             
             print ("Getting water")
-            bank_slot(8, rnd.randint(24, 40)/100)
-            get_x_items(x1 = -30, x2 = 20, y1 = 93, y2 = 97, time= rnd.random() * 0.1 + rnd.randint(13, 28)/100, pause_upto=.2)
+            bank_slot(8, rnd.randint(29, 40)/100)
+            get_x_items(x1 = -30, x2 = 20, y1 = 93, y2 = 97, time= rnd.random() * 0.1 + rnd.randint(19, 38)/100, pause_upto=.2)
             if gui.random_sleep_enabled:
                 if rnd.random() > 0.87:
                     Notbotting()
                     if rnd.random() > 0.97:
                         Notbotting()
             print (" Let's Make Some Wine!")
+            if gui.random_sleep_enabled:
+                sleep(.1, .3, .2)
+                if rnd.random() > 0.95:
+                    sleep(1, 3, 2)
+                if rnd.random() > 0.8:
+                    Notbotting()
+                    if rnd.random() > 0.9:
+                        Notbotting()
+            sleep()
 
             # WINE PROCESS BEGIN !
-            exit_bank(x1=1066, x2=1084, y1=83, y2=100, time= rnd.randint(30, 52)/100, pause_upto=.2)
+            exit_bank(x1=1066, x2=1084, y1=83, y2=100, time= rnd.randint(30, 78)/100, pause_upto=.5)
             if gui.random_sleep_enabled:
-                if rnd.random() > 0.93:
+                if rnd.random() > 0.73:
                     Notbotting()
-                    if rnd.random() > 0.97:
+                    if rnd.random() > 0.87:
                         Notbotting()
+            if gui.random_sleep_enabled:
+                sleep(.1, .3, .2)
+                if rnd.random() > 0.8:
+                    Notbotting()
+                    if rnd.random() > 0.9:
+                        Notbotting()
+            sleep()
 
-            bezierMoveRelative(rnd.randint(-30, 50), rnd.randint(-20, 10), rnd.random() * 0.03 + 0.03) #move mouse down to quantity of all
+            bezierMoveRelative(rnd.randint(-30, 50), rnd.randint(-20, 10), rnd.random() * 0.03 + 0.05) #move mouse down to quantity of all
 
             if rnd.random() > 0.4:
-                inv_slot(13, rnd.randint(26, 42)/100)
+                inv_slot(13, rnd.randint(29, 52)/100)
             elif rnd.random() > 0.7:
-                inv_slot(1, rnd.randint(26, 42)/100)
+                inv_slot(1, rnd.randint(28, 52)/100)
             else:
                 inv_slot(rnd.randint(1,13), rnd.randint(26, 42)/100)
+            sleep()
+            if gui.random_sleep_enabled:
+                sleep(.1, .3, .2)
+                if rnd.random() > 0.8:
+                    Notbotting()
+                    if rnd.random() > 0.9:
+                        Notbotting()
 
             time.sleep(rnd.random() *0.07 + 0.05)
             click()
-            sleep(.1, .1)
+            sleep(.1, .3, .2)
             if rnd.random() > 0.7:
-                inv_slot(15, rnd.randint(20, 33)/100)
+                inv_slot(15, rnd.randint(20, 43)/100)
             elif rnd.random() > 0.8:
                 inv_slot(rnd.randint(16,24), rnd.randint(20, 40)/100)
             else:
-                inv_slot(17, rnd.randint(20, 33)/100)
-            time.sleep(rnd.random() * 0.2 + 0.05)
+                inv_slot(17, rnd.randint(29, 43)/100)
+            time.sleep(rnd.random() * 0.2 + 0.1)
+            if gui.random_sleep_enabled:
+                sleep(.1, .3, .2)
+                if rnd.random() > 0.95:
+                    sleep(.1, .3, .8)
+                if rnd.random() > 0.8:
+                    Notbotting()
+                    if rnd.random() > 0.9:
+                        Notbotting()
             click()
 
             bezierMoveRelative(rnd.randint(-200, 10), rnd.randint(-20, 20), rnd.random() * 0.03 + 0.05) #random movement
@@ -460,7 +510,7 @@ def walker(gui):
 
             time.sleep(rnd.random() * 0.2 + 0.23)
             pag.keyDown('space')
-            time.sleep(rnd.random() * 1 + 0.3)
+            time.sleep(rnd.random() * 3 + 0.3)
             pag.keyUp('space')
             sleep()
             if gui.spam_clicks_enabled:
@@ -474,9 +524,11 @@ def walker(gui):
             Notbotting()
 
             if rnd.random() > 0.5:
-                time.sleep(12.8 + rnd.random() * 2) # double this time while making fert.. normally it is 10.8 + x, but for fert is 22
+                time.sleep(12.8 + rnd.random() * 3.5) # For wine, or 8 for potions
             else:
-                time.sleep(10.8 + rnd.random() * 2.5)
+                time.sleep(11 + rnd.random() * 4)
+            if rnd.random() > 0.4:    
+                Notbotting()
 
             print ("Smells great! This is batch number:", wine_laps -1)
             gui.append_message(f"Smells great! This is batch number: {wine_laps -1}")

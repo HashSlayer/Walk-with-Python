@@ -82,7 +82,7 @@ def bank_slot(slot = 1, time_multiplier = 1, sleep_for = .01, sleep_upto = .01, 
     bezierMove(rnd.randint(x-z, x+z), rnd.randint(y-z, y+z), time_multiplier)
     sleep(sleep_for, sleep_upto, .003) #sleep
 
-def inv_slot(slot = 1, time_multiplier = 1, sleep_for = .01, sleep_upto = .01, x = 1645, y=660, z=10): #Can +/- 20 pixels and be fine
+def inv_slot(slot = 1, time_multiplier = 1, sleep_for = .01, sleep_upto = .01, x = 1645, y=660, z=12): #Can +/- 20 pixels and be fine
     slot -= 1
     row = slot // 4
     column = slot % 4
