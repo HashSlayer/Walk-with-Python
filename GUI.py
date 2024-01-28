@@ -441,14 +441,14 @@ def walker(gui):
                 if rnd.random() > 0.58:
                     # Define the parameters for each cycle
                     cycles = [
-                        (0.5 + rnd.random() * 0.053, alch_variance + rnd.random() * 0.083 + rnd.random() * 0.1, 0.4 + rnd.random() *.15, "Alchemy Interval Cycle 1 Activated"),
-                        (1.1 + rnd.random() * 0.155, alch_variance + rnd.random() * 0.071 + rnd.random() * 0.1, 0.8 + rnd.random() *.13, "Alchemy Interval Cycle 2 Activated"),
-                        (1.2 + rnd.random() * 0.157, alch_variance + rnd.random() * 0.083 + rnd.random() * 0.1, 0.7 + rnd.random() *.14, "Alchemy Interval Cycle 3 Activated"),
-                        (1.3 + rnd.random() * 0.152, alch_variance + rnd.random() * 0.092 + rnd.random() * 0.1, 0.6 + rnd.random() *.13, "Alchemy Interval Cycle 4 Activated"),
-                        (1.4 + rnd.random() * 0.154, alch_variance + rnd.random() * 0.081 + rnd.random() * 0.1, 0.5 + rnd.random() *.15, "Alchemy Interval Cycle 5 Activated"),
-                        (0.7 + rnd.random() * 0.154, alch_variance + rnd.random() * 0.081 + rnd.random() * 0.1, 0.25 + rnd.random() *.15, "Alchemy Interval Cycle 6 Activated"),
-                        (1.6 + rnd.random() * 0.154, alch_variance + rnd.random() * 0.081 + rnd.random() * 0.1, 0.38 + rnd.random() *.15, "Alchemy Interval Cycle 7 Activated"),
-                        (1.6 + rnd.random() * 0.154, alch_variance + rnd.random() * 0.081 + rnd.random() * 0.1, 0.38 + rnd.random() *.15, "Alchemy Interval Cycle 8 Activated")
+                        (0.5 + rnd.random() * 0.053, .07 + rnd.random() * 0.183 + rnd.random() * 0.2, 0.4 + rnd.random() *.15, "Alchemy Interval Cycle 1 Activated"),
+                        (1.1 + rnd.random() * 0.155, .07 + rnd.random() * 0.171 + rnd.random() * 0.2, 0.8 + rnd.random() *.13, "Alchemy Interval Cycle 2 Activated"),
+                        (1.2 + rnd.random() * 0.157, .07 + rnd.random() * 0.183 + rnd.random() * 0.2, 0.7 + rnd.random() *.14, "Alchemy Interval Cycle 3 Activated"),
+                        (1.3 + rnd.random() * 0.152, .07 + rnd.random() * 0.192 + rnd.random() * 0.2, 0.6 + rnd.random() *.13, "Alchemy Interval Cycle 4 Activated"),
+                        (1.4 + rnd.random() * 0.154, .07 + rnd.random() * 0.181 + rnd.random() * 0.2, 0.5 + rnd.random() *.15, "Alchemy Interval Cycle 5 Activated"),
+                        (0.7 + rnd.random() * 0.154, .07 + rnd.random() * 0.181 + rnd.random() * 0.2, 0.25 + rnd.random() *.15, "Alchemy Interval Cycle 6 Activated"),
+                        (1.6 + rnd.random() * 0.154, .07 + rnd.random() * 0.181 + rnd.random() * 0.2, 0.38 + rnd.random() *.15, "Alchemy Interval Cycle 7 Activated"),
+                        (1.6 + rnd.random() * 0.154, .07 + rnd.random() * 0.181 + rnd.random() * 0.2, 0.38 + rnd.random() *.15, "Alchemy Interval Cycle 8 Activated")
                     ]
 
                     if rnd.random() > 0.317:
@@ -503,7 +503,7 @@ def walker(gui):
                 gui.append_message(f"❤️ =================={click_count}======================== ❤️")
                 gui.start_confetti_animation()
 
-            if click_count > max_clicks:  # Check if the goal has been reached
+            if click_count >= max_clicks:  # Check if the goal has been reached
                 gui.start_confetti_animation() # Start the confetti animation
                 gui.append_message(f"You have reached the goal of {click_count} clicks!")
                 print("Goal Reached!")
@@ -512,7 +512,7 @@ def walker(gui):
                     click()
                     gui.append_message("You have encountered a random sleep!")
                 if running: # Ensure the bot is even running
-                    gui.toggle_bot() # Toggle bot off when goal is reached
+                    gui.toggle_button() # Toggle bot off when goal is reached
                 break
 
 #WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW            
@@ -525,12 +525,12 @@ def toggle_walker_key(key, gui):
                 running = False
                 print("Bot Paused")  # Log to the console
                 gui.append_message("Bot Paused")  # Update GUI with the bot's status
-                gui.start_button.config(text="       STOP       ", bg="#FF6B6B", fg='#97E469')  # Update button appearance while running
+                gui.start_button.config(text="     START     ", bg="#09C159", fg='#97E469')  # Update button appearance while not running
             else: # Start the bot
                 running = True
                 print("Bot started")  # Log to the console
                 gui.append_message("Bot Started")  # Update GUI with the bot's status
-                gui.start_button.config(text="     START     ", bg="#09C159", fg='#97E469')  # Update button appearance while not running
+                gui.start_button.config(text="       STOP       ", bg="#FF6B6B", fg='#97E469')  # Update button appearance while running
                 if bot_thread is None or not bot_thread.is_alive():
                     # Start a new thread for the bot if not already running
                     bot_thread = threading.Thread(target=lambda: walker(gui), daemon=True)

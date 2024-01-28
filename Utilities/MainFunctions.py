@@ -36,7 +36,7 @@ def sleep(c = .01 , x = .008, z = 0.008): #C is a constant. X and Z are both mul
 
 #Define a function for random sleep variance from .1-.5 seconds ~
 def sleepif(x=0.01):
-    if (rnd.random() > 0.0503):
+    if (rnd.random() > 0.0583):
         time.sleep(rnd.random() *0.001 + 0.001)
         if (rnd.random() > 0.0504):
             time.sleep(rnd.random() *0.001 + 0.001)
