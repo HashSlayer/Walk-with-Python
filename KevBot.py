@@ -30,7 +30,7 @@ welcome()
 
 def SimulatedPause():
     global click_count
-    sleep(0,0.8)
+    sleep(0,0.5)
     if (rnd.random() > 0.071):
         gui.append_message("You have encountered Random sleep #1!")
         sleep(.05, 2)
@@ -57,7 +57,7 @@ class GGui:
 
     def __init__(self):
         self.root = tk.Tk()  # Initialize the main window
-        self.root.title("5MEkailO's Beautiful Bot")  # Set window title
+        self.root.title("5MEkailO's KevBot")  # Set window title
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
         # GUI setup and styling
         self.setup_gui()  # Setup GUI components like background colors
@@ -417,8 +417,6 @@ def walker(gui):
 
             # Click action
             click()
-            if rnd.random() > 0.989:
-                click()
             if rnd.random() > 0.98:
                 sleep(.05,.2)
                 click()
@@ -463,7 +461,7 @@ def walker(gui):
                     if rnd.random() > 0.9 and rnd.random() < click_count/max_clicks:
                         alch_variance = rnd.random() * 1
                     
-                    if rnd.random() > 0.8 and (click_count) > (max_clicks * 0.813):
+                    if rnd.random() > 0.8 and (click_count) > (max_clicks * 0.913):
                         sleep(3,3,3)
                         gui.append_message(f"Late sleeper: {alch_variance}") 
 

@@ -502,7 +502,6 @@ def walker(gui):
                     if rnd.random() > 0.9:
                         Notbotting()
             click()
-
             bezierMoveRelative(rnd.randint(-200, 10), rnd.randint(-20, 20), rnd.random() * 0.03 + 0.05) #random movement
             bezierMoveRelative(rnd.randint(-200, 10), rnd.randint(-20, 20), rnd.random() * 0.03 + 0.05) #random movement
             if rnd.random() > 0.7:
