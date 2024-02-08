@@ -555,8 +555,8 @@ def toggle_walker_key(key, gui):
                     bot_thread.start()
     elif key == KEY:
         # Handle the kill switch
-        print("Kill switch activated")  # Log to the console
-        gui.append_message("You killed it!")  # Update GUI with the termination message
+        print("Kevv switch activated")  # Log to the console
+        gui.append_message("You kevved it!")  # Update GUI with the termination message
         gui.start_confetti_animation()  # Trigger confetti animation as a visual feedback
         running = False  # Stop the bot's operation
         sys.exit()  # Exit the application
