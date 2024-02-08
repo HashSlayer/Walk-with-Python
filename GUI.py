@@ -326,7 +326,7 @@ class GGui:
         tk.Label(top_frame, text="Click Interval:", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.click_interval = tk.Entry(top_frame, width=5, **entry_style)
         self.click_interval.pack(side=tk.LEFT, padx=(3, 10))
-        self.click_interval.insert(0, "1.26")  # Set the default value
+        self.click_interval.insert(0, "1.5")  # Set the default value
         # Create the 'Random Multiplier' label and entry box
         tk.Label(top_frame, text="(+/-):", **label_style).pack(side=tk.LEFT, padx=(10, 0))
         self.click_variance = tk.Entry(top_frame, width=5, **entry_style)
@@ -371,7 +371,7 @@ class GGui:
         # Double-Click Wait Entry (placed right next to the double-click toggle button)
         self.double_click_wait_entry = tk.Entry(toggle_frame, width=5, font=self.custom_font, relief=tk.SUNKEN, borderwidth=1, bg="#FFFAE4", fg="#217BFF")
         self.double_click_wait_entry.pack(side=tk.LEFT, padx=(10, 2))
-        self.double_click_wait_entry.insert(0, "0.8")  # Set the default value
+        self.double_click_wait_entry.insert(0, "0.97")  # Set the default value
 
 
         # Call the method to update the time display
@@ -418,7 +418,8 @@ def walker(gui):
             # Click action
             click()
             if rnd.random() > 0.989:
-                click()
+                click(rnd.randint(70, 220)/100 + rnd.random() *0.2)
+                gui.append_message("You have encountered a random click!")
             if rnd.random() > 0.98:
                 sleep(.05,.2)
                 click()
@@ -427,7 +428,7 @@ def walker(gui):
             gui.append_message(f"Click #{click_count}/{max_clicks} At: {datetime.now().strftime('%H:%M:%S.%f')[:-3]}")
 
             if gui.random_sleep_enabled:
-                if rnd.random() > 0.91: #3% chance of random sleep after each click
+                if rnd.random() > 0.971: #3% chance of random sleep after each click
                     SimulatedPause()
                     gui.append_message("Random Sleep Activated")
 
@@ -439,25 +440,40 @@ def walker(gui):
                     click_count += 1
                     gui.append_message(f"DubClick #{click_count}/{max_clicks} At: {datetime.now().strftime('%H:%M:%S.%f')[:-3]}")
 
+                if rnd.random() > 0.95:
+                            sleep(0.15, 0.6)
+                            k4()
+                            sleep(0.3, 0.6)
+                            click()
+
             if gui.alchemy_interval_cycles:
-                if rnd.random() > 0.58:
+                if rnd.random() > 0.62:
                     # Define the parameters for each cycle
                     cycles = [
                         (0.5 + rnd.random() * 0.053, .07 + rnd.random() * 0.183 + rnd.random() * 0.2, 0.4 + rnd.random() *.15, "Alchemy Interval Cycle 1 Activated"),
-                        (1.1 + rnd.random() * 0.155, .07 + rnd.random() * 0.171 + rnd.random() * 0.2, 0.8 + rnd.random() *.13, "Alchemy Interval Cycle 2 Activated"),
+                        (1.1 + rnd.random() * 0.155, .07 + rnd.random() * 0.171 + rnd.random() * 0.2, 0.77 + rnd.random() *.13, "Alchemy Interval Cycle 2 Activated"),
                         (1.2 + rnd.random() * 0.157, .07 + rnd.random() * 0.183 + rnd.random() * 0.2, 0.7 + rnd.random() *.14, "Alchemy Interval Cycle 3 Activated"),
                         (1.3 + rnd.random() * 0.152, .07 + rnd.random() * 0.192 + rnd.random() * 0.2, 0.6 + rnd.random() *.13, "Alchemy Interval Cycle 4 Activated"),
                         (1.4 + rnd.random() * 0.154, .07 + rnd.random() * 0.181 + rnd.random() * 0.2, 0.5 + rnd.random() *.15, "Alchemy Interval Cycle 5 Activated"),
                         (0.7 + rnd.random() * 0.154, .07 + rnd.random() * 0.181 + rnd.random() * 0.2, 0.25 + rnd.random() *.15, "Alchemy Interval Cycle 6 Activated"),
                         (1.6 + rnd.random() * 0.154, .07 + rnd.random() * 0.181 + rnd.random() * 0.2, 0.38 + rnd.random() *.15, "Alchemy Interval Cycle 7 Activated"),
-                        (1.6 + rnd.random() * 0.154, .07 + rnd.random() * 0.181 + rnd.random() * 0.2, 0.38 + rnd.random() *.15, "Alchemy Interval Cycle 8 Activated")
+                        (0.6 + rnd.random() * 0.154, .07 + rnd.random() * 0.181 + rnd.random() * 0.2, 0.38 + rnd.random() *.15, "Alchemy Interval Cycle 8 Activated"),
+                        (0.5 + rnd.random() * 0.053, .07 + rnd.random() * 0.183 + rnd.random() * 0.2, 0.4 + rnd.random() *.15, "Alchemy Interval Cycle c1 Activated"),
+                        (0.5 + rnd.random() * 1.3, .07 + rnd.random() * 0.8, 0.2 + rnd.random() *.9, "Alchemy Interval Cycle c2 Activated"),
                     ]
 
-                    if rnd.random() > 0.317:
+                    if rnd.random() > 0.417:
                         gui.append_message("Alchemy Interval Cycle Change Activated")
                         selected_cycle = rnd.choice(cycles)
                         click_interval, interval_variance, doubleClickWait, message = selected_cycle
                         gui.append_message(message)
+                        if rnd.random() > 0.6:
+                            sleep()
+                            click()
+                            sleep(0.1,0.3)
+                            k4()
+                            sleep(0.1,0.5)
+                            click()
 
 
                     if rnd.random() > 0.9 and rnd.random() < click_count/max_clicks:
@@ -502,7 +518,7 @@ def walker(gui):
 
             # Confetti animation and message every "100 clicks"
             if (click_count) % 100 == 0:
-                gui.append_message(f"❤️ =================={click_count}======================== ❤️")
+                gui.append_message(f"❤️ =================={click_count - 1}======================== ❤️")
                 gui.start_confetti_animation()
 
             if click_count >= max_clicks:  # Check if the goal has been reached
