@@ -5,8 +5,10 @@ OSWS; OSRS scripting bot for various skills. Created to improve GUI automation, 
 
 Welcome to Mekail The Machine's basic OSRS skilling script using python.
 
-It was optimized to run on a screen with 1920 x 1080 resolution, or has features to help adjust the coordinates manually.
+It was optimized to run on a screen with 1920 x 1080 resolution, features to translate coordiantes manullay have been deprecated.
 The script is safe to use on Linux, MacOS, and Windows.
+
+Make sure to open this folder in the terminal any type pip install -r requirements.txt after succesfully installing python. From there run any file with bot logic by double clicking the file, or running it through an IDE. 
 
 # Developer Setup <img height=20/>
 
