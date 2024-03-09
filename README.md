@@ -1,12 +1,18 @@
-# Old-School-Walk-Scape 
+# Old-School-Walk-Scape - Intro to Python With 5Mekail0
 ## Created by @5MEkailO
+
+Welcome to Old School Walk Scape, a fun interactive way to learn Python.
+This guide uses a 2007 point-click game to learn Python. The concepts can be applied to other games or automative tasks.
+This guide will not cover computer science concepts, complex algorithms, or complex automation. We will avoid using complex libraries such as color bots.
 
 OSWS; OSRS scripting bot for various skills. Created to improve GUI automation, made for educational purposes
 
 Welcome to Mekail The Machine's basic OSRS skilling script using python.
 
-It was optimized to run on a screen with 1920 x 1080 resolution, or has features to help adjust the coordinates manually.
+It was optimized to run on a screen with 1920 x 1080 resolution, features to translate coordiantes manullay have been deprecated.
 The script is safe to use on Linux, MacOS, and Windows.
+
+Make sure to open this folder in the terminal any type pip install -r requirements.txt after succesfully installing python. From there run any file with bot logic by double clicking the file, or running it through an IDE. 
 
 # Developer Setup <img height=20/>
 
