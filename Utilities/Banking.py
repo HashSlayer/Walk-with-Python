@@ -1,7 +1,7 @@
 import pyautogui as pag
 import time
 import random as rnd
-from .Movement import bezierMove, bezierMoveRelative, bezier_between, bezier_relative
+from .Movement import bezierMove, bezier_between, bezier_relative
 from .MainFunctions import click, sleep, right_click
 
 #Bank at the Grand Exchange with bank near inventory

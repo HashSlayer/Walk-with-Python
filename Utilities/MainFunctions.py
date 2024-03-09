@@ -206,41 +206,6 @@ def drop_inventory(drop_x = 24):
                 print ("Nice double click!")
         pag.keyUp('shift')
 
-
-#Let's simplify the time.sleep function slightly since we will be using it extensively..
-def sleep(c = .01 , x = .008, z = 0.008): #C is a constant. X and Z are both multiplied by a number between 0-1.
-    time.sleep(c + rnd.random() *x + rnd.random() *z) #Set variables so sleep() is viable for a .01 ~ .05 second sleep
-
-#Define a function for random sleep variance from .1-.5 seconds ~
-def sleepif(x=0.01):
-    if (rnd.random() > 0.103):
-        time.sleep(rnd.random() *0.001 + 0.001)
-        if (rnd.random() > 0.008284):
-            time.sleep(rnd.random() *0.001 + 0.001)
-            if (rnd.random() > 0.09420):
-                time.sleep(rnd.random() * x + 0.005)
-            if (rnd.random() > 0.263):
-                time.sleep(rnd.random() * x + 0.01)
-            if (rnd.random() > 0.381251):
-                time.sleep(rnd.random() * (x * 2) + 0.01)
-            if (rnd.random() > 0.591251):  
-                time.sleep(rnd.random() * (x * 2) + 0.01)
-            if (rnd.random() > 0.793):
-                time.sleep(rnd.random() * (x * 3) + 0.02)
-            if (rnd.random() > 0.891251):
-                time.sleep(rnd.random() * (x * 4) + 0.02)
-            if (rnd.random() > 0.9180251):  
-                time.sleep(rnd.random() * (x * 28) + 0.02)
-            if (rnd.random() > 0.981251):  
-                time.sleep(rnd.random() * (x * 9) + 0.04)
-                if (rnd.random() > 0.89):
-                    time.sleep(rnd.random() *0.09 + 0.04) 
-                    if (rnd.random() > 0.871251):
-                        time.sleep(rnd.random() *0.05 + 0.05)
-                        print(" Long click!")
-    if (rnd.random() > 0.991251):  
-        time.sleep(rnd.random() *0.003 + 0.001)
-
 #Define a function that presses down the 1 key for a short random amount of time, then releases it.
 def k1(): #Inventory
     pag.keyDown('1')
