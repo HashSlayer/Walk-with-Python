@@ -1,5 +1,9 @@
-# Old-School-Walk-Scape 
+# Old-School-Walk-Scape - Intro to Python With 5Mekail0
 ## Created by @5MEkailO
+
+Welcome to Old School Walk Scape, a fun interactive way to learn Python.
+This guide uses a 2007 point-click game to learn Python. The concepts can be applied to other games or automative tasks.
+This guide will not cover computer science concepts, complex algorithms, or complex automation. We will avoid using complex libraries such as color bots.
 
 OSWS; OSRS scripting bot for various skills. Created to improve GUI automation, made for educational purposes
 
