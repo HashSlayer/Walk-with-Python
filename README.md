@@ -1,6 +1,37 @@
 # Old-School-Walk-Scape - Intro to Python With 5Mekail0
 ## Created by @5MEkailO
 
+
+                                  _______  _______ _     _ _______ 
+                                 |       ||       | | _ | |       |
+                                 |   _   ||  _____|  |  | |  _____|
+                                 |  | |  || |_____|     || |_____ 
+                                 |  |_|  ||_____  |     ||_____  |
+                                 |       | _____| |     | _____| |
+                                 |_______||_______|_____||_______|
+                                    Open Source Workspace Suite
+
+# OSWS ("Open Source Workspace Suite")
+
+A powerful Python-based automation and education tool designed to make computer tasks easier while teaching programming concepts.
+
+## 🤖 Features
+
+- Computer task automation
+- Python programming education
+- Interactive learning environment
+- User-friendly interfaces, learn how to use Tkinter
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Python
+- Tkinter library
+
+### Installation
+1. Clone the repository
+2. Star the repository
+
 Welcome to Old School Walk Scape, a fun interactive way to learn Python.
 This guide uses a 2007 point-click game to learn Python. The concepts can be applied to other games or automative tasks.
 This guide will not cover computer science concepts, complex algorithms, or complex automation. We will avoid using complex libraries such as color bots.
@@ -40,5 +71,3 @@ BeautifulTest tracks the position of the mouse when clicked, celebrating every 1
 AutoClicker is an Auto Clicker with variables to define time between clicks, user controlled random variance, and maximum amount of clicks.
 
 GUI3 is a template for implementing a new GUI; issues arise when importing classes and functions for reuse, as Tkinter is not exactly thread safe.
-
-Repository test
