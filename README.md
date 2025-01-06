@@ -41,3 +41,4 @@ AutoClicker is an Auto Clicker with variables to define time between clicks, use
 
 GUI3 is a template for implementing a new GUI; issues arise when importing classes and functions for reuse, as Tkinter is not exactly thread safe.
 
+Repository test
