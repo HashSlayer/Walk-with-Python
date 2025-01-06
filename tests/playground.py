@@ -6,9 +6,9 @@ project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_root)
 
 #you can import other modules here
-from utilities.timmy import *
-from utilities.welcome import *
-from utilities.clicker import *
+from utils.timmy import *
+from utils.welcome import *
+from utils.clicker import *
 
 welcome()
 sleep()
