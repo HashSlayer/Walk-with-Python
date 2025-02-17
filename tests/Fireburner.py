@@ -43,26 +43,9 @@ def walker():
 
         sleep(1, 1)
         print("Starting Smithing Sequence")
-        bezier_between(886, 893, 281, 289) #clicking on the bank is slightly off
+        bezier_between(1166, 1252, 498, 572) #clicking on the bank is slightly off
         sleep(.5, 2)
         click()
-        sleep()
-        if rnd.random() > 0.813:
-            sleep(0,3)
-
-        sleep(4, 3)
-        deposit_all()
-        sleep()
-        click()
-        sleep(0.1, 1) 
-        if rnd.random() > 0.813:
-            Notbotting()
-
-        bank_slot(7)
-        sleep()
-        click()
-        if rnd.random() > 0.913:
-            Notbotting()
         sleep()
         if rnd.random() > 0.813:
             sleep(0,3)
@@ -76,14 +59,10 @@ def walker():
         if rnd.random() > 0.813:
             sleep(0,3)
 
-        bezier_between(1065, 1075, 894, 910)
+        bezier_between(935, 955, 808, 869)
         sleep(0.5, 1)
         click()
-        Notbotting()
-        sleep(4, 2)
-        if rnd.random() > 0.813:
-            Notbotting()
-
+        sleep(2, 2)
         spacekey()
         if rnd.random() > 0.7:
             sleep(0,1)
@@ -92,15 +71,12 @@ def walker():
                 sleep()
                 spacekey()
 
-        Notbotting()
-        sleep(62 , 8)
+        sleep(60 , 9)
 
         sleep()
         if rnd.random() > 0.9:
             sleep(0,10)
-        if loops > 100 and rnd.random() > 0.9:
-            sleep(0,30, 30)
-            print("Bigger Sleep")
+
 
         loops += 1
         print("Completed Sequence", loops, "times")

@@ -3,7 +3,7 @@ from .timmy import *
 from .movements import *
 from .clicker import *
 import tkinter as tk
-
+from pynput.keyboard import Key
 
 def inv_slot(slot = 1, time_multiplier = 1, x = 1625, y=638, z=10): #Can +/- 20 pixels and be fine. X and Y is the middle of the first slot in the inventory 
     slot -= 1
@@ -18,6 +18,61 @@ def inv_slot(slot = 1, time_multiplier = 1, x = 1625, y=638, z=10): #Can +/- 20 
         bezierMove(x, y, time_multiplier)
     else:
         sleep(.1, .9, .9)
+from pynput.keyboard import Controller
+
+keyboard = Controller()
+
+#Dropping items, create a drop_inventory function that holds shift and clicks the inventory slots
+def drop_inventory(slots = 28, time_multiplier = 1, x = 1625, y=638, z=8):
+    keyboard.press(Key.shift)  # Hold shift key
+    random_value = rnd.random()
+    if random_value > 0.8:  # 20% chance to drop items in multiples of 4
+        for i in range(4):
+            for slot in range(i + 1, slots + 1, 4):
+                inv_slot(slot, time_multiplier, x, y, z)  # Use inv_slot to click each slot
+                sleep(.1, .1, .1)
+                if rnd.random() > 0.98:
+                    sleep(.1, .1, .1)
+                click()
+                if rnd.random() > 0.98:
+                    sleep(.1, .6, .4)
+    elif random_value > 0.3:  # Additional 50% chance to drop items in a zig-zag pattern
+        for row in range(7):  # Assuming 7 rows for 28 slots
+            if row % 2 == 0:  # Even row: left to right
+                for col in range(4):
+                    slot = row * 4 + col + 1
+                    if slot <= slots:
+                        inv_slot(slot, time_multiplier, x, y, z)
+                        sleep(.1, .1, .1)
+                        if rnd.random() > 0.98:
+                            sleep(.1, .1, .1)
+                        click()
+                        if rnd.random() > 0.95:
+                            sleep(.1, .4, .4)
+            else:  # Odd row: right to left
+                for col in range(3, -1, -1):
+                    slot = row * 4 + col + 1
+                    if slot <= slots:
+                        inv_slot(slot, time_multiplier, x, y, z)
+                        sleep(.1, .1, .1)
+                        if rnd.random() > 0.95:
+                            sleep(.1, .1, .1)
+                        click()
+                        if rnd.random() > 0.98:
+                            sleep(.1, .5, .1)
+    else:  # 60% chance to drop items sequentially
+        for slot in range(1, slots + 1):
+            inv_slot(slot, time_multiplier, x, y, z)  # Use inv_slot to click each slot
+            sleep(.1, .1, .1)
+            if rnd.random() > 0.98:
+                sleep(.1, .1, .1)
+            click()
+            if rnd.random() > 0.98:
+                sleep(.1, .1, 1)
+    keyboard.release(Key.shift)  # Release shift key
+
+
+
 
 def simp_inv_slot(slot = 1, time_multiplier = 1, x = 1625, y=638, z=8): #Can +/- 20 pixels and be fine. X and Y is the middle of the first slot in the inventory 
     slot -= 1
