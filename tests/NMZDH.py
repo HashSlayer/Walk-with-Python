@@ -53,15 +53,7 @@ def walker():
             break
             
         current_time = time.time()
-        
-        # Handle rock slot (every minute)
-        if current_time - last_rock_time >= 60:
-            print(f"Pressing inventory slot {rock_slot}")
-            sleep(.5, 3)
-            inv_slot(rock_slot)
-            click()  # Perform a click after moving to the rock slot
-            last_rock_time = current_time
-            sleep(.5, 1)  # Small delay to prevent potential conflicts
+    
             
         # Handle potion sips (every 5 minutes)
         if current_time - last_potion_time >= 300:
@@ -70,7 +62,7 @@ def walker():
             inv_slot(current_overload_slot)
             sleep(.5, 1)
             click()  # Perform a click after moving to the overload slot
-            sleep(1, 2)  # Small delay between potions
+            sleep(6, 2)  # Small delay between potions
             
             # Take absorption sip (twice with a 2-second rest in between)
             print(f"Taking first absorption sip from slot {current_absorption_slot}")
@@ -109,6 +101,15 @@ def walker():
                 absorption_sip_count = 0
                 if current_absorption_slot > 28:
                     current_absorption_slot = 9
+
+                    # Handle rock slot (every minute)
+        if current_time - last_rock_time >= 60:
+            print(f"Pressing inventory slot {rock_slot}")
+            sleep(.5, 3)
+            inv_slot(rock_slot)
+            click()  # Perform a click after moving to the rock slot
+            last_rock_time = current_time
+            sleep(.5, 1)  # Small delay to prevent potential conflicts
             
             sleep(1, 2)  # Small delay after both potions
             
